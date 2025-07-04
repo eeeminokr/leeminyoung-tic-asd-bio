@@ -1,4 +1,4 @@
-﻿# leeminyoung-brain-bio
+﻿# leeminyoung-tic-asd-bio
 This repository contains selected contributions by Lee Minyoung from the BDSP_S project.
 
 
