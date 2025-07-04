@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+    	<typeAlias alias="CodeVO" type="medical.commoninfo.code.service.CodeVO" />
+    	<typeAlias alias="MemberVO" type="medical.commoninfo.member.service.MemberVO" />
+    	<typeAlias alias="MenuVO" type="medical.commoninfo.menu.service.MenuVO" />    	
+    	<typeAlias alias="DataIntegrationVO" type="medical.dataIntegration.service.DataIntegrationVO" />
+    	<typeAlias alias="NeuropsyVO" type="medical.neuropsy.service.NeuropsyVO" />
+    	<typeAlias alias="NeuropsyS1VO" type="medical.neuropsy.service.NeuropsyS1VO" />
+    	<typeAlias alias="NeuropsyAtaVO" type="medical.neuropsy.service.NeuropsyAtaVO" />
+    	<typeAlias alias="NeuropsyStroopVO" type="medical.neuropsy.service.NeuropsyStroopVO" />
+    	<typeAlias alias="NeuropsyCcttVO" type="medical.neuropsy.service.NeuropsyCcttVO" />
+    	<typeAlias alias="NeuropsyWsctVO" type="medical.neuropsy.service.NeuropsyWsctVO" />
+    	<typeAlias alias="NeuropsyCatVO" type="medical.neuropsy.service.NeuropsyCatVO" />
+    	<typeAlias alias="NeuropsyExitiiVO" type="medical.neuropsy.service.NeuropsyExitiiVO" />
+    	<typeAlias alias="NeuropsyCptVO" type="medical.neuropsy.service.NeuropsyCptVO" />
+    	<typeAlias alias="NeuropsyTmtVO" type="medical.neuropsy.service.NeuropsyTmtVO" />
+    	<typeAlias alias="NeuropsyTotalVO" type="medical.neuropsy.service.NeuropsyTotalVO" />   
+    	<typeAlias alias="NeuropsyPepVO" type="medical.neuropsy.service.NeuropsyPepVO" />   	
+    	<typeAlias alias="NeuropsyAdos1VO" type="medical.neuropsy.service.NeuropsyAdos1VO" />   	
+    	<typeAlias alias="NeuropsyAdos2VO" type="medical.neuropsy.service.NeuropsyAdos2VO" />   	
+    	<typeAlias alias="NeuropsyAdos3VO" type="medical.neuropsy.service.NeuropsyAdos3VO" />   	
+    	<typeAlias alias="NeuropsySmsVO" type="medical.neuropsy.service.NeuropsySmsVO" />   
+    	<typeAlias alias="NeuropsyCarsVO" type="medical.neuropsy.service.NeuropsyCarsVO" />   
+    
+    	<typeAlias alias="ClinicianVO" type="medical.clinician.service.ClinicianVO" />
+    	<typeAlias alias="ClinicianS1VO" type="medical.clinician.service.ClinicianS1VO" />
+    	<typeAlias alias="ClinicianAsdSrs01VO" type="medical.clinician.service.ClinicianAsdSrs01VO" />
+    	<typeAlias alias="ClinicianAsdYbocsVO" type="medical.clinician.service.ClinicianAsdYbocsVO" />
+    	<typeAlias alias="ClinicianAsdCybocsVO" type="medical.clinician.service.ClinicianAsdCybocsVO" />
+    
+    
+        <typeAlias alias="ClinicianTotalVO" type="medical.clinician.service.ClinicianTotalVO" />
+    
+    
+    
+    
+    
+    	<typeAlias alias="DocFileVO" type="medical.imagingInfo.service.DocFileVO" />    	    	
+    	<typeAlias alias="PerformTermVO" type="medical.common.service.PerformTermVO" />
+    	<typeAlias alias="SurveyVO" type="medical.survey.service.SurveyVO" />    	
+    	<typeAlias alias="SurveyArsVO" type="medical.survey.service.SurveyArsVO" />    	
+    	<typeAlias alias="SurveyCbclVO" type="medical.survey.service.SurveyCbclVO" />
+    	<typeAlias alias="TargetVO" type="medical.target.service.TargetVO" />    	  	
+    	<typeAlias alias="DataIntegrationListVO" type="medical.dataIntegration.service.DataIntegrationListVO" />     	
+    	<typeAlias alias="UploadExcelVO" type="medical.imagingInfo.service.UploadExcelVO" />     	
+    	<typeAlias alias="UpfileOriginVO" type="medical.imagingInfo.service.UpfileOriginVO" />     	
+   		<typeAlias alias="ImageInfoVO" type="medical.imagingInfo.service.ImageInfoVO" />
+   		<typeAlias alias="SurveyTotalVO" type="medical.survey.service.SurveyTotalVO" />
+   		<typeAlias alias="UsrAuthVO" type="medical.commoninfo.authority.service.UsrAuthVO" />     	
+   		<typeAlias alias="DashboardVO" type="medical.main.service.DashboardVO" />     	
+  
+   		<!-- 뇌원천 ASD -->
+   		<typeAlias alias="SurveyAsdVO" type="medical.surveyAsd.service.SurveyAsdVO" />
+   		<typeAlias alias="SurveyAsdTotalVO" type="medical.surveyAsd.service.SurveyAsdTotalVO" />
+   		
+		<typeAlias alias="SurveyAsdTotalVO" type="medical.surveyAsd.service.SurveyAsdTotalVO" />
+   		<typeAlias alias="AnalysisVO" type="medical.analysis.service.AnalysisVO" />
+   		<typeAlias alias="AnalysisTotalVO" type="medical.analysis.service.AnalysisTotalVO" />
+   		<typeAlias alias="AnalysisTAnalEnvMattVO" type="medical.analysis.service.AnalysisTAnalEnvMattVO" />
+   		<typeAlias alias="AnalysisTAnalEnvMattBlVO" type="medical.analysis.service.AnalysisTAnalEnvMattBlVO" />
+   	
+   		<typeAlias alias="AnalysisTAnalSnpVO" type="medical.analysis.service.AnalysisTAnalSnpVO" />  
+   		
+   		
+   		<typeAlias alias="GeneVO" type="medical.gene.service.GeneVO" />
+   		<typeAlias alias="GeneTotalVO" type="medical.gene.service.GeneTotalVO" />
+   		
+   		<typeAlias alias="TAnalGenVO" type="medical.gene.service.TAnalGenVO" />
+   		
+   		
+   		<typeAlias alias="DataIntegrationAsdVO" type="medical.dataIntegrationAsd.service.DataIntegrationAsdVO" />
+   		<typeAlias alias="DataIntegrationAsdListVO" type="medical.dataIntegrationAsd.service.DataIntegrationAsdListVO" />     	
+    </typeAliases>
+</configuration>

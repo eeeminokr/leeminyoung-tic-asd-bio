@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<context:property-placeholder
+		location="classpath:/medical/common/config/jdbc.properties" />
+	<bean id="basicJdbc" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${medical.jdbc.driver}" />
+		<property name="url" value="${medical.jdbc.url}" />
+		<property name="username" value="${medical.jdbc.user}" />
+		<property name="password" value="${medical.jdbc.password}" />
+		<property name="initialSize" value="${medical.jdbc.pool.init}" />
+		<property name="maxActive" value="${medical.jdbc.pool.max}" />
+		<property name="validationQuery" value="${medical.jdbc.validationQuery}"/>
+	</bean>
+	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="basicJdbc" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+		<property name="defaultTimeout" value="180000" />
+	</bean>	
+    <tx:annotation-driven proxy-target-class="true" transaction-manager="txManager" />
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="*" rollback-for="Exception" />
+        </tx:attributes>
+    </tx:advice>
+    <!-- mybatis 설정 -->  
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations" value="classpath*:medical/common/sqlmap/**/*-Mapper.xml" />
+        <property name="configLocation"  value="classpath:medical/common/config/mybatis-config.xml"/>
+    </bean>
+    
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory" />
+    </bean>
+</beans>

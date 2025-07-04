@@ -1,0 +1,751 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DataIntegrationAsd">
+
+	<resultMap id="ticDocList" type="DataIntegrationAsdVO">
+		<result property="docId" 			column="DOC_ID"/>
+		<result property="rndId" 			column="RND_ID"/>
+		<result property="docNm"			column="DOC_NM"/>
+		<result property="disClassDtl"		column="DIS_CLASS_DTL"/>
+		<result property="docClassDtl"		column="DOC_CLASS_DTL"/>
+		<result property="docHeader"		column="DOC_HEADER"/>
+		<result property="linkUrl"			column="LINK_URL"/>
+	</resultMap>
+	
+	<resultMap id="ticDocDtl" type="DataIntegrationAsdVO">
+		<result property="docId" 				column="DOC_ID"/>
+		<result property="disClassDtl"		column="DIS_CLASS_DTL"/>
+		<result property="docClassDtl"		column="DOC_CLASS_DTL"/>
+		<result property="inqNo" 				column="INQ_NO"/>
+		<result property="inqShrinking" 		column="INQ_SHRINKING"/>
+		<result property="inqContent"			column="INQ_CONTENT"/>
+		<result property="inqTypeCd"			column="INQ_TYPE_CD"/>
+		<result property="subjectAllotScore"	column="SUBJECT_ALLOT_SCORE"/>
+		<result property="multiChoice1"			column="MULTI_CHOICE1"/>
+		<result property="allotScore1"			column="ALLOT_SCORE1"/>
+		<result property="multiChoice2"			column="MULTI_CHOICE2"/>
+		<result property="allotScore2"			column="ALLOT_SCORE2"/>
+		<result property="multiChoice3"			column="MULTI_CHOICE3"/>
+		<result property="allotScore3"			column="ALLOT_SCORE3"/>
+		<result property="multiChoice4"			column="MULTI_CHOICE4"/>
+		<result property="allotScore4"			column="ALLOT_SCORE4"/>
+		<result property="multiChoice5"			column="MULTI_CHOICE5"/>
+		<result property="allotScore5"			column="ALLOT_SCORE5"/>
+		<result property="multiChoice6"			column="MULTI_CHOICE6"/>
+		<result property="allotScore6"			column="ALLOT_SCORE6"/>
+		<result property="multiChoice7"			column="MULTI_CHOICE7"/>
+		<result property="allotScore7"			column="ALLOT_SCORE7"/>
+		<result property="multiChoice8"			column="MULTI_CHOICE8"/>
+		<result property="allotScore8"			column="ALLOT_SCORE8"/>
+		<result property="multiChoice9"			column="MULTI_CHOICE9"/>
+		<result property="allotScore9"			column="ALLOT_SCORE9"/>
+		<result property="multiChoice10"		column="MULTI_CHOICE10"/>
+		<result property="allotScore10"			column="ALLOT_SCORE10"/>
+		<result property="multiChoice11"		column="MULTI_CHOICE11"/>
+		<result property="allotScore11"			column="ALLOT_SCORE11"/>
+		<result property="multiChoice12"		column="MULTI_CHOICE12"/>
+		<result property="allotScore12"			column="ALLOT_SCORE12"/>
+		<result property="multiChoice13"		column="MULTI_CHOICE13"/>
+		<result property="allotScore13"			column="ALLOT_SCORE13"/>
+		<result property="multiChoice14"		column="MULTI_CHOICE14"/>
+		<result property="allotScore14"			column="ALLOT_SCORE14"/>
+		<result property="multiChoice15"		column="MULTI_CHOICE15"/>
+		<result property="allotScore15"			column="ALLOT_SCORE15"/>
+		<result property="multiChoice16"		column="MULTI_CHOICE16"/>
+		<result property="allotScore16"			column="ALLOT_SCORE16"/>
+		<result property="multiChoice17"		column="MULTI_CHOICE17"/>
+		<result property="allotScore17"			column="ALLOT_SCORE17"/>
+		<result property="multiChoice18"		column="MULTI_CHOICE18"/>
+		<result property="allotScore18"			column="ALLOT_SCORE18"/>
+		<result property="multiChoice19"		column="MULTI_CHOICE19"/>
+		<result property="allotScore19"			column="ALLOT_SCORE19"/>
+		<result property="multiChoice20"		column="MULTI_CHOICE20"/>
+		<result property="allotScore20"			column="ALLOT_SCORE20"/>
+		<result property="multiChoice21"		column="MULTI_CHOICE21"/>
+		<result property="allotScore21"			column="ALLOT_SCORE21"/>
+		<result property="multiChoice22"		column="MULTI_CHOICE22"/>
+		<result property="allotScore22"			column="ALLOT_SCORE22"/>
+		<result property="multiChoice23"		column="MULTI_CHOICE23"/>
+		<result property="allotScore23"			column="ALLOT_SCORE23"/>
+		<result property="multiChoice24"		column="MULTI_CHOICE24"/>
+		<result property="allotScore24"			column="ALLOT_SCORE24"/>
+		<result property="multiChoice25"		column="MULTI_CHOICE25"/>
+		<result property="allotScore25"			column="ALLOT_SCORE25"/>
+		<result property="multiChoice26"		column="MULTI_CHOICE26"/>
+		<result property="allotScore26"			column="ALLOT_SCORE26"/>
+		<result property="multiChoice27"		column="MULTI_CHOICE27"/>
+		<result property="allotScore27"			column="ALLOT_SCORE27"/>
+		<result property="multiChoice28"		column="MULTI_CHOICE28"/>
+		<result property="allotScore28"			column="ALLOT_SCORE28"/>
+	</resultMap>
+	
+	<resultMap id="dataIntegrationList" type="DataIntegrationAsdListVO" >
+		<result property="targetId" 		column="TARGET_ID"/>
+		<result property="targetDisId" 		column="TARGET_DIS_ID"/>
+		<result property="sex" 				column="SEX"/>
+		<result property="protocol" 		column="PROTOCOL"/>
+		<result property="birthYm" 		    column="BIRTH_YM"/>
+		<result property="docId" 				column="DOC_ID"/>
+		<result property="disClassDtl" 		column="DIS_CLASS_DTL"/>
+		<result property="docClassDtl"		column="DOC_CLASS_DTL"/>	
+		<result property="performCnt" 		column="PERFORM_CNT"/>
+		<result property="cxtDiag" 			column="CXT_DIAG"/>
+		<result property="performNm" 		column="PERFORM_NM"/>
+		<result property="mriDate" 			column="MRI_DATE"/> 
+		
+
+		<result property="srs01"                   column="SRS01" />  
+		<result property="cybocs"                   column="CYBOS" />      <!--  // 임상가평가 cy-bocs  -->               
+		<result property="ybocs"                   column="YBOCS" />  
+		<result property="exts1"     			column="EXTS1"/> <!-- K-SADS-P -->
+		
+		
+	
+		<result property="s1"     			column="S1"/>   <!-- 지능검사 -->
+		<result property="ata"     			column="ATA"/>
+		<result property="stroop"    		column="STROOP"/>
+		<result property="cctt"     		column="CCTT"/>
+		<result property="wsct"     		column="WSCT"/>
+		<result property="cat"     			column="CAT"/>
+		<result property="exitii"     		column="EXIT_II"/>
+		<result property="cpt3"     		column="CPT_3"/>
+		<result property="tmt"     			column="TMT"/>
+		<result property="ados1"     		column="ADOS1"/>
+		<result property="ados2"     		column="ADOS2"/>
+		<result property="ados3"    	 	column="ADOS3"/>
+		<result property="pep"     			column="PEP"/>
+		<result property="sms"     			column="SMS"/>
+		<result property="cars"     		column="CARS"/>
+		
+		<result property="prdv1"    	 	column="PRDV1"/>
+		<result property="kmchat"    	 	column="KMCHAT"/>
+		<result property="cpcl"     		column="CPCL"/>
+		<result property="oldCbcl"     		column="OLD_CBCL"/>
+		<result property="cbcl2"     		column="CBCL2"/>
+		<result property="oldCbcl15"     	column="OLD_CBCL_15"/>
+		<result property="cbcl15"     		column="CBCL_15"/>
+		<result property="lsd"     			column="LSD"/>
+		<result property="ars"     			column="ARS"/>
+		<result property="abc"     			column="ABC"/>
+		<result property="sib"     			column="SIB"/>
+		<result property="bpi"     			column="BPI"/>
+		<result property="srs"     			column="SRS"/>
+		<result property="scq"     			column="SCQ"/>
+		<result property="pc3q"     		column="PC3Q"/>
+		<result property="kAsds"     		column="K_ASDS"/>
+		<result property="ssis"     		column="SSIS"/>
+		<result property="trauma"     		column="TRAUMA"/>
+		<result property="cmrsp"     		column="CMRS_P"/>
+		<result property="qpgsR3"     		column="QPGS_R3"/>
+		<result property="gsrs"     		column="GSRS"/>
+		<result property="kCshq"     		column="K_CSHQ"/>
+		<result property="cdic"     		column="CDI_C"/>
+		<result property="bdia"     		column="BDI_A"/>
+		<result property="staitc"     		column="STAIT_C"/>
+		<result property="staisc"     		column="STAIS_C"/>
+		<result property="cc3qc"     		column="CC3Q_C"/>
+		<result property="cc3qa"     		column="CC3Q_A"/>
+		<result property="iat"     			column="IAT"/>
+		<result property="kscale"     		column="K_SCALE"/>
+		<result property="kscalea"     		column="K_SCALE_A"/>
+		<result property="rcmas"     		column="RCMAS"/>
+		<result property="traumaa"     		column="TRAUMA_A"/>
+		<result property="bdi"     			column="BDI"/>
+		<result property="staitp"     		column="STAIT_P"/>
+		<result property="staisp"     		column="STAIS_P"/>
+		<result property="mbri"     		column="MBRI"/>
+		<result property="pp3q"     		column="PP3Q"/>
+		<result property="kPsi"     		column="K_PSI"/>
+		<result property="wgs"     		column="WGS"/>
+		<result property="analEnvMatt"     	column="ANAL_ENV_MATT"/>
+		<result property="analEnvMattBl"     	column="ANAL_ENV_MATT_BL"/>
+		<result property="analSnp"     		column="ANAL_SNP"/>
+		<result property="clinicalValuation"     		column="CLINICAL_VALUATION"/>
+		<result property="performCntMax" 	column="PERFORM_CNT_MAX"/>
+		<result property="performCntMaxNm" 	column="PERFORM_CNT_MAX_NM"/>
+		
+	</resultMap>
+		
+		
+	<resultMap id="dataIntegrationDtlList" type="DataIntegrationAsdListVO">
+		<result property="rndId"                                      column="RND_ID"/>
+		<result property="targetId"                                   column="TARGET_ID"/>
+		<result property="targetDisId"                                column="TARGET_DIS_ID"/>
+		<result property="disClassDtl"								  column="DIS_CLASS_DTL"/>
+		<result property="docClassDtl"		                          column="DOC_CLASS_DTL"/>
+		<result property="performCntMaxNm"                            column="PERFORM_CNT_MAX_NM"/>
+		<result property="sex" 			 			 				  column="SEX"/>
+		<result property="protocol" 	 			 				  column="PROTOCOL"/>
+		<result property="birthYm" 		 			 			      column="BIRTH_YM"/>
+		<result property="disClassDtl" 	 			 				  column="DIS_CLASS_DTL"/>
+		<result property="performCnt"                                 column="PERFORM_CNT"/>
+		<result property="performNm"                                  column="PERFORM_NM"/>
+		<result property="execDate"                                   column="EXEC_DATE"/>
+		<result property="cxtDiag"                                    column="CXT_DIAG"/>
+		<result property="cxtDetail"                                  column="CXT_DETAIL"/>
+		<result property="s1"                                         column="S1"/>
+		<result property="bloodFather"                                column="BLOOD_FATHER"/>     
+		<result property="bloodMother"                                column="BLOOD_MOTHER"/>     
+		<result property="bloodChild"                                 column="BLOOD_CHILD"/>                                   
+		<result property="urine"                                      column="URINE"/>                                
+		<result property="imaging"                                    column="IMAGING"/>                              
+		<result property="humanDerivedMaterialsF"                     column="HUMAN_DERIVED_MATERIALS_FATHER"/>       
+		<result property="humanDerivedMaterialsM"                     column="HUMAN_DERIVED_MATERIALS_MOTHER"/>       
+		<result property="humanDerivedMaterialsC"                     column="HUMAN_DERIVED_MATERIALS_CHILD"/>        
+		<result property="consentP"                                   column="CONSENT_PROTECTOR"/>                    
+		<result property="consentC"                                   column="CONSENT_CHILD"/>                        
+		<result property="ksads"                                      column="KSADS"/>                                
+		<result property="clinicalEvaluation"                         column="CLINICAL_EVALUATION"/>                  
+		<result property="clinicalEvaluation4wk"                      column="CLINICAL_EVALUATION4"/>                 
+		<result property="psychTesting"                               column="PSYCH_TESTING"/>                        
+		<result property="questionnaire"                              column="QUESTIONNAIRE"/>                        
+		<result property="fmri"                                       column="FMRI"/>                                 
+		<result property="flair"                                      column="FLAIR"/>                                
+		<result property="t1"                                         column="T1"/>                                   
+		<result property="dti"                                        column="DTI"/>                                  
+		<result property="etc"                                        column="ETC"/>                                  
+		<result property="t2"                                         column="T2"/>                                   
+		<result property="amri"                                       column="AMRI"/>                                 
+		<result property="asl"                                        column="ASL"/>  
+		 <result property="swi"                                        column="SWI"/>      
+		<result property="tarFilePath"                                column="TAR_FILE_PATH"/>    
+		<result property="perinatalDevelopmentAbility"                column="PERINATAL_DEVELOPMENT_ABILITY"/>   
+		<result property="remarks"                					  column="REMARKS"/>   
+	</resultMap>
+	
+	<select id="selectDataIntegrationListAo" parameterType="map" resultMap="dataIntegrationList">
+		SELECT B.* FROM (
+			SELECT
+				A.TARGET_ID
+				, A.TARGET_DIS_ID
+				, A.SEX
+				, A.PROTOCOL
+				, A.DIS_CLASS_DTL
+				, A.BIRTH_YM
+			<!-- , GROUP_CONCAT( A.DOC_CLASS_DTL ORDER BY A.PERFORM_CNT SEPARATOR ', ') AS DOC_CLASS_DTL --> 
+			<!-- , GROUP_CONCAT( A.DOC_ID ORDER BY A.PERFORM_CNT SEPARATOR ', ') AS DOC_ID --> 
+				, GROUP_CONCAT(DISTINCT A.PERFORM_CNT ORDER BY A.PERFORM_CNT SEPARATOR ', ') AS PERFORM_CNT
+				, GROUP_CONCAT(DISTINCT A.PERFORM_NM ORDER BY A.PERFORM_CNT SEPARATOR ', ') AS PERFORM_NM
+				, MAX(A.PERFORM_CNT) AS PERFORM_CNT_MAX
+				, (SELECT PERFORM_NM FROM T_PERFORM_TERM WHERE PERFORM_CNT = MAX(A.PERFORM_CNT)) AS PERFORM_CNT_MAX_NM
+				, GROUP_CONCAT(A.CXT_DIAG SEPARATOR ', ') AS CXT_DIAG
+				, GROUP_CONCAT(A.MRI_DATE ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS MRI_DATE
+			<!-- 
+				, GROUP_CONCAT(A.CV_CGI_S  ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS CGIS
+                , GROUP_CONCAT(A.CV_CGI_I ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS CGII
+                , GROUP_CONCAT(A.CV_C_GAS ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS CGAS
+			 -->
+			 	, GROUP_CONCAT(A.EXTS1 ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS EXTS1
+				, GROUP_CONCAT(A.SRS01 ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS SRS01
+                , GROUP_CONCAT(A.CYBOCS ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS CYBOCS
+                , GROUP_CONCAT(A.YBOCS ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS YBOCS
+				, GROUP_CONCAT(A.S1 ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS S1
+				, GROUP_CONCAT(A.ATA ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS ATA
+				, GROUP_CONCAT(A.STROOP ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS STROOP
+				, GROUP_CONCAT(A.CCTT ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS CCTT
+				, GROUP_CONCAT(A.WSCT ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS WSCT
+				, GROUP_CONCAT(A.CAT ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS CAT
+				, GROUP_CONCAT(A.EXIT_II ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS EXIT_II
+				, GROUP_CONCAT(A.CPT_3 ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS CPT_3
+				, GROUP_CONCAT(A.TMT ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS TMT
+				, GROUP_CONCAT(A.ADOS1 ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS ADOS1
+				, GROUP_CONCAT(A.ADOS2 ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS ADOS2
+				, GROUP_CONCAT(A.ADOS3 ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS ADOS3
+				, GROUP_CONCAT(A.PEP ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS PEP
+				, GROUP_CONCAT(A.SMS ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS SMS
+				, GROUP_CONCAT(A.CARS ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS CARS
+				, GROUP_CONCAT(A.PRDV1 ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS PRDV1
+				, GROUP_CONCAT(A.KMCHAT ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS KMCHAT
+				, GROUP_CONCAT(A.CPCL ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS CPCL
+				, GROUP_CONCAT(A.OLD_CBCL ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS OLD_CBCL
+				, GROUP_CONCAT(A.CBCL2 ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS CBCL2
+				, GROUP_CONCAT(A.OLD_CBCL_15 ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS OLD_CBCL_15
+				, GROUP_CONCAT(A.CBCL_15 ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS CBCL_15
+				, GROUP_CONCAT(A.LSD ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS LSD
+				, GROUP_CONCAT(A.ARS ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS ARS
+				, GROUP_CONCAT(A.ABC ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS ABC
+				, GROUP_CONCAT(A.SIB ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS SIB
+				, GROUP_CONCAT(A.BPI ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS BPI
+				, GROUP_CONCAT(A.SRS ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS SRS
+				, GROUP_CONCAT(A.SCQ ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS SCQ
+				, GROUP_CONCAT(A.PC3Q ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS PC3Q
+				, GROUP_CONCAT(A.K_ASDS ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS K_ASDS
+				, GROUP_CONCAT(A.SSIS ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS SSIS
+				, GROUP_CONCAT(A.TRAUMA ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS TRAUMA
+				, GROUP_CONCAT(A.CMRS_P ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS CMRS_P
+				, GROUP_CONCAT(A.QPGS_R3 ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS QPGS_R3
+				, GROUP_CONCAT(A.GSRS ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS GSRS
+				, GROUP_CONCAT(A.K_CSHQ ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS K_CSHQ
+				, GROUP_CONCAT(A.CDI_C ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS CDI_C
+				, GROUP_CONCAT(A.BDI_A ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS BDI_A
+				, GROUP_CONCAT(A.STAIT_C ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS STAIT_C
+				, GROUP_CONCAT(A.STAIS_C ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS STAIS_C
+				, GROUP_CONCAT(A.CC3Q_C ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS CC3Q_C
+				, GROUP_CONCAT(A.CC3Q_A ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS CC3Q_A
+				, GROUP_CONCAT(A.IAT ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS IAT
+				, GROUP_CONCAT(A.K_SCALE ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS K_SCALE
+				, GROUP_CONCAT(A.K_SCALE_A ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS K_SCALE_A
+				, GROUP_CONCAT(A.RCMAS ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS RCMAS
+				, GROUP_CONCAT(A.TRAUMA_A ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS TRAUMA_A
+				, GROUP_CONCAT(A.BDI ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS BDI
+				, GROUP_CONCAT(A.STAIT_P ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS STAIT_P
+				, GROUP_CONCAT(A.STAIS_P ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS STAIS_P
+				, GROUP_CONCAT(A.MBRI ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS MBRI
+				, GROUP_CONCAT(A.PP3Q ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS PP3Q
+				, GROUP_CONCAT(A.K_PSI ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS K_PSI
+				, GROUP_CONCAT(A.ANAL_ENV_MATT ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS ANAL_ENV_MATT
+				, GROUP_CONCAT(A.ANAL_ENV_MATT_BL ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS ANAL_ENV_MATT_BL
+				, GROUP_CONCAT(A.WGS ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS WGS
+				<!--  , GROUP_CONCAT(A.CLINICAL_VALUATION ORDER BY A.PERFORM_CNT ASC SEPARATOR ', ') AS CLINICAL_VALUATION-->
+			FROM(
+				SELECT 
+					TM.TARGET_ID 
+					,TM.TARGET_DIS_ID
+					, CASE 
+						WHEN TM.SEX = 'F' THEN '여'
+						WHEN TM.SEX = 'M' THEN '남'
+					END SEX
+					, IFNULL(CD.CLASS_CD_DTL_NM, 'x') PROTOCOL
+					, DISE1.CLASS_CD_DTL_NM DIS_CLASS_DTL
+				<!--
+			      	, DM.DOC_CLASS_DTL 
+					, DM.DOC_ID
+				-->	
+					, CONCAT(SUBSTR(TM.BIRTH_YM,1,4) ,'-',SUBSTR(TM.BIRTH_YM,5,2),'-',SUBSTR(TM.BIRTH_YM,7,2)) BIRTH_YM
+					, PT.PERFORM_CNT
+					, IFNULL(PT.PERFORM_NM,'x') PERFORM_NM
+					, CASE WHEN ISNULL(PM.CXT_DIAG) OR PM.CXT_DIAG = ''  THEN 'x' ELSE 'o' END CXT_DIAG
+					, CASE WHEN ISNULL(S1.SERIES_ID and S3.SERIES_ID and S4.SERIES_ID and S6.SERIES_ID and S8.SERIES_ID) OR (S1.SERIES_ID='' and S3.SERIES_ID='' and S4.SERIES_ID='' and S6.SERIES_ID= '' and S8.SERIES_ID= '' and S9.SERIES_ID= '')  THEN 'x'
+					 WHEN ISNULL(S1.SERIES_ID OR S3.SERIES_ID OR S4.SERIES_ID OR S6.SERIES_ID and S8.SERIES_ID) OR S1.SERIES_ID='' OR S3.SERIES_ID='' OR S4.SERIES_ID='' OR S6.SERIES_ID='' OR S8.SERIES_ID='' OR S9.SERIES_ID='' THEN 'z' ELSE 'o' END MRI_DATE
+					, CASE WHEN ISNULL(PM.EXTS1) OR PM.EXTS1 = ''  THEN 'x' WHEN PM.EXTS1 ='z' THEN 'z' ELSE 'o' END EXTS1
+					<!-- 
+					, CASE WHEN ISNULL(PM.CV_CGI_S) OR PM.CV_CGI_S = '' OR PM.CV_CGI_S = 'z' THEN 'z' ELSE 'o' END CV_CGI_S
+                    , CASE WHEN ISNULL(PM.CV_CGI_I) OR PM.CV_CGI_I = '' OR PM.CV_CGI_I = 'z' THEN 'z'  ELSE 'o' END CV_CGI_I
+                    , CASE WHEN ISNULL(PM.CV_C_GAS) OR PM.CV_C_GAS = '' OR PM.CV_C_GAS = 'z' THEN 'z' ELSE 'o' END CV_C_GAS
+					 -->
+					, CASE WHEN ISNULL(PM.SRS_CLINICAL) OR PM.SRS_CLINICAL = '' THEN 'x' WHEN PM.SRS_CLINICAL = 'z' THEN 'z' ELSE 'o' END SRS01
+                    , CASE WHEN ISNULL(PM.CYBOCS) OR PM.CYBOCS = '' THEN 'x' WHEN PM.CYBOCS = 'z' THEN 'z' ELSE 'o' END CYBOCS
+                    , CASE WHEN ISNULL(PM.YBOCS) OR PM.YBOCS = '' THEN 'x' WHEN PM.YBOCS = 'z' THEN 'z'  ELSE 'o' END YBOCS
+                    , CASE WHEN ISNULL(PM.S1) OR PM.S1 = ''  THEN 'x' WHEN PM.S1='z' THEN 'z' ELSE 'o' END S1
+					, CASE WHEN ISNULL(PM.ATA) OR PM.ATA = ''  THEN 'x' WHEN PM.ATA='z' THEN 'z' ELSE 'o' END ATA
+					, CASE WHEN ISNULL(PM.STROOP) OR PM.STROOP = ''  THEN 'x' WHEN PM.STROOP='z' THEN 'z' ELSE 'o' END STROOP
+					, CASE WHEN ISNULL(PM.CCTT) OR PM.CCTT = ''  THEN 'x' WHEN PM.CCTT='z' THEN 'z' ELSE 'o' END CCTT
+					, CASE WHEN ISNULL(PM.WSCT) OR PM.WSCT = ''  THEN 'x' WHEN PM.WSCT='z' THEN 'z' ELSE 'o' END WSCT
+					, CASE WHEN ISNULL(PM.CAT) OR PM.CAT = ''  THEN 'x' WHEN PM.CAT='z' THEN 'z' ELSE 'o' END CAT
+					, CASE WHEN ISNULL(PM.EXIT_II) OR PM.EXIT_II = ''  THEN 'x' WHEN PM.EXIT_II='z' THEN 'z' ELSE 'o' END EXIT_II
+					, CASE WHEN ISNULL(PM.CPT_3) OR PM.CPT_3 = ''  THEN 'x' WHEN PM.CPT_3='z' THEN 'z' ELSE 'o' END CPT_3
+					, CASE WHEN ISNULL(PM.TMT) OR PM.TMT = ''  THEN 'x' WHEN PM.TMT='z' THEN 'z' ELSE 'o' END TMT
+					, CASE WHEN ISNULL(PM.ADOS1) OR PM.ADOS1 = ''  THEN 'x' WHEN PM.ADOS1='z' THEN 'z' ELSE 'o' END ADOS1
+					, CASE WHEN ISNULL(PM.ADOS2) OR PM.ADOS2 = ''  THEN 'x' WHEN PM.ADOS2='z' THEN 'z' ELSE 'o' END ADOS2
+					, CASE WHEN ISNULL(PM.ADOS3) OR PM.ADOS3 = ''  THEN 'x' WHEN PM.ADOS3='z' THEN 'z' ELSE 'o' END ADOS3
+					, CASE WHEN ISNULL(PM.PEP) OR PM.PEP = ''  THEN 'x' WHEN PM.PEP ='z' THEN 'z' ELSE 'o' END PEP
+					, CASE WHEN ISNULL(PM.SMS) OR PM.SMS = ''  THEN 'x' WHEN PM.SMS ='z' THEN 'z' ELSE 'o' END SMS
+					, CASE WHEN ISNULL(PM.CARS) OR PM.CARS = ''  THEN 'x' WHEN PM.CARS ='z' THEN 'z' ELSE 'o' END CARS
+					, CASE WHEN ISNULL(PM.PRDV1) OR PM.PRDV1 = ''  THEN 'x' WHEN PM.PRDV1 ='z' THEN 'z' ELSE 'o' END PRDV1
+					, CASE WHEN ISNULL(PM.KMCHAT) OR PM.KMCHAT = ''  THEN 'x' WHEN PM.KMCHAT='z' THEN 'z' ELSE 'o' END KMCHAT
+					, CASE WHEN ISNULL(PM.CPCL) OR PM.CPCL = ''  THEN 'x' WHEN PM.CPCL='z' THEN 'z' ELSE 'o' END CPCL
+					, CASE WHEN ISNULL(PM.OLD_CBCL) OR PM.OLD_CBCL = ''  THEN 'x' WHEN PM.OLD_CBCL='z' THEN 'z' ELSE 'o' END OLD_CBCL
+					, CASE WHEN ISNULL(PM.CBCL2) OR PM.CBCL2 = ''  THEN 'x' WHEN PM.CBCL2='z' THEN 'z' ELSE 'o' END CBCL2
+					, CASE WHEN ISNULL(PM.OLD_CBCL_15) OR PM.OLD_CBCL_15 = ''  THEN 'x' WHEN PM.OLD_CBCL_15='z' THEN 'z' ELSE 'o' END OLD_CBCL_15
+					, CASE WHEN ISNULL(PM.CBCL_15) OR PM.CBCL_15 = ''  THEN 'x' WHEN PM.CBCL_15='z' THEN 'z' ELSE 'o' END CBCL_15
+					, CASE WHEN ISNULL(PM.LSD) OR PM.LSD = ''  THEN 'x' WHEN PM.LSD='z' THEN 'z' ELSE 'o' END LSD
+					, CASE WHEN ISNULL(PM.ARS) OR PM.ARS = ''  THEN 'x' WHEN PM.ARS='z' THEN 'z' ELSE 'o' END ARS
+					, CASE WHEN ISNULL(PM.ABC) OR PM.ABC = ''  THEN 'x' WHEN PM.ABC='z' THEN 'z' ELSE 'o' END ABC
+					, CASE WHEN ISNULL(PM.SIB) OR PM.SIB = ''  THEN 'x' WHEN PM.SIB='z' THEN 'z' ELSE 'o' END SIB
+					, CASE WHEN ISNULL(PM.BPI) OR PM.BPI = ''  THEN 'x' WHEN PM.BPI='z' THEN 'z' ELSE 'o' END BPI
+					, CASE WHEN ISNULL(PM.SRS) OR PM.SRS = ''  THEN 'x' WHEN PM.SRS='z' THEN 'z' ELSE 'o' END SRS
+					, CASE WHEN ISNULL(PM.SCQ) OR PM.SCQ = ''  THEN 'x' WHEN PM.SCQ='z' THEN 'z' ELSE 'o' END SCQ
+					, CASE WHEN ISNULL(PM.PC3Q) OR PM.PC3Q = ''  THEN 'x' WHEN PM.PC3Q='z' THEN 'z' ELSE 'o' END PC3Q
+					, CASE WHEN ISNULL(PM.K_ASDS) OR PM.K_ASDS = ''  THEN 'x' WHEN PM.K_ASDS='z' THEN 'z' ELSE 'o' END K_ASDS
+					, CASE WHEN ISNULL(PM.SSIS) OR PM.SSIS = ''  THEN 'x' WHEN PM.SSIS='z' THEN 'z' ELSE 'o' END SSIS
+					, CASE WHEN ISNULL(PM.TRAUMA) OR PM.TRAUMA = ''  THEN 'x' WHEN PM.TRAUMA='z' THEN 'z' ELSE 'o' END TRAUMA
+					, CASE WHEN ISNULL(PM.CMRS_P) OR PM.CMRS_P = ''  THEN 'x' WHEN PM.CMRS_P='z' THEN 'z' ELSE 'o' END CMRS_P
+					, CASE WHEN ISNULL(PM.CDI_C) OR PM.CDI_C = ''  THEN 'x' WHEN PM.CDI_C='z' THEN 'z' ELSE 'o' END CDI_C
+					, CASE WHEN ISNULL(PM.BDI_A) OR PM.BDI_A = ''  THEN 'x' WHEN PM.BDI_A='z' THEN 'z' ELSE 'o' END BDI_A
+					, CASE WHEN ISNULL(PM.STAIT_C) OR PM.STAIT_C = ''  THEN 'x' WHEN PM.STAIT_C='z' THEN 'z' ELSE 'o' END STAIT_C
+					, CASE WHEN ISNULL(PM.STAIS_C) OR PM.STAIS_C = ''  THEN 'x' WHEN PM.STAIS_C='z' THEN 'z' ELSE 'o' END STAIS_C
+					, CASE WHEN ISNULL(PM.CC3Q_C) OR PM.CC3Q_C = ''  THEN 'x' WHEN PM.CC3Q_C='z' THEN 'z' ELSE 'o' END CC3Q_C
+					, CASE WHEN ISNULL(PM.CC3Q_A) OR PM.CC3Q_A = ''  THEN 'x' WHEN PM.CC3Q_A='z' THEN 'z' ELSE 'o' END CC3Q_A
+					, CASE WHEN ISNULL(PM.IAT) OR PM.IAT = ''  THEN 'x' WHEN PM.IAT='z' THEN 'z' ELSE 'o' END IAT
+					, CASE WHEN ISNULL(PM.K_SCALE) OR PM.K_SCALE = ''  THEN 'x' WHEN PM.K_SCALE='z' THEN 'z' ELSE 'o' END K_SCALE
+					, CASE WHEN ISNULL(PM.K_SCALE_A) OR PM.K_SCALE_A = ''  THEN 'x' WHEN PM.K_SCALE_A='z' THEN 'z' ELSE 'o' END K_SCALE_A
+					, CASE WHEN ISNULL(PM.RCMAS) OR PM.RCMAS = ''  THEN 'x' WHEN PM.RCMAS='z' THEN 'z' ELSE 'o' END RCMAS
+					, CASE WHEN ISNULL(PM.QPGS_R3) OR PM.QPGS_R3 = ''  THEN 'x' WHEN PM.QPGS_R3='z' THEN 'z' ELSE 'o' END QPGS_R3
+					, CASE WHEN ISNULL(PM.GSRS) OR PM.GSRS = ''  THEN 'x' WHEN PM.GSRS='z' THEN 'z' ELSE 'o' END GSRS
+					, CASE WHEN ISNULL(PM.K_CSHQ) OR PM.K_CSHQ = ''  THEN 'x' WHEN PM.K_CSHQ='z' THEN 'z' ELSE 'o' END K_CSHQ
+					, CASE WHEN ISNULL(PM.TRAUMA_A) OR PM.TRAUMA_A = ''  THEN 'x' WHEN PM.TRAUMA_A='z' THEN 'z' ELSE 'o' END TRAUMA_A
+					, CASE WHEN ISNULL(PM.BDI) OR PM.BDI = ''  THEN 'x' WHEN PM.BDI='z' THEN 'z' ELSE 'o' END BDI
+					, CASE WHEN ISNULL(PM.STAIT_P) OR PM.STAIT_P = ''  THEN 'x' WHEN PM.STAIT_P='z' THEN 'z' ELSE 'o' END STAIT_P
+					, CASE WHEN ISNULL(PM.STAIS_P) OR PM.STAIS_P = ''  THEN 'x' WHEN PM.STAIS_P='z' THEN 'z' ELSE 'o' END STAIS_P
+					, CASE WHEN ISNULL(PM.MBRI) OR PM.MBRI = ''  THEN 'x' WHEN PM.MBRI='z' THEN 'z' ELSE 'o' END MBRI
+					, CASE WHEN ISNULL(PM.PP3Q) OR PM.PP3Q = ''  THEN 'x' WHEN PM.PP3Q='z' THEN 'z' ELSE 'o' END PP3Q
+					, CASE WHEN ISNULL(PM.K_PSI) OR PM.K_PSI = ''  THEN 'x' WHEN PM.K_PSI='z' THEN 'z' ELSE 'o' END K_PSI
+					
+                   <!--,IF(PM.PERFORM_CNT='1', CASE WHEN ISNULL(PM.ANAL_ENV_MATT) OR PM.ANAL_ENV_MATT = ''  THEN 'x' WHEN PM.ANAL_ENV_MATT='z' THEN 'z' ELSE 'o' END, '') ANAL_ENV_MATT --> 
+					,CASE WHEN ISNULL(PM.ANAL_ENV_MATT) OR PM.ANAL_ENV_MATT = ''  THEN 'x' WHEN PM.ANAL_ENV_MATT='z' THEN 'z' ELSE 'o' END  ANAL_ENV_MATT 
+					, CASE WHEN ISNULL(PM.ANAL_ENV_MATT_BL) OR PM.ANAL_ENV_MATT_BL = ''  THEN 'x' WHEN PM.ANAL_ENV_MATT_BL='z' THEN 'z' ELSE 'o' END ANAL_ENV_MATT_BL
+					, CASE WHEN ISNULL(PM.WGS) OR PM.WGS = ''  THEN 'x' WHEN PM.WGS='z' THEN 'z' ELSE 'o' END WGS
+					
+					<!--   CASE WHEN ISNULL(PM.CLINICAL_VALUATION) OR PM.CLINICAL_VALUATION = '' THEN 'x' WHEN PM.CLINICAL_VALUATION='z' THEN 'z' ELSE 'o' END CLINICAL_VALUATION -->
+				FROM T_TARGET_MST TM
+				JOIN T_DOC_MST DM
+                ON  TM.DIS_CLASS_DTL = DM.DIS_CLASS_DTL
+				AND TM.RND_ID = DM.RND_ID
+				JOIN T_PERFORM_MST PM
+					ON TM.TARGET_ID = PM.TARGET_ID
+					AND TM.RND_ID = PM.RND_ID
+					AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+				LEFT JOIN T_TARGET_DIS_MST TDM
+		        	ON TM.TARGET_ID = TDM.TARGET_ORG_ID
+		        	AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+				LEFT JOIN T_PERFORM_TERM PT
+					ON PM.PERFORM_CNT = PT.PERFORM_CNT
+				LEFT JOIN T_CODE_DTL CD
+					ON TM.PROTOCOL = CD.CLASS_CD_DTL
+				LEFT JOIN T_CODE_DTL DISE1
+			        ON DISE1.CLASS_CD = 'DISE1'
+			        AND DISE1.CLASS_CD_DTL = TM.DIS_CLASS_DTL
+			    LEFT JOIN T_IMAGING_INFO S3
+					ON S3.RND_ID = PM.RND_ID
+					    AND S3.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+					    AND S3.PERFORM_CNT = PM.PERFORM_CNT
+					    AND S3.TARGET_ID = PM.TARGET_ID
+					    AND S3.SERIES_ID = 'SER03'
+					
+                   LEFT JOIN T_IMAGING_INFO S6
+				ON S6.RND_ID = PM.RND_ID
+				    AND S6.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+				    AND S6.PERFORM_CNT = PM.PERFORM_CNT
+				    AND S6.TARGET_ID = PM.TARGET_ID
+				    AND S6.SERIES_ID = 'SER06'
+				    
+				LEFT JOIN T_IMAGING_INFO S4
+				ON S4.RND_ID = PM.RND_ID
+				    AND S4.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+				    AND S4.PERFORM_CNT = PM.PERFORM_CNT
+				    AND S4.TARGET_ID = PM.TARGET_ID
+				    AND S4.SERIES_ID = 'SER04'
+				    
+				LEFT JOIN T_IMAGING_INFO S8
+				ON S8.RND_ID = PM.RND_ID
+				    AND S8.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+				    AND S8.PERFORM_CNT = PM.PERFORM_CNT
+				    AND S8.TARGET_ID = PM.TARGET_ID
+				    AND S8.SERIES_ID = 'SER08'
+				    
+				LEFT JOIN T_IMAGING_INFO S9
+				ON S9.RND_ID = PM.RND_ID
+				    AND S9.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+				    AND S9.PERFORM_CNT = PM.PERFORM_CNT
+				    AND S9.TARGET_ID = PM.TARGET_ID
+				    AND S9.SERIES_ID = 'SER09'    
+				    
+				LEFT JOIN T_IMAGING_INFO S1
+				ON S1.RND_ID = PM.RND_ID
+				    AND S1.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+				    AND S1.PERFORM_CNT = PM.PERFORM_CNT
+				    AND S1.TARGET_ID = PM.TARGET_ID
+				    AND S1.SERIES_ID = 'SER01'
+				WHERE 
+					NOT ((TM.PROTOCOL = 'PTC03' AND PM.PERFORM_CNT = 2) 
+					OR (TM.PROTOCOL = 'PTC03' AND PM.PERFORM_CNT = 3) 
+					OR (TM.PROTOCOL = 'PTC03' AND PM.PERFORM_CNT = 4))
+				AND NOT PM.STATUS = '0004'
+				<if test="targetId !=null and targetId != '' ">
+					AND UPPER(TM.TARGET_ID) = UPPER(#{targetId})
+				</if>
+				<if test="targetDisId !=null and targetDisId != '' ">
+					AND UPPER(TM.TARGET_DIS_ID) = UPPER(#{targetDisId})
+				</if>
+				<if test="sex !=null and sex != '' ">
+					AND TM.SEX = #{sex}
+				</if>
+				<if test="protocol !=null and protocol != '' ">
+					AND  REPLACE(CD.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+				</if>
+				<if test="disClassDtl != null and disClassDtl != ''">
+ 					AND TM.DIS_CLASS_DTL = #{disClassDtl}
+				</if>
+				<if test="docClassDtl != null and docClassDtl != ''">
+ 					AND DM.DOC_CLASS_MST = #{docClassDtl}
+				</if>
+				) A
+				WHERE 1=1 
+				<if test='schKeyField =="selectDown"'>
+					AND (A.TARGET_ID)
+						IN (${schKeyWord})
+				</if>
+				
+			GROUP BY
+			A.TARGET_ID
+			, A.TARGET_DIS_ID
+			, A.SEX
+			, A.PROTOCOL
+			, A.DIS_CLASS_DTL
+			
+			, A.BIRTH_YM
+			ORDER BY A.TARGET_ID ASC
+		) B
+		WHERE 1=1
+		<if test="performCnt !=null and performCnt != '' ">
+			AND INSTR(B.PERFORM_CNT, '${performCnt}')
+		</if>
+		<if test="limit != '' and limit != null">	
+		LIMIT #{start}, #{limit}	
+		</if>
+	</select>
+
+	<select id="selectDataIntegrationListAoTotal" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM (
+			SELECT
+				A.TARGET_ID
+			FROM(
+				SELECT 
+					TM.TARGET_ID
+				FROM T_TARGET_MST TM
+				JOIN T_PERFORM_MST PM
+				ON TM.TARGET_ID = PM.TARGET_ID
+					AND TM.RND_ID = PM.RND_ID
+					AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+				LEFT JOIN T_TARGET_DIS_MST TDM
+		        	ON TM.TARGET_ID = TDM.TARGET_ORG_ID
+		        	AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+				LEFT JOIN T_PERFORM_TERM PT
+				ON PM.PERFORM_CNT = PT.PERFORM_CNT
+				LEFT JOIN T_CODE_DTL CD
+				ON TM.PROTOCOL = CD.CLASS_CD_DTL
+				WHERE 
+				NOT ((TM.PROTOCOL = 'PTC03' AND PM.PERFORM_CNT = 2) 
+				OR (TM.PROTOCOL = 'PTC03' AND PM.PERFORM_CNT = 3) 
+				OR (TM.PROTOCOL = 'PTC03' AND PM.PERFORM_CNT = 4))
+				AND NOT PM.STATUS = '0004'
+				<if test="targetId !=null and targetId != '' ">
+					AND TM.TARGET_ID = #{targetId}
+				</if>
+				<if test="targetDisId !=null and targetDisId != '' ">
+					AND UPPER(TM.TARGET_DIS_ID) = UPPER(#{targetDisId})
+				</if>
+				<if test="sex !=null and sex != '' ">
+					AND TM.SEX = #{sex}
+				</if>
+				<if test="protocol !=null and protocol != '' ">
+					AND  REPLACE(CD.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+				</if>
+				<if test="performCnt !=null and performCnt != '' ">
+					AND INSTR(PM.PERFORM_CNT, '${performCnt}')
+				</if>
+				<if test="disClassDtl != null and disClassDtl != ''">
+ 					AND TM.DIS_CLASS_DTL = #{disClassDtl}
+				</if>
+			) A
+		GROUP BY
+		A.TARGET_ID
+		) B
+	</select>
+	
+ 	<select id="selectTicDocDtlList" parameterType="map" resultMap="ticDocList">
+		SELECT
+			DOC_ID
+			, RND_ID
+			, DOC_NM
+			, DIS_CLASS_DTL
+			, DOC_CLASS_DTL
+			, DOC_HEADER
+			, LINK_URL
+		FROM BDSP.T_DOC_MST
+		WHERE 1=1
+	<!--  	AND DOC_CLASS_DTL = 'DC004' -->
+		<if test="disClassDtl != null and disClassDtl != ''">
+		AND DIS_CLASS_DTL = #{disClassDtl}
+		</if>
+		<if test="docClassDtl != null and docClassDtl != ''">
+		AND DOC_CLASS_DTL = #{docClassDtl}
+		</if>
+		ORDER BY DOC_ID		
+	</select>
+	
+	<select id="selectTicDocDtl" parameterType="map" resultMap="ticDocDtl">
+		SELECT
+			DI.DOC_ID
+			,DM.DOC_CLASS_DTL
+            ,DM.DIS_CLASS_DTL
+			, DI.RND_ID
+			, DI.INQ_NO
+			, DI.INQ_SHRINKING
+			, DI.INQ_CONTENT
+			, DI.INQ_TYPE_CD
+			, DI.SUBJECT_ALLOT_SCORE
+			, DI.MULTI_CHOICE1
+			, DI.ALLOT_SCORE1
+			, DI.MULTI_CHOICE2
+			, DI.ALLOT_SCORE2
+			, DI.MULTI_CHOICE3
+			, DI.ALLOT_SCORE3
+			, DI.MULTI_CHOICE4
+			, DI.ALLOT_SCORE4
+			, DI.MULTI_CHOICE5
+			, DI.ALLOT_SCORE5
+			, DI.MULTI_CHOICE6
+			, DI.ALLOT_SCORE6
+			, DI.MULTI_CHOICE7
+			, DI.ALLOT_SCORE7
+			, DI.MULTI_CHOICE8
+			, DI.ALLOT_SCORE8
+			, DI.MULTI_CHOICE9
+			, DI.ALLOT_SCORE9
+			, DI.MULTI_CHOICE10
+			, DI.ALLOT_SCORE10
+			, DI.MULTI_CHOICE11
+			, DI.ALLOT_SCORE11
+			, DI.MULTI_CHOICE12
+			, DI.ALLOT_SCORE12
+			, DI.MULTI_CHOICE13
+			, DI.ALLOT_SCORE13
+			, DI.MULTI_CHOICE14
+			, DI.ALLOT_SCORE14
+			, DI.MULTI_CHOICE15
+			, DI.ALLOT_SCORE15
+			, DI.MULTI_CHOICE16
+			, DI.ALLOT_SCORE16
+			, DI.MULTI_CHOICE17
+			, DI.ALLOT_SCORE17
+			, DI.MULTI_CHOICE18
+			, DI.ALLOT_SCORE18
+			, DI.MULTI_CHOICE19
+			, DI.ALLOT_SCORE19
+			, DI.MULTI_CHOICE20
+			, DI.ALLOT_SCORE20
+			, DI.MULTI_CHOICE21
+			, DI.ALLOT_SCORE21
+			, DI.MULTI_CHOICE22
+			, DI.ALLOT_SCORE22
+			, DI.MULTI_CHOICE23
+			, DI.ALLOT_SCORE23
+			, DI.MULTI_CHOICE24
+			, DI.ALLOT_SCORE24
+			, DI.MULTI_CHOICE25
+			, DI.ALLOT_SCORE25
+			, DI.MULTI_CHOICE26
+			, DI.ALLOT_SCORE26
+			, DI.MULTI_CHOICE27
+			, DI.ALLOT_SCORE27
+			, DI.MULTI_CHOICE28
+			, DI.ALLOT_SCORE28
+		FROM 
+			BDSP.T_DOC_AO_INQUIRY DI
+		JOIN
+			BDSP.T_DOC_MST DM 
+		ON 
+			DI.DOC_ID = DM.DOC_ID
+	
+		WHERE 1=1 
+			<if test="docId !=null and docId != '' ">
+				AND DM.DOC_ID = #{docId, jdbcType=VARCHAR}
+			</if>
+			<if test="disClassDtl != null and disClassDtl != ''">
+				AND DM.DIS_CLASS_DTL = #{disClassDtl}
+			</if>
+			<if test="docClassDtl != null and docClassDtl != ''">
+				AND DM.DOC_CLASS_DTL = #{docClassDtl , jdbcType=VARCHAR}
+			</if>
+			
+		ORDER BY DI.INQ_NO * 1
+	</select>
+	
+	<select id="selectDataIntegrationDtlListAo" parameterType="map" resultMap="dataIntegrationDtlList">
+			SELECT A.* 
+				,(SELECT PERFORM_NM FROM T_PERFORM_TERM WHERE PERFORM_CNT = (SELECT MAX(PERFORM_CNT) FROM T_PERFORM_MST WHERE TARGET_ID=A.TARGET_ID)) PERFORM_CNT_MAX_NM
+			FROM( 
+				SELECT 
+					TM.RND_ID
+				    ,TM.TARGET_ID   
+				    ,TM.TARGET_DIS_ID 
+					,PM.PERFORM_CNT
+				    ,PT.PERFORM_NM
+				    , IFNULL(CD.CLASS_CD_DTL_NM, 'X') PROTOCOL
+                    , CONCAT(SUBSTR(TM.BIRTH_YM,1,4) ,'-',SUBSTR(TM.BIRTH_YM,5,2),'-',SUBSTR(TM.BIRTH_YM,7,2)) BIRTH_YM
+                    ,DISE1.CLASS_CD_DTL_NM DIS_CLASS_DTL
+                    , CASE 
+						WHEN TM.SEX = 'F' THEN '여'
+						WHEN TM.SEX = 'M' THEN '남'
+					  END SEX
+				    ,CONCAT(SUBSTR(PM.VISIT_DATE,1,4) ,'.',SUBSTR(PM.VISIT_DATE,5,2),'.',SUBSTR(PM.VISIT_DATE,7,2)) EXEC_DATE
+				    ,PM.CXT_DIAG
+				    ,PM.CXT_DETAIL
+				    ,group_concat(DISTINCT IF(TC.CLASS_CD_DTL ='FIL05',TD.FILE_PATH ,NULL)) BLOOD_FATHER
+				    ,group_concat(DISTINCT IF(TC.CLASS_CD_DTL ='FIL16',TD.FILE_PATH ,NULL)) BLOOD_MOTHER
+				    ,group_concat(DISTINCT IF(TC.CLASS_CD_DTL ='FIL17',TD.FILE_PATH ,NULL)) BLOOD_CHILD
+					,group_concat(DISTINCT IF(TC.CLASS_CD_DTL ='FIL06',TD.FILE_PATH ,NULL)) AS URINE
+					,group_concat(DISTINCT IF(TC.CLASS_CD_DTL ='FIL07',TD.FILE_PATH ,NULL)) AS HUMAN_DERIVED_MATERIALS_FATHER
+					,group_concat(DISTINCT IF(TC.CLASS_CD_DTL ='FIL08',TD.FILE_PATH ,NULL)) AS HUMAN_DERIVED_MATERIALS_MOTHER
+					,group_concat(DISTINCT IF(TC.CLASS_CD_DTL ='FIL09',TD.FILE_PATH ,NULL)) AS HUMAN_DERIVED_MATERIALS_CHILD
+					,group_concat(DISTINCT IF(TC.CLASS_CD_DTL ='FIL10',TD.FILE_PATH ,NULL)) AS CONSENT_PROTECTOR
+					,group_concat(DISTINCT IF(TC.CLASS_CD_DTL ='FIL11',TD.FILE_PATH ,NULL)) AS CONSENT_CHILD
+					,group_concat(DISTINCT IF(TC.CLASS_CD_DTL ='FIL12',TD.FILE_PATH ,NULL)) AS KSADS
+					,group_concat(DISTINCT IF(TC.CLASS_CD_DTL ='FIL13',TD.FILE_PATH ,NULL)) AS CLINICAL_EVALUATION
+					,group_concat(DISTINCT IF(TC.CLASS_CD_DTL ='FIL14',TD.FILE_PATH ,NULL)) AS CLINICAL_EVALUATION4
+					,group_concat(DISTINCT IF(TC.CLASS_CD_DTL ='FIL02',TD.FILE_PATH ,NULL)) AS PSYCH_TESTING
+					,group_concat(DISTINCT IF(TC.CLASS_CD_DTL ='FIL03',TD.FILE_PATH ,NULL)) AS QUESTIONNAIRE
+					,group_concat(DISTINCT IF(TC.CLASS_CD_DTL ='FIL15',TD.FILE_PATH ,NULL)) AS PERINATAL_DEVELOPMENT_ABILITY
+				    ,group_concat(DISTINCT IF(TI.SERIES_ID ='SER01',TI.PATH ,NULL)) AS FMRI
+				    ,group_concat(DISTINCT IF(TI.SERIES_ID ='SER02',TI.PATH ,NULL)) AS FLAIR
+				    ,group_concat(DISTINCT IF(TI.SERIES_ID ='SER03',TI.PATH ,NULL)) AS T1
+				    ,group_concat(DISTINCT IF(TI.SERIES_ID ='SER04',TI.PATH ,NULL)) AS DTI
+				    ,group_concat(DISTINCT IF(TI.SERIES_ID ='SER05',TI.PATH ,NULL)) AS ETC
+				    ,group_concat(DISTINCT IF(TI.SERIES_ID ='SER06',TI.PATH ,NULL)) AS T2
+				    ,group_concat(DISTINCT IF(TI.SERIES_ID ='SER07',TI.PATH ,NULL)) AS AMRI
+				    ,group_concat(DISTINCT IF(TI.SERIES_ID ='SER08',TI.PATH ,NULL)) AS ASL
+				    ,group_concat(DISTINCT IF(TI.SERIES_ID ='SER09',TI.PATH ,NULL)) AS SWI
+				    ,group_concat(DISTINCT TIT.FILE_PATH) AS TAR_FILE_PATH
+				    ,TM.REMARKS
+				FROM T_TARGET_MST TM
+				JOIN T_PERFORM_MST PM
+				ON TM.TARGET_ID = PM.TARGET_ID
+				AND TM.RND_ID = PM.RND_ID
+				AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+                JOIN T_TARGET_DIS_MST TDM
+                ON TM.TARGET_ID = TDM.TARGET_ORG_ID
+                AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+				LEFT JOIN T_CODE_DTL CD
+				ON CD.CLASS_CD = 'PT001'
+                AND TM.PROTOCOL = CD.CLASS_CD_DTL
+                LEFT JOIN T_CODE_DTL DISE1
+		        ON DISE1.CLASS_CD = 'DISE1'
+		        AND DISE1.CLASS_CD_DTL = TM.DIS_CLASS_DTL
+                LEFT JOIN T_DOC_FILE TD
+				ON TM.RND_ID = TD.RND_ID
+				AND TM.TARGET_ID = TD.TARGET_ID
+				AND TM.DIS_CLASS_DTL = TD.DIS_CLASS_DTL
+                AND TD.PERFORM_CNT = PM.PERFORM_CNT		
+				LEFT JOIN T_CODE_DTL TC
+				ON TD.FILE_CLASS_DTL = TC.CLASS_CD_DTL
+				AND TC.CLASS_CD = 'FILC1'
+				LEFT JOIN T_PERFORM_TERM PT
+				ON PM.RND_ID = PT.RND_ID
+				AND PM.PERFORM_CNT = PT.PERFORM_CNT
+				LEFT JOIN T_IMAGING_INFO TI
+				ON TI.RND_ID = TM.RND_ID
+				AND TI.DIS_CLASS_DTL = TM.DIS_CLASS_DTL
+				AND TI.PERFORM_CNT = PM.PERFORM_CNT
+				AND TI.TARGET_ID = PM.TARGET_ID
+				LEFT JOIN T_IMAGING_TARFILE TIT
+				ON TIT.RND_ID = TM.RND_ID
+				AND TIT.DIS_CLASS_DTL = TM.DIS_CLASS_DTL
+				AND TIT.PERFORM_NM = PT.PERFORM_NM
+				AND TIT.TARGET_ID = PM.TARGET_ID
+				WHERE 
+					TM.RND_ID = #{rndId, jdbcType=VARCHAR}
+					AND TM.TARGET_ID = #{targetId, jdbcType=VARCHAR}
+					AND NOT PM.STATUS = '0004'
+				GROUP BY TM.RND_ID
+				    ,TM.TARGET_ID    
+					,PM.PERFORM_CNT
+				    ,PT.PERFORM_NM
+				    ,PM.VISIT_DATE
+				    ,PM.CXT_DIAG
+			) A
+	</select>
+</mapper>
+		

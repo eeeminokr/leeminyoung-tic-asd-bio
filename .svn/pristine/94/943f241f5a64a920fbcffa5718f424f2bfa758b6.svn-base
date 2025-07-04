@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Common">
+	<resultMap id="performTermMap" type="PerformTermVO">
+		<result property="rndId"	column="RND_ID" />
+		<result property="performCnt"	column="PERFORM_CNT" />
+		<result property="performNm"	column="PERFORM_NM" />
+		<result property="fromYmd"	column="FROM_YMD" />
+		<result property="toYmd"	column="TO_YMD" />
+	</resultMap>
+	
+	<select id="selectPerformTerm" parameterType="map" resultMap="performTermMap">
+		SELECT
+			RND_ID,
+			PERFORM_CNT,
+			PERFORM_NM,
+			FROM_YMD,
+			TO_YMD
+		FROM
+			T_PERFORM_TERM
+		WHERE 1=1
+			<if test="performNm !=null and performNm != '' ">
+				AND PERFORM_NM= #{performNm}
+			</if>
+			<if test='check4Yn=="N"'>
+				AND PERFORM_CNT NOT IN (2,3,4)
+			</if>
+		ORDER BY PERFORM_CNT
+	</select>
+	
+	<select id="selectRndId" resultType="String">
+	
+		SELECT RND_ID
+		FROM T_RND_MST
+		ORDER BY RND_ID
+		LIMIT 0,1
+
+	</select>
+	
+	<update id="insertPerformTerm" parameterType="map">
+		INSERT INTO T_PERFORM_TERM(
+			RND_ID
+			,PERFORM_CNT
+			,PERFORM_NM
+			,CREATE_DATE
+			,CREATE_BY
+			,UPDATE_DATE
+			,UPDATE_BY
+		)VALUES(
+			#{rndId, jdbcType=VARCHAR}
+			,#{performCnt, jdbcType=VARCHAR}
+			,#{performNm, jdbcType=VARCHAR}
+			, now()
+			,#{createBy , jdbcType=VARCHAR}
+			, now()
+			,#{createBy , jdbcType=VARCHAR}
+		)
+		ON DUPLICATE KEY UPDATE
+			UPDATE_DATE = now()
+			,UPDATE_BY = #{createBy , jdbcType=VARCHAR}
+	</update>
+	
+	<delete id="deletePerformTerm">
+		DELETE FROM T_PERFORM_TERM 
+		WHERE 
+			RND_ID = #{rndId} 
+			AND '8' &lt; PERFORM_CNT 
+			AND #{performCntSec} &lt; PERFORM_CNT 
+			AND PERFORM_CNT &lt;= #{performCnt}
+	</delete>
+	
+</mapper>

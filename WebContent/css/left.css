@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+#BDSPleft {
+	float: left;
+	width: 130px;
+	height: 800px;
+	margin-left: 10px;
+	display: block;
+	position: relative;
+	z-index: 1000;
+}

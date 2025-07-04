@@ -1,0 +1,1410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SurveyAsd">
+	<resultMap id="surveyMenuList" type="SurveyAsdVO">
+		<result property="docId" 			column="DOC_ID"/>
+		<result property="docNm" 			column="DOC_NM"/>
+		<result property="disClassDtl" 		column="DIS_CLASS_DTL"/>
+		<result property="docClassDtl" 		column="DOC_CLASS_DTL"/>
+		<result property="docHeader" 		column="DOC_HEADER"/>
+	</resultMap>
+	
+	<resultMap id="surveyDtlList" type="SurveyAsdVO">
+		<result property="rownum"           column="ROWNUM"/>
+		<result property="targetId"         column="TARGET_ID"/>
+		<result property="targetDisId"      column="TARGET_DIS_ID"/>
+		<result property="disClassDtl" 		column="DIS_CLASS_DTL"/>
+		<result property="OdisClassDtl" 	column="O_DIS_CLASS_DTL"/>
+		<result property="sex"              column="SEX"/>                                                                                 
+		<result property="protocol"        	column="PROTOCOL"/>                                                                            
+		<result property="performCnt"       column="PERFORM_CNT"/>
+		<result property="performNm"       	column="PERFORM_NM"/>
+		<result property="age"              column="AGE"/>
+		<result property="execDate"         column="EXEC_DATE"/>
+		<result property="docId"            column="DOC_ID"/>
+		<result property="rndId"            column="RND_ID"/>
+		<result property="choiceAnswer"     column="CHOICE_ANSWER"/>
+		<result property="subjectAnswer"    column="SUBJECT_ANSWER"/>
+		<result property="score"            column="SCORE"/>
+		<result property="status"           column="STATUS"/>
+		<result property="remarks"          column="REMARKS"/>
+	</resultMap>
+	
+	<resultMap id="surveyTotalList" type="SurveyAsdTotalVO">
+		<result property="targetId"         column="TARGET_ID"/>
+		<result property="targetDisId"      column="TARGET_DIS_ID"/>
+		<result property="sex"              column="SEX"/>                                                                                 
+		<result property="protocol"        	column="PROTOCOL"/>
+		<result property="disClassDtl" 		column="DIS_CLASS_DTL"/>   
+		<result property="classCdDtlNm"     column="CLASS_CD_DTL_NM"/>                                                                            
+		<result property="performCnt"       column="PERFORM_CNT"/>
+		<result property="performNm"       	column="PERFORM_NM"/>
+		<result property="age"              column="AGE"/>
+		<result property="visitDate"       	column="VISIT_DATE"/>
+		<result property="execDate"         column="EXEC_DATE" />    
+		<result property="docId"            column="DOC_ID"/>
+
+<!-- 	<result property="cvCgis"         	column="CV_CGI_S"/>
+		<result property="cvCgii"           column="CV_CGI_I"/>
+		<result property="cvCgas"    		column="CV_C_GAS"/>
+-->		<result property="prdv1"				column="PRDV1"/>
+		<result property="ars01"				column="ARS01"/>
+		<result property="cbcl2"				column="CBCL2"/>
+		<result property="traum"				column="TRAUM"/>
+		<result property="cdi01"				column="CDI01"/>
+		<result property="iat01"				column="IAT01"/>
+		<result property="kscal"				column="KSCAL"/>
+		<result property="rcmas"				column="RCMAS"/>
+		<result property="stitc"				column="STITC"/>
+		<result property="stisc"				column="STISC"/>
+		<result property="kbis1"				column="KBIS1"/>
+		<result property="bdi01"				column="BDI01"/>
+		<result property="stitp"				column="STITP"/>
+		<result property="stisp"				column="STISP"/>
+		<result property="mbri1"				column="MBRI1"/>
+		<result property="kpsi1"				column="KPSI1"/>
+<!--    <result property="srs01"				column="SRS01"/>
+		<result property="ybocs"				column="YBOCS"/>
+		
+	 	<result property="cybo1"    			column="CYBO1"/>  -->
+		<result property="kmcht"    			column="KMCHT"/>
+		<result property="ocb15"    			column="OCB15"/>
+		<result property="cbc15"    			column="CBC15"/>
+		<result property="cpcl"    				column="CPCL"/>
+		<result property="lsd01"    			column="LSD01"/>
+		<result property="abc01"    			column="ABC01"/>
+		<result property="sib01"    			column="SIB01"/>
+		<result property="bpi01"    			column="BPI01"/>
+		<result property="srs03"    			column="SRS03"/>
+		<result property="scq01"    			column="SCQ01"/>
+		<result property="pc3q1"    			column="PC3Q1"/>
+		<result property="kasds"    			column="KASDS"/>
+		<result property="ssis1"    			column="SSIS1"/>
+		<result property="cmrsp"    			column="CMRSP"/>
+		<result property="qpgsr"    			column="QPGSR"/>
+		<result property="gsrs1"    			column="GSRS1"/>
+		<result property="kcshq"    			column="KCSHQ"/>
+		<result property="bdi02"    			column="BDI02"/>
+		<result property="cc3qc"    			column="CC3QC"/>
+		<result property="cc3qa"    			column="CC3QA"/>
+		<result property="traua"    			column="TRAUA"/>
+		<result property="pp3q1"    			column="PP3Q1"/>
+		<result property="ocbcl"    			column="OCBCL"/>
+		<result property="kscaa"    			column="KSCAA"/>
+		
+	</resultMap>
+	
+	<select id="selectRndId" parameterType="map" resultType="String">
+		SELECT RND_ID
+		FROM T_RND_MST
+		ORDER BY RND_ID
+		LIMIT 0,1
+	</select>
+	
+	<select id="selectSurveyMenuList" parameterType="map" resultMap="surveyMenuList">
+		SELECT
+			DOC_ID,
+			DOC_NM,
+			DIS_CLASS_DTL,
+			DOC_CLASS_DTL,
+			DOC_HEADER
+		FROM BDSP.T_DOC_MST
+		WHERE 1=1
+		<if test="disClassDtl == 'DS001'">
+			AND DOC_ID NOT IN('CYBO1')
+			AND DOC_ID NOT IN('CBCL1')
+		</if>
+			<if test="docClassDtl !=null and docClassDtl != '' ">
+		 		AND DOC_CLASS_DTL = #{docClassDtl}
+		 	</if>
+		 	AND DIS_CLASS_DTL = #{disClassDtl}
+		ORDER BY SORT_NO	
+	</select>
+	
+	<select id="selectDocNmByDocId" parameterType="map" resultType="String">
+		SELECT 
+			DOC_NM
+		FROM
+			T_DOC_MST
+		WHERE
+			DOC_ID = #{docId}
+			AND DIS_CLASS_DTL = #{disClassDtl}
+	</select>
+	
+	<select id="selectPerformCntList" parameterType="map" resultMap="surveyDtlList">
+		SELECT 
+			PERFORM_CNT
+			, PERFORM_NM
+		FROM
+			T_PERFORM_TERM
+		WHERE 1=1
+			AND PERFORM_CNT NOT IN (2,3,4)
+			<if test="performNm !=null and performNm!= '' ">
+		 		AND INSTR(PERFORM_NM, #{performNm}) > 0 
+		 	</if>
+		ORDER BY
+			PERFORM_NM * 1
+	</select>
+	
+	<select id="selectSurveyTotalListAo" parameterType="map" resultMap="surveyTotalList">
+		SELECT
+			A.*
+		FROM(
+		SELECT
+			TM.TARGET_ID
+			,TM.TARGET_DIS_ID
+			,DISE1.CLASS_CD_DTL_NM DIS_CLASS_DTL
+			,CASE 
+				WHEN TM.SEX = 'F' THEN '여'
+				WHEN TM.SEX = 'M' THEN '남'
+			END SEX
+		<!-- 	,IFNULL(CD.CLASS_CD_DTL_NM, '') PROTOCOL -->
+			, TM.PROTOCOL TP
+			,PM.PERFORM_CNT
+			,IFNULL(PT.PERFORM_NM,'') PERFORM_NM
+			,FN_CAL_AGE(TM.BIRTH_YM, PM.VISIT_DATE) AGE
+			, CONCAT(SUBSTR(PM.VISIT_DATE,1,4) ,'-',SUBSTR(PM.VISIT_DATE,5,2),'-',SUBSTR(PM.VISIT_DATE,7,2)) EXEC_DATE
+        	, CONCAT(SUBSTR(PM.VISIT_DATE,1,4) ,'-',SUBSTR(PM.VISIT_DATE,5,2),'-',SUBSTR(PM.VISIT_DATE,7,2)) VISIT_DATE
+           <!--  
+            , CASE WHEN ISNULL(PM.CV_CGI_S) OR PM.CV_CGI_S = '' THEN 'x' WHEN PM.CV_CGI_S ='#' THEN '-' ELSE PM.CV_CGI_S END CV_CGI_S
+            , CASE WHEN ISNULL(PM.CV_CGI_I) OR PM.CV_CGI_I = '' THEN 'x' WHEN PM.CV_CGI_I='#' THEN '-' ELSE PM.CV_CGI_I END CV_CGI_I
+            , CASE WHEN ISNULL(PM.CV_C_GAS) OR PM.CV_C_GAS = '' THEN 'x' WHEN PM.CV_C_GAS='#' THEN '-' ELSE PM.CV_C_GAS END CV_C_GAS
+            , CASE WHEN ISNULL(PM.SRS_CLINICAL) OR PM.SRS_CLINICAL = '' OR PM.SRS_CLINICAL = 'Z' THEN 'x' WHEN PM.SRS_CLINICAL='#' THEN '-' ELSE 'o' END SRS01
+            , CASE WHEN ISNULL(PM.CYBOCS) OR PM.CYBOCS = '' OR PM.CYBOCS = 'Z' THEN 'x' WHEN PM.CYBOCS='#' THEN '-' ELSE 'o' END CYBO1
+            , CASE WHEN ISNULL(PM.YBOCS) OR PM.YBOCS = '' OR PM.YBOCS = 'Z' THEN 'x' WHEN PM.YBOCS='#' THEN '-' ELSE 'o' END YBOCS
+            -->
+            , CASE WHEN ISNULL(PM.PRDV1) OR PM.PRDV1 = '' OR PM.PRDV1 = 'Z' THEN 'x' WHEN PM.PRDV1='#' THEN '-' ELSE 'o' END PRDV1
+            , CASE WHEN ISNULL(PM.KMCHAT) OR PM.KMCHAT = '' OR PM.KMCHAT = 'Z' THEN 'x' WHEN PM.KMCHAT='#' THEN '-' ELSE 'o' END KMCHT
+            , CASE WHEN ISNULL(PM.OLD_CBCL) OR PM.OLD_CBCL = '' OR PM.OLD_CBCL = 'Z' THEN 'x' WHEN PM.OLD_CBCL='#' THEN '-' ELSE 'o' END OCBCL
+            , CASE WHEN ISNULL(PM.CBCL2) OR PM.CBCL2 = '' OR PM.CBCL2 = 'Z' THEN 'x' WHEN PM.CBCL2='#' THEN '-' ELSE 'o' END CBCL2
+            , CASE WHEN ISNULL(PM.OLD_CBCL_15) OR PM.OLD_CBCL_15 = '' OR PM.OLD_CBCL_15 = 'Z' THEN 'x' WHEN PM.OLD_CBCL_15='#' THEN '-' ELSE 'o' END OCB15
+            , CASE WHEN ISNULL(PM.CBCL_15) OR PM.CBCL_15 = '' OR PM.CBCL_15 = 'Z' THEN 'x' WHEN PM.CBCL_15='#' THEN '-' ELSE 'o' END CBC15
+            , CASE WHEN ISNULL(PM.CPCL) OR PM.CPCL = '' OR PM.CPCL = 'Z' THEN 'x' WHEN PM.CPCL='#' THEN '-' ELSE 'o' END CPCL
+            , CASE WHEN ISNULL(PM.LSD) OR PM.LSD = '' OR PM.LSD = 'Z' THEN 'x' WHEN PM.LSD='#' THEN '-' ELSE 'o' END LSD01
+            , CASE WHEN ISNULL(PM.ARS) OR PM.ARS = '' OR PM.ARS = 'Z' THEN 'x' WHEN PM.ARS='#' THEN '-' ELSE 'o' END ARS01
+            , CASE WHEN ISNULL(PM.ABC) OR PM.ABC = '' OR PM.ABC = 'Z' THEN 'x' WHEN PM.ABC='#' THEN '-' ELSE 'o' END ABC01
+            , CASE WHEN ISNULL(PM.SIB) OR PM.SIB = '' OR PM.SIB = 'Z' THEN 'x' WHEN PM.SIB='#' THEN '-' ELSE 'o' END SIB01
+            , CASE WHEN ISNULL(PM.BPI) OR PM.BPI = '' OR PM.BPI = 'Z' THEN 'x' WHEN PM.BPI='#' THEN '-' ELSE 'o' END BPI01
+            , CASE WHEN ISNULL(PM.SRS) OR PM.SRS = '' OR PM.SRS = 'Z' THEN 'x' WHEN PM.SRS='#' THEN '-' ELSE 'o' END SRS03
+            , CASE WHEN ISNULL(PM.SCQ) OR PM.SCQ = '' OR PM.SCQ = 'Z' THEN 'x' WHEN PM.SCQ='#' THEN '-' ELSE 'o' END SCQ01
+            , CASE WHEN ISNULL(PM.PC3Q) OR PM.PC3Q = '' OR PM.PC3Q = 'Z' THEN 'x' WHEN PM.PC3Q='#' THEN '-' ELSE 'o' END PC3Q1
+            , CASE WHEN ISNULL(PM.K_ASDS) OR PM.K_ASDS = '' OR PM.K_ASDS = 'Z' THEN 'x' WHEN PM.K_ASDS='#' THEN '-' ELSE 'o' END KASDS
+            , CASE WHEN ISNULL(PM.SSIS) OR PM.SSIS = '' OR PM.SSIS = 'Z' THEN 'x' WHEN PM.SSIS='#' THEN '-' ELSE 'o' END SSIS1
+            , CASE WHEN ISNULL(PM.TRAUMA) OR PM.TRAUMA = '' OR PM.TRAUMA = 'Z' THEN 'x' WHEN PM.TRAUMA='#' THEN '-' ELSE 'o' END TRAUM
+			, CASE WHEN ISNULL(PM.CMRS_P) OR PM.CMRS_P = '' OR PM.CMRS_P ='Z' THEN 'x' WHEN PM.CMRS_P='#' THEN '-' ELSE 'o' END CMRSP
+			, CASE WHEN ISNULL(PM.QPGS_R3) OR PM.QPGS_R3 = '' OR PM.QPGS_R3 ='Z' THEN 'x' WHEN PM.QPGS_R3='#' THEN '-' ELSE 'o' END QPGSR
+			, CASE WHEN ISNULL(PM.GSRS) OR PM.GSRS = '' OR PM.GSRS ='Z' THEN 'x' WHEN PM.GSRS='#' THEN '-' ELSE 'o' END GSRS1
+			, CASE WHEN ISNULL(PM.K_CSHQ) OR PM.K_CSHQ = '' OR PM.K_CSHQ ='Z' THEN 'x' WHEN PM.K_CSHQ='#' THEN '-' ELSE 'o' END KCSHQ
+			, CASE WHEN ISNULL(PM.CDI_C) OR PM.CDI_C = '' OR PM.CDI_C THEN 'x' WHEN PM.CDI_C='#' THEN '-' ELSE 'o' END CDI01
+			, CASE WHEN ISNULL(PM.BDI_A) OR PM.BDI_A = '' OR PM.BDI_A THEN 'x' WHEN PM.BDI_A='#' THEN '-' ELSE 'o' END BDI02
+			, CASE WHEN ISNULL(PM.STAIT_C) OR PM.STAIT_C = '' OR PM.STAIT_C = 'Z' THEN 'x' WHEN PM.STAIT_C='#' THEN '-' ELSE 'o' END STITC
+			, CASE WHEN ISNULL(PM.STAIS_C) OR PM.STAIS_C = '' OR PM.STAIS_C = 'Z' THEN 'x' WHEN PM.STAIS_C='#' THEN '-' ELSE 'o' END STISC
+            , CASE WHEN ISNULL(PM.CC3Q_C) OR PM.CC3Q_C = '' OR PM.CC3Q_C = 'Z' THEN 'x' WHEN PM.CC3Q_C='#' THEN '-' ELSE 'o' END CC3QC
+			, CASE WHEN ISNULL(PM.CC3Q_A) OR PM.CC3Q_A = '' OR PM.CC3Q_A = 'Z' THEN 'x' WHEN PM.CC3Q_A='#' THEN '-' ELSE 'o' END CC3QA
+            , CASE WHEN ISNULL(PM.IAT) OR PM.IAT  = '' OR PM.IAT = 'Z' THEN 'x' WHEN PM.IAT='#' THEN '-' ELSE 'o' END IAT01
+			, CASE WHEN ISNULL(PM.K_SCALE) OR PM.K_SCALE = '' OR PM.K_SCALE = 'Z' THEN 'x' WHEN PM.K_SCALE='#' THEN '-' ELSE 'o' END KSCAL
+			, CASE WHEN ISNULL(PM.K_SCALE_A) OR PM.K_SCALE_A = '' OR PM.K_SCALE_A = 'Z' THEN 'x' WHEN PM.K_SCALE_A='#' THEN '-' ELSE 'o' END KSCAA
+			, CASE WHEN ISNULL(PM.RCMAS) OR PM.RCMAS  = '' OR PM.RCMAS = 'Z' THEN 'x' WHEN PM.RCMAS='#' THEN '-' ELSE 'o' END RCMAS
+            , CASE WHEN ISNULL(PM.TRAUMA_A) OR PM.TRAUMA_A  = '' OR PM.TRAUMA_A = 'Z' THEN 'x' WHEN PM.TRAUMA_A='#' THEN '-' ELSE 'o' END TRAUA
+            , CASE WHEN ISNULL(PM.BDI) OR PM.BDI = '' OR PM.BDI = 'Z' THEN 'x' WHEN PM.BDI='#' THEN '-' ELSE 'o' END BDI01
+			, CASE WHEN ISNULL(PM.STAIT_P) OR PM.STAIT_P = '' OR PM.STAIT_P = 'Z' THEN 'x' WHEN PM.STAIT_P='#' THEN '-' ELSE 'o' END STITP
+			, CASE WHEN ISNULL(PM.STAIS_P) OR PM.STAIS_P = '' OR PM.STAIS_P = 'Z' THEN 'x' WHEN PM.STAIS_P='#' THEN '-' ELSE 'o' END STISP
+			, CASE WHEN ISNULL(PM.MBRI) OR PM.MBRI = '' OR PM.MBRI = 'Z' THEN 'x' WHEN PM.MBRI='#' THEN '-' ELSE 'o' END MBRI1
+            , CASE WHEN ISNULL(PM.PP3Q) OR PM.PP3Q = '' OR PM.PP3Q = 'Z' THEN 'x' WHEN PM.PP3Q='#' THEN '-' ELSE 'o' END PP3Q1
+            , CASE WHEN ISNULL(PM.K_PSI) OR PM.K_PSI = '' OR PM.K_PSI = 'Z' THEN 'x' WHEN PM.K_PSI='#' THEN '-' ELSE 'o' END KPSI1
+		FROM T_TARGET_MST TM
+		JOIN T_PERFORM_MST PM
+        	ON TM.TARGET_ID = PM.TARGET_ID
+        	AND TM.RND_ID = PM.RND_ID
+        	AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+        	AND PM.STATUS != '0004'
+        LEFT JOIN T_TARGET_DIS_MST TDM
+        	ON TM.TARGET_ID = TDM.TARGET_ORG_ID
+        	AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+        LEFT JOIN T_CODE_DTL DISE1
+        ON DISE1.CLASS_CD = 'DISE1'
+        AND DISE1.CLASS_CD_DTL = TM.DIS_CLASS_DTL	
+		LEFT JOIN T_CODE_DTL CD
+			ON TM.PROTOCOL = CD.CLASS_CD_DTL
+		LEFT OUTER JOIN T_PERFORM_TERM PT
+           	ON PT.PERFORM_CNT = PM.PERFORM_CNT
+		WHERE 
+           NOT (TM.PROTOCOL = 'PTC03' AND PM.PERFORM_CNT IN (2,3,4))
+            <if test="sex !=null and sex != '' ">
+ 		 		AND TM.SEX = #{sex}
+ 		 	</if>
+ 		 	<if test="protocol !=null and protocol != '' ">
+ 				AND  REPLACE(CD.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+ 			</if>
+ 			<if test="disClassDtl !=null and disClassDtl != '' ">
+ 				AND TM.DIS_CLASS_DTL = #{disClassDtl}
+ 			</if>
+		GROUP BY
+			TM.TARGET_ID
+			, TM.TARGET_DIS_ID
+			, TM.SEX
+			, CD.CLASS_CD_DTL_NM
+			, TM.PROTOCOL
+			, AGE
+ 			, PERFORM_NM
+			, PM.VISIT_DATE
+			, PM.PERFORM_CNT
+			<!--  
+			, PM.CV_CGI_S
+            , PM.CV_CGI_I
+            , PM.CV_C_GAS
+            , PM.SRS_CLINICAL
+            , PM.CYBOCS
+            , PM.YBOCS
+            -->
+            , PM.PRDV1
+            , PM.KMCHAT
+            , PM.OLD_CBCL
+            , PM.CBCL2
+            , PM.OLD_CBCL_15
+            , PM.CBCL_15
+            , PM.CPCL
+            , PM.LSD
+            , PM.ARS
+            , PM.ABC
+            , PM.SIB
+            , PM.BPI
+            , PM.SRS
+            , PM.SCQ
+            , PM.PC3Q
+            , PM.K_ASDS
+            , PM.SSIS
+            , PM.TRAUMA
+			, PM.CMRS_P
+			, PM.QPGS_R3
+			, PM.GSRS
+			, PM.K_CSHQ
+			, PM.CDI_C
+			, PM.BDI_A
+			, PM.STAIT_C
+			, PM.STAIS_C
+            , PM.CC3Q_C
+			, PM.CC3Q_A
+            , PM.IAT
+			, PM.K_SCALE
+			, PM.K_SCALE_A
+			, PM.RCMAS
+            , PM.TRAUMA_A
+            , PM.BDI
+			, PM.STAIT_P
+			, PM.STAIS_P
+			, PM.MBRI
+            , PM.PP3Q
+            , PM.K_PSI
+            ORDER BY TM.TARGET_ID ASC, PM.PERFORM_CNT ASC
+            ) A 
+            WHERE 1=1
+            <if test="targetId !=null and targetId != '' ">
+		 		AND UPPER(A.TARGET_ID) = UPPER(#{targetId})
+		 		</if>
+		 		<if test="targetDisId !=null and targetDisId != '' ">
+		 		AND UPPER(A.TARGET_DIS_ID) = UPPER(#{targetDisId})
+		 		</if>
+		 		<if test="startAge !=null and startAge != '' ">
+				AND A.AGE &gt;= #{startAge}
+				</if>
+				<if test="endAge !=null and endAge != '' ">
+				AND A.AGE &lt;= #{endAge}
+				</if>
+				<if test="performCnt !=null and performCnt != '' ">
+		 		AND A.PERFORM_CNT = #{performCnt}
+		 		</if>
+		 		<!-- 
+		 		<if test="cv !=null and cv !='' ">
+		 		<if test = 'cv == "Y"'>
+		 		AND (A.SRS01 = 'o' OR A.SRS01 = '.') 
+		 		AND (A.CYBO1 = 'o' OR A.CYBO1 = '.')
+		 		AND (A.YBOCS = 'o' OR A.YBOCS = '.')
+		 		AND (A.CV_CGI_S != 'x' OR A.CV_CGI_S != '-')
+		 		AND (A.CV_CGI_I != 'x' OR A.CV_CGI_I != '-')
+		 		AND (A.CV_C_GAS != 'x' OR A.CV_C_GAS != '-')
+		 		</if> 	
+		 		</if>
+		 	    -->
+		 	    <if test="prdv1 !=null and prdv1 !='' ">
+		 	    AND (A.PRDV1 = 'o' OR A.PRDV1 = '.')
+		 	    	</if>
+		 		<if test="pSelf !=null and pSelf !='' ">
+		 		<if test = 'pSelf == "Y"'>
+		 		AND (A.KMCHT = 'o' OR A.KMCHT = '.')
+		 		AND (A.OCBCL = 'o' OR A.OCBCL = '.')
+		 		AND (A.CBCL2 = 'o' OR A.CBCL2 = '.')
+		 		AND (A.OCB15 = 'o' OR A.OCB15 = '.')
+		 		AND (A.CBC15 = 'o' OR A.CBC15 = '.')
+		 		AND (A.CPCL = 'o' OR A.CPCL = '.')
+		 		AND (A.LSD01 = 'o' OR A.LSD01 = '.')
+		 		AND (A.ARS01 = 'o' OR A.ARS01 = '.')
+		 		AND (A.SIB01 = 'o' OR A.SIB01 = '.')
+		 		AND (A.BPI01 = 'o' OR A.BPI01 = '.')
+		 		AND (A.SRS03 = 'o' OR A.SRS03 = '.')
+		 		AND (A.SCQ01 = 'o' OR A.SCQ01 = '.')
+		 		AND (A.PC3Q1 = 'o' OR A.PC3Q1 = '.')
+		 		AND (A.KASDS = 'o' OR A.KASDS = '.')
+		 		AND (A.SSIS1 = 'o' OR A.SSIS1 = '.')
+		 		AND (A.TRAUM = 'o' OR A.TRAUM = '.')
+		 		AND (A.CMRSP = 'o' OR A.CMRSP = '.')
+		 		AND (A.QPGSR = 'o' OR A.QPGSR = '.')
+		 		AND (A.GSRS1 = 'o' OR A.GSRS1 = '.')
+		 		AND (A.KCSHQ = 'o' OR A.KCSHQ = '.')
+		 		</if>
+		 		</if>
+		 		<if test="cSelf !=null and cSelf !='' ">
+		 		<if test = 'cSelf == "Y"'>
+		 		AND (CDI01 = 'o' OR CDI01 = '.') 
+                AND (A.BDI02 = 'o' OR A.BDI02 = '.')
+                AND (STITC = 'o' OR STITC = '.') 
+                AND (STISC = 'o' OR STISC = '.') 
+                AND (CC3QC = 'o' OR CC3QC = '.') 
+                AND (CC3QA = 'o' OR CC3QC = '.') 
+		 		AND (IAT01 = 'o' OR IAT01 = '.') 
+		 		AND (KSCAL = 'o' OR KSCAL = '.') 
+                AND (KSCAA = 'o' OR KSCAA = '.') 
+                AND (RCMAS = 'o' OR RCMAS = '.') 
+                AND (TRAUA = 'o' OR TRAUA = '.') 
+		 		</if>
+		 		</if>
+		 		<if test="pSelf2 !=null and pSelf2 !='' ">
+		 		<if test = 'pSelf2 == "Y"'>
+		 		AND (BDI01 = 'o' OR BDI01 = '.') 
+                AND (STITP = 'o' OR STITP = '.') 
+		 		AND (STISP = 'o' OR STISP = '.') 
+                AND (MBRI1 = 'o' OR MBRI1 = '.') 
+                AND (PP3Q1 = 'o' OR PP3Q1 = '.') 
+                AND (KPSI1 = 'o' OR KPSI1 = '.') 
+		 		</if>
+		 		</if>
+		 		LIMIT #{start}, #{limit}
+	</select>
+	
+	<select id="selectSurveyTotalListAoTotal"   parameterType="map" resultType="int">
+		SELECT
+			COUNT(*) FROM(
+		SELECT
+			TM.TARGET_ID
+			,TM.TARGET_DIS_ID
+			,CASE 
+				WHEN TM.SEX = 'F' THEN '여'
+				WHEN TM.SEX = 'M' THEN '남'
+			END SEX
+			,IFNULL(CD.CLASS_CD_DTL_NM, '') PROTOCOL
+			, TM.PROTOCOL TP
+			,PM.PERFORM_CNT
+			,IFNULL(PT.PERFORM_NM,'') PERFORM_NM
+			,FN_CAL_AGE(TM.BIRTH_YM, PM.VISIT_DATE) AGE
+			, CONCAT(SUBSTR(PM.VISIT_DATE,1,4) ,'-',SUBSTR(PM.VISIT_DATE,5,2),'-',SUBSTR(PM.VISIT_DATE,7,2)) VISIT_DATE
+        	, CONCAT(SUBSTR(PM.VISIT_DATE,1,4) ,'-',SUBSTR(PM.VISIT_DATE,5,2),'-',SUBSTR(PM.VISIT_DATE,7,2)) EXEC_DATE
+           <!--   , CASE WHEN ISNULL(PM.CV_CGI_S) OR PM.CV_CGI_S = '' THEN 'x' WHEN PM.CV_CGI_S ='#' THEN '-' ELSE PM.CV_CGI_S END CV_CGI_S
+            , CASE WHEN ISNULL(PM.CV_CGI_I) OR PM.CV_CGI_I = '' THEN 'x' WHEN PM.CV_CGI_I='#' THEN '-' ELSE PM.CV_CGI_I END CV_CGI_I
+            , CASE WHEN ISNULL(PM.CV_C_GAS) OR PM.CV_C_GAS = '' THEN 'x' WHEN PM.CV_C_GAS='#' THEN '-' ELSE PM.CV_C_GAS END CV_C_GAS
+            , CASE WHEN ISNULL(PM.SRS_CLINICAL) OR PM.SRS_CLINICAL = '' OR PM.SRS_CLINICAL = 'Z' THEN 'x' WHEN PM.SRS_CLINICAL='#' THEN '-' ELSE 'o' END SRS01
+            , CASE WHEN ISNULL(PM.CYBOCS) OR PM.CYBOCS = '' THEN 'x' WHEN PM.CYBOCS='#' THEN '-' ELSE PM.CYBOCS END CYBO1
+            , CASE WHEN ISNULL(PM.YBOCS) OR PM.YBOCS = '' OR PM.YBOCS = 'Z' THEN 'x' WHEN PM.YBOCS='#' THEN '-' ELSE 'o' END YBOCS
+            -->
+             , CASE WHEN ISNULL(PM.PRDV1) OR PM.PRDV1 = '' OR PM.PRDV1 = 'Z' THEN 'x' WHEN PM.PRDV1='#' THEN '-' ELSE 'o' END PRDV1
+            , CASE WHEN ISNULL(PM.KMCHAT) OR PM.KMCHAT = '' OR PM.KMCHAT = 'Z' THEN 'x' WHEN PM.KMCHAT='#' THEN '-' ELSE 'o' END KMCHT
+            , CASE WHEN ISNULL(PM.OLD_CBCL) OR PM.OLD_CBCL = '' OR PM.OLD_CBCL = 'Z' THEN 'x' WHEN PM.OLD_CBCL='#' THEN '-' ELSE 'o' END OCBCL
+            , CASE WHEN ISNULL(PM.CBCL2) OR PM.CBCL2 = '' OR PM.CBCL2 = 'Z' THEN 'x' WHEN PM.CBCL2='#' THEN '-' ELSE 'o' END CBCL2
+            , CASE WHEN ISNULL(PM.OLD_CBCL_15) OR PM.OLD_CBCL_15 = '' OR PM.OLD_CBCL_15 = 'Z' THEN 'x' WHEN PM.OLD_CBCL_15='#' THEN '-' ELSE 'o' END OCB15
+            , CASE WHEN ISNULL(PM.CBCL_15) OR PM.CBCL_15 = '' OR PM.CBCL_15 = 'Z' THEN 'x' WHEN PM.CBCL_15='#' THEN '-' ELSE 'o' END CBC15
+             , CASE WHEN ISNULL(PM.CPCL) OR PM.CPCL = '' OR PM.CPCL = 'Z' THEN 'x' WHEN PM.CPCL='#' THEN '-' ELSE 'o' END CPCL
+            
+            , CASE WHEN ISNULL(PM.LSD) OR PM.LSD = '' OR PM.LSD = 'Z' THEN 'x' WHEN PM.LSD='#' THEN '-' ELSE 'o' END LSD01
+            , CASE WHEN ISNULL(PM.ARS) OR PM.ARS = '' OR PM.ARS = 'Z' THEN 'x' WHEN PM.ARS='#' THEN '-' ELSE 'o' END ARS01
+            , CASE WHEN ISNULL(PM.ABC) OR PM.ABC = '' OR PM.ABC = 'Z' THEN 'x' WHEN PM.ABC='#' THEN '-' ELSE 'o' END ABC01
+            , CASE WHEN ISNULL(PM.SIB) OR PM.SIB = '' OR PM.SIB = 'Z' THEN 'x' WHEN PM.SIB='#' THEN '-' ELSE 'o' END SIB01
+            , CASE WHEN ISNULL(PM.BPI) OR PM.BPI = '' OR PM.BPI = 'Z' THEN 'x' WHEN PM.BPI='#' THEN '-' ELSE 'o' END BPI01
+            , CASE WHEN ISNULL(PM.SRS) OR PM.SRS = '' OR PM.SRS = 'Z' THEN 'x' WHEN PM.SRS='#' THEN '-' ELSE 'o' END SRS03
+            , CASE WHEN ISNULL(PM.SCQ) OR PM.SCQ = '' OR PM.SCQ = 'Z' THEN 'x' WHEN PM.SCQ='#' THEN '-' ELSE 'o' END SCQ01
+            , CASE WHEN ISNULL(PM.PC3Q) OR PM.PC3Q = '' OR PM.PC3Q = 'Z' THEN 'x' WHEN PM.PC3Q='#' THEN '-' ELSE 'o' END PC3Q1
+            , CASE WHEN ISNULL(PM.K_ASDS) OR PM.K_ASDS = '' OR PM.K_ASDS = 'Z' THEN 'x' WHEN PM.K_ASDS='#' THEN '-' ELSE 'o' END KASDS
+            , CASE WHEN ISNULL(PM.SSIS) OR PM.SSIS = '' OR PM.SSIS = 'Z' THEN 'x' WHEN PM.SSIS='#' THEN '-' ELSE 'o' END SSIS1
+            , CASE WHEN ISNULL(PM.TRAUMA) OR PM.TRAUMA = '' OR PM.TRAUMA = 'Z' THEN 'x' WHEN PM.TRAUMA='#' THEN '-' ELSE 'o' END TRAUM
+			, CASE WHEN ISNULL(PM.CMRS_P) OR PM.CMRS_P = '' OR PM.CMRS_P ='Z' THEN 'x' WHEN PM.CMRS_P='#' THEN '-' ELSE 'o' END CMRSP
+			, CASE WHEN ISNULL(PM.QPGS_R3) OR PM.QPGS_R3 = '' OR PM.QPGS_R3 ='Z' THEN 'x' WHEN PM.QPGS_R3='#' THEN '-' ELSE 'o' END QPGSR
+			, CASE WHEN ISNULL(PM.GSRS) OR PM.GSRS = '' OR PM.GSRS ='Z' THEN 'x' WHEN PM.GSRS='#' THEN '-' ELSE 'o' END GSRS1
+			, CASE WHEN ISNULL(PM.K_CSHQ) OR PM.K_CSHQ = '' OR PM.K_CSHQ ='Z' THEN 'x' WHEN PM.K_CSHQ='#' THEN '-' ELSE 'o' END KCSHQ
+			, CASE WHEN ISNULL(PM.CDI_C) OR PM.CDI_C = '' OR PM.CDI_C THEN 'x' WHEN PM.CDI_C='#' THEN '-' ELSE 'o' END CDI01
+			, CASE WHEN ISNULL(PM.BDI_A) OR PM.BDI_A = '' OR PM.BDI_A THEN 'x' WHEN PM.BDI_A='#' THEN '-' ELSE 'o' END BDI02
+			, CASE WHEN ISNULL(PM.STAIT_C) OR PM.STAIT_C = '' OR PM.STAIT_C = 'Z' THEN 'x' WHEN PM.STAIT_C='#' THEN '-' ELSE 'o' END STITC
+			, CASE WHEN ISNULL(PM.STAIS_C) OR PM.STAIS_C = '' OR PM.STAIS_C = 'Z' THEN 'x' WHEN PM.STAIS_C='#' THEN '-' ELSE 'o' END STISC
+            , CASE WHEN ISNULL(PM.CC3Q_C) OR PM.CC3Q_C = '' OR PM.CC3Q_C = 'Z' THEN 'x' WHEN PM.CC3Q_C='#' THEN '-' ELSE 'o' END CC3QC
+			, CASE WHEN ISNULL(PM.CC3Q_A) OR PM.CC3Q_A = '' OR PM.CC3Q_A = 'Z' THEN 'x' WHEN PM.CC3Q_A='#' THEN '-' ELSE 'o' END CC3QA
+            , CASE WHEN ISNULL(PM.IAT) OR PM.IAT  = '' OR PM.IAT = 'Z' THEN 'x' WHEN PM.IAT='#' THEN '-' ELSE 'o' END IAT01
+			, CASE WHEN ISNULL(PM.K_SCALE) OR PM.K_SCALE = '' OR PM.K_SCALE = 'Z' THEN 'x' WHEN PM.K_SCALE='#' THEN '-' ELSE 'o' END KSCAL
+			, CASE WHEN ISNULL(PM.K_SCALE_A) OR PM.K_SCALE_A = '' OR PM.K_SCALE_A = 'Z' THEN 'x' WHEN PM.K_SCALE_A='#' THEN '-' ELSE 'o' END KSCAA
+			, CASE WHEN ISNULL(PM.RCMAS) OR PM.RCMAS  = '' OR PM.RCMAS = 'Z' THEN 'x' WHEN PM.RCMAS='#' THEN '-' ELSE 'o' END RCMAS
+            , CASE WHEN ISNULL(PM.TRAUMA_A) OR PM.TRAUMA_A  = '' OR PM.TRAUMA_A = 'Z' THEN 'x' WHEN PM.TRAUMA_A='#' THEN '-' ELSE 'o' END TRAUA
+            , CASE WHEN ISNULL(PM.BDI) OR PM.BDI = '' OR PM.BDI = 'Z' THEN 'x' WHEN PM.BDI='#' THEN '-' ELSE 'o' END BDI01
+			, CASE WHEN ISNULL(PM.STAIT_P) OR PM.STAIT_P = '' OR PM.STAIT_P = 'Z' THEN 'x' WHEN PM.STAIT_P='#' THEN '-' ELSE 'o' END STITP
+			, CASE WHEN ISNULL(PM.STAIS_P) OR PM.STAIS_P = '' OR PM.STAIS_P = 'Z' THEN 'x' WHEN PM.STAIS_P='#' THEN '-' ELSE 'o' END STISP
+			, CASE WHEN ISNULL(PM.MBRI) OR PM.MBRI = '' OR PM.MBRI = 'Z' THEN 'x' WHEN PM.MBRI='#' THEN '-' ELSE 'o' END MBRI1
+            , CASE WHEN ISNULL(PM.PP3Q) OR PM.PP3Q = '' OR PM.PP3Q = 'Z' THEN 'x' WHEN PM.PP3Q='#' THEN '-' ELSE 'o' END PP3Q1
+            , CASE WHEN ISNULL(PM.K_PSI) OR PM.K_PSI = '' OR PM.K_PSI = 'Z' THEN 'x' WHEN PM.K_PSI='#' THEN '-' ELSE 'o' END KPSI1
+		FROM T_TARGET_MST TM
+		JOIN T_PERFORM_MST PM
+        	ON TM.TARGET_ID = PM.TARGET_ID
+        	AND TM.RND_ID = PM.RND_ID
+        	AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+        	AND PM.STATUS != '0004'
+        LEFT JOIN T_TARGET_DIS_MST TDM
+        	ON TM.TARGET_ID = TDM.TARGET_ORG_ID
+        	AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+		LEFT JOIN T_CODE_DTL CD
+			ON TM.PROTOCOL = CD.CLASS_CD_DTL
+		LEFT OUTER JOIN T_PERFORM_TERM PT
+           	ON PT.PERFORM_CNT = PM.PERFORM_CNT
+		WHERE 
+           NOT (TM.PROTOCOL = 'PTC03' AND PM.PERFORM_CNT IN (2,3,4))
+            <if test="sex !=null and sex != '' ">
+ 		 		AND TM.SEX = #{sex}
+ 		 	</if>
+ 		 	<if test="protocol !=null and protocol != '' ">
+ 				AND  REPLACE(CD.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+ 			</if>
+ 			<if test="disClassDtl !=null and disClassDtl != '' ">
+ 				AND TM.DIS_CLASS_DTL = #{disClassDtl}
+ 			</if>
+		GROUP BY
+			TM.TARGET_ID
+			, TM.TARGET_DIS_ID
+			, TM.SEX
+			, CD.CLASS_CD_DTL_NM
+			, TM.PROTOCOL
+			, AGE
+ 			, PERFORM_NM
+			, PM.VISIT_DATE
+			, PM.PERFORM_CNT
+			, PM.PRDV1
+			<!--  
+			, PM.CV_CGI_S
+            , PM.CV_CGI_I
+            , PM.CV_C_GAS
+            , PM.SRS_CLINICAL
+            , PM.CYBOCS
+            , PM.YBOCS
+            -->
+            , PM.KMCHAT
+            , PM.OLD_CBCL
+            , PM.CBCL2
+            , PM.OLD_CBCL_15
+            , PM.CBCL_15
+            , PM.CPCL
+            , PM.LSD
+            , PM.ARS
+            , PM.ABC
+            , PM.SIB
+            , PM.BPI
+            , PM.SRS
+            , PM.SCQ
+            , PM.PC3Q
+            , PM.K_ASDS
+            , PM.SSIS
+            , PM.TRAUMA
+			, PM.CMRS_P
+			, PM.QPGS_R3
+			, PM.GSRS
+			, PM.K_CSHQ
+			, PM.CDI_C
+			, PM.BDI_A
+			, PM.STAIT_C
+			, PM.STAIS_C
+            , PM.CC3Q_C
+			, PM.CC3Q_A
+            , PM.IAT
+			, PM.K_SCALE
+			, PM.K_SCALE_A
+			, PM.RCMAS
+            , PM.TRAUMA_A
+            , PM.BDI
+			, PM.STAIT_P
+			, PM.STAIS_P
+			, PM.MBRI
+            , PM.PP3Q
+            , PM.K_PSI
+            ORDER BY TM.TARGET_ID ASC, PM.PERFORM_CNT ASC
+            ) A 
+            WHERE 1=1
+            <if test="targetId !=null and targetId != '' ">
+		 		AND UPPER(A.TARGET_ID) = UPPER(#{targetId})
+		 		</if>
+		 		<if test="targetDisId !=null and targetDisId != '' ">
+		 		AND UPPER(A.TARGET_DIS_ID) = UPPER(#{targetDisId})
+		 		</if>
+		 		<if test="startAge !=null and startAge != '' ">
+				AND A.AGE &gt;= #{startAge}
+				</if>
+				<if test="endAge !=null and endAge != '' ">
+				AND A.AGE &lt;= #{endAge}
+				</if>
+				<if test="performCnt !=null and performCnt != '' ">
+		 		AND A.PERFORM_CNT = #{performCnt}
+		 		</if>
+		 		<!--  
+		 		<if test="cv !=null and cv !='' ">
+		 		<if test = 'cv == "Y"'>
+		 		AND (A.SRS01 = 'o' OR A.SRS01 = '.') 
+		 		AND (A.CYBO1 = 'o' OR A.CYBO1 = '.')
+		 		AND (A.YBOCS = 'o' OR A.YBOCS = '.')
+		 		AND (A.CV_CGI_S != 'x' OR A.CV_CGI_S != '-')
+		 		AND (A.CV_CGI_I != 'x' OR A.CV_CGI_I != '-')
+		 		AND (A.CV_C_GAS != 'x' OR A.CV_C_GAS != '-')
+		 		</if>
+		 		</if>
+		 		-->
+		 		 <if test="prdv1 !=null and prdv1 !='' ">
+		 	    AND (A.PRDV1 = 'o' OR A.PRDV1 = '.')
+		 	     </if>
+		 		<if test="pSelf !=null and pSelf !='' ">
+		 		<if test = 'pSelf == "Y"'>
+		 		AND (A.KMCHT = 'o' OR A.KMCHT = '.')
+		 		AND (A.OCBCL = 'o' OR A.OCBCL = '.')
+		 		AND (A.CBCL2 = 'o' OR A.CBCL2 = '.')
+		 		AND (A.OCB15 = 'o' OR A.OCB15 = '.')
+		 		AND (A.CBC15 = 'o' OR A.CBC15 = '.')
+		 		AND (A.CPCL = 'o' OR A.CPCL = '.')
+		 		AND (A.LSD01 = 'o' OR A.LSD01 = '.')
+		 		AND (A.ARS01 = 'o' OR A.ARS01 = '.')
+		 		AND (A.SIB01 = 'o' OR A.SIB01 = '.')
+		 		AND (A.BPI01 = 'o' OR A.BPI01 = '.')
+		 		AND (A.SRS03 = 'o' OR A.SRS03 = '.')
+		 		AND (A.SCQ01 = 'o' OR A.SCQ01 = '.')
+		 		AND (A.PC3Q1 = 'o' OR A.PC3Q1 = '.')
+		 		AND (A.KASDS = 'o' OR A.KASDS = '.')
+		 		AND (A.SSIS1 = 'o' OR A.SSIS1 = '.')
+		 		AND (A.TRAUM = 'o' OR A.TRAUM = '.')
+		 		AND (A.CMRSP = 'o' OR A.CMRSP = '.')
+		 		AND (A.QPGSR = 'o' OR A.QPGSR = '.')
+		 		AND (A.GSRS1 = 'o' OR A.GSRS1 = '.')
+		 		AND (A.KCSHQ = 'o' OR A.KCSHQ = '.')
+		 		</if>
+		 		</if>
+		 		<if test="cSelf !=null and cSelf !='' ">
+		 		<if test = 'cSelf == "Y"'>
+		 		AND (CDI01 = 'o' OR CDI01 = '.') 
+                AND (A.BDI02 = 'o' OR A.BDI02 = '.')
+                AND (STITC = 'o' OR STITC = '.') 
+                AND (STISC = 'o' OR STISC = '.') 
+                AND (CC3QC = 'o' OR CC3QC = '.') 
+                AND (CC3QA = 'o' OR CC3QC = '.') 
+		 		AND (IAT01 = 'o' OR IAT01 = '.') 
+		 		AND (KSCAL = 'o' OR KSCAL = '.') 
+                AND (KSCAA = 'o' OR KSCAA = '.') 
+                AND (RCMAS = 'o' OR RCMAS = '.') 
+                AND (TRAUA = 'o' OR TRAUA = '.') 
+		 		</if>
+		 		</if>
+		 		<if test="pSelf2 !=null and pSelf2 !='' ">
+		 		<if test = 'pSelf2 == "Y"'>
+		 		AND (BDI01 = 'o' OR BDI01 = '.') 
+                AND (STITP = 'o' OR STITP = '.') 
+		 		AND (STISP = 'o' OR STISP = '.') 
+                AND (MBRI1 = 'o' OR MBRI1 = '.') 
+                AND (PP3Q1 = 'o' OR PP3Q1 = '.') 
+                AND (KPSI1 = 'o' OR KPSI1 = '.') 
+		 		</if>
+		 		</if>
+	</select>
+	
+	<select id="selectSurveyDtlListTotal" parameterType="map" resultType="int">
+		SELECT COUNT(TARGET_ID) FROM (
+			SELECT 
+				DA.TARGET_ID
+				, FN_CAL_AGE(TM.BIRTH_YM, PM.VISIT_DATE) AGE
+			FROM 
+					(SELECT 
+							DOC_ID
+							, TARGET_ID
+							, PERFORM_CNT
+							, RND_ID
+						FROM 
+							T_DOC_AO_ANSWER
+						WHERE 1=1
+							<if test="docId !=null and docId != '' ">
+						 		AND DOC_ID = #{docId}
+						 	</if>
+						GROUP BY
+							DOC_ID, TARGET_ID, PERFORM_CNT, RND_ID) DA
+				JOIN
+					T_TARGET_MST TM
+				ON
+					DA.TARGET_ID = TM.TARGET_ID
+					AND TM.USE_YN = 'Y'
+				LEFT JOIN
+					T_TARGET_DIS_MST TDM
+				ON
+					TM.TARGET_ID = TDM.TARGET_ORG_ID
+					AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+				LEFT JOIN
+					T_CODE_DTL CD
+				ON
+					TM.PROTOCOL = CD.CLASS_CD_DTL
+				JOIN
+					T_PERFORM_TERM PT
+				ON
+					DA.PERFORM_CNT = PT.PERFORM_CNT
+				LEFT JOIN
+					T_PERFORM_MST PM
+				ON
+					DA.TARGET_ID = PM.TARGET_ID
+				    AND DA.PERFORM_CNT = PM.PERFORM_CNT
+				    AND DA.RND_ID = PM.RND_ID
+				WHERE 1=1
+                AND PM.STATUS != '0004'
+                	<if test="disClassDtl !=null and disClassDtl != '' ">
+						AND TM.DIS_CLASS_DTL = #{disClassDtl}
+					</if>
+					<if test="schKeyWord !='schTargetId' ">
+						<if test="targetId !=null and targetId != '' ">
+					 		AND UPPER(DA.TARGET_ID) = UPPER(#{targetId})
+					 	</if>
+					 	<if test="startAge !=null and startAge != '' ">
+							AND FN_CAL_AGE(TM.BIRTH_YM, PM.VISIT_DATE) &gt;= #{startAge}
+						</if>
+						<if test="endAge !=null and endAge != '' ">
+							AND FN_CAL_AGE(TM.BIRTH_YM, PM.VISIT_DATE) &lt;= #{endAge}
+						</if>
+						<if test="sex !=null and sex != '' ">
+					 		AND TM.SEX = #{sex}
+					 	</if>
+						<if test="protocol !=null and protocol != '' ">
+							AND  REPLACE(CD.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+						</if>
+						<if test="performCnt !=null and performCnt != '' ">
+					 		AND DA.PERFORM_CNT = #{performCnt}
+					 	</if>
+						<if test="performNm !=null and performNm != '' ">
+					 		AND PT.PERFORM_NM = #{performNm}
+					 	</if>
+					 </if>
+					) A
+				WHERE 1=1
+			 	<if test="schKeyWord == 'schTargetId' ">
+					AND TARGET_ID = #{targetId}
+					AND PERFORM_CNT = ${performCnt}
+					AND DOC_ID = #{docId}
+				</if>
+	</select>
+	
+	<select id="selectSurveyDtlList" parameterType="map" resultMap="surveyDtlList">
+		SELECT B.* FROM (
+			SELECT @ROWNUM := @ROWNUM+1 ROWNUM, A.* FROM (
+				SELECT 
+					DA.TARGET_ID
+					,TM.TARGET_DIS_ID
+					,DISE1.CLASS_CD_DTL_NM DIS_CLASS_DTL
+					,TM.DIS_CLASS_DTL O_DIS_CLASS_DTL
+					, CASE 
+						WHEN TM.SEX = 'F' THEN '여'
+						WHEN TM.SEX = 'M' THEN '남'
+					END SEX
+					, PM.STATUS
+				<!--  	, CD.CLASS_CD_DTL_NM PROTOCOL -->
+					, DA.PERFORM_CNT
+					, PT.PERFORM_NM
+					, DA.DOC_ID
+					, DA.RND_ID
+					, FN_CAL_AGE(TM.BIRTH_YM, PM.VISIT_DATE) AGE
+					, DA.CHOICE_ANSWER
+					, DA.SUBJECT_ANSWER
+					, DA.SCORE
+				    , DA.REMARKS
+				     <if test="docId =='PRDV1'">
+						, CONCAT(SUBSTR(PM.PRDV1_DATE,1,4) ,'-',SUBSTR(PM.PRDV1_DATE,5,2),'-',SUBSTR(PM.PRDV1_DATE,7,2)) EXEC_DATE
+					</if>
+				   	<if test="docId =='ARS01'">
+						, CONCAT(SUBSTR(PM.ARS_DATE,1,4) ,'-',SUBSTR(PM.ARS_DATE,5,2),'-',SUBSTR(PM.ARS_DATE,7,2)) EXEC_DATE
+					</if>
+					<if test="docId =='SRS01'">
+						, CONCAT(SUBSTR(PM.SRS_CLINICAL_DATE,1,4) ,'-',SUBSTR(PM.SRS_CLINICAL_DATE,5,2),'-',SUBSTR(PM.SRS_CLINICAL_DATE,7,2)) EXEC_DATE
+					</if>
+					<if test="docId =='OCBCL'">
+						, CONCAT(SUBSTR(PM.OLD_CBCL_DATE,1,4) ,'-',SUBSTR(PM.OLD_CBCL_DATE,5,2),'-',SUBSTR(PM.OLD_CBCL_DATE,7,2)) EXEC_DATE	
+					</if>
+					<if test="docId =='TRAUM'">
+						, CONCAT(SUBSTR(PM.TRAUMA_DATE,1,4) ,'-',SUBSTR(PM.TRAUMA_DATE,5,2),'-',SUBSTR(PM.TRAUMA_DATE,7,2)) EXEC_DATE
+					</if>
+					<if test="docId =='CDI01'">
+						, CONCAT(SUBSTR(PM.CDI_DATE,1,4) ,'-',SUBSTR(PM.CDI_DATE,5,2),'-',SUBSTR(PM.CDI_DATE,7,2)) EXEC_DATE
+					</if>		
+					<if test="docId =='RCMAS'">
+						, CONCAT(SUBSTR(PM.RCMAS_DATE,1,4) ,'-',SUBSTR(PM.RCMAS_DATE,5,2),'-',SUBSTR(PM.RCMAS_DATE,7,2)) EXEC_DATE
+					</if>
+					<if test="docId =='KSCAL'">
+						, CONCAT(SUBSTR(PM.K_SCALE_DATE,1,4) ,'-',SUBSTR(PM.K_SCALE_DATE,5,2),'-',SUBSTR(PM.K_SCALE_DATE,7,2)) EXEC_DATE
+					</if>
+					<if test="docId =='STITC'">
+						, CONCAT(SUBSTR(PM.STAIT_C_DATE,1,4) ,'-',SUBSTR(PM.STAIT_C_DATE,5,2),'-',SUBSTR(PM.STAIT_C_DATE,7,2)) EXEC_DATE
+					</if>
+					<if test="docId =='STISC'">
+						, CONCAT(SUBSTR(PM.STAIS_C_DATE,1,4) ,'-',SUBSTR(PM.STAIS_C_DATE,5,2),'-',SUBSTR(PM.STAIS_C_DATE,7,2)) EXEC_DATE
+					</if>
+					<if test="docId =='BDI01'">
+						, CONCAT(SUBSTR(PM.BDI_DATE,1,4) ,'-',SUBSTR(PM.BDI_DATE,5,2),'-',SUBSTR(PM.BDI_DATE,7,2)) EXEC_DATE
+					</if>
+					<if test="docId =='STITP'">
+						, CONCAT(SUBSTR(PM.STAIT_P_DATE,1,4) ,'-',SUBSTR(PM.STAIT_P_DATE,5,2),'-',SUBSTR(PM.STAIT_P_DATE,7,2)) EXEC_DATE 
+					</if>
+					<if test="docId =='STISP'">
+						, CONCAT(SUBSTR(PM.STAIS_P_DATE,1,4) ,'-',SUBSTR(PM.STAIS_P_DATE,5,2),'-',SUBSTR(PM.STAIS_P_DATE,7,2)) EXEC_DATE
+					</if>
+					<if test="docId =='IAT01'">
+						, CONCAT(SUBSTR(PM.IAT_DATE,1,4) ,'-',SUBSTR(PM.IAT_DATE,5,2),'-',SUBSTR(PM.IAT_DATE,7,2)) EXEC_DATE
+					</if>
+					<if test="docId =='MBRI1'">
+						, CONCAT(SUBSTR(PM.MBRI_DATE,1,4) ,'-',SUBSTR(PM.MBRI_DATE,5,2),'-',SUBSTR(PM.MBRI_DATE,7,2)) EXEC_DATE
+					</if>
+					<if test="docId =='KPSI1'">
+						, CONCAT(SUBSTR(PM.K_PSI_DATE,1,4) ,'-',SUBSTR(PM.K_PSI_DATE,5,2),'-',SUBSTR(PM.K_PSI_DATE,7,2)) EXEC_DATE
+					</if>
+					<if test="docId =='YBOCS'">
+						, CONCAT(SUBSTR(PM.YBOCS_DATE,1,4) ,'-',SUBSTR(PM.YBOCS_DATE,5,2),'-',SUBSTR(PM.YBOCS_DATE,7,2)) EXEC_DATE		
+					</if>
+				<!--  	<if test="docId =='PRDV1'">
+						, CONCAT(SUBSTR(DA.REMARKS,1,4) ,'-',SUBSTR(DA.REMARKS,5,2),'-',SUBSTR(DA.REMARKS,7,2)) EXEC_DATE		
+					</if>
+				-->	
+					<if test="docId =='CYBO1'">
+						, CONCAT(SUBSTR(PM.CYBOCS_DATE,1,4) ,'-',SUBSTR(PM.CYBOCS_DATE,5,2),'-',SUBSTR(PM.CYBOCS_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='KMCHT'">
+						, CONCAT(SUBSTR(PM.KMCHAT_DATE,1,4) ,'-',SUBSTR(PM.KMCHAT_DATE,5,2),'-',SUBSTR(PM.KMCHAT_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='CBCL2'">
+						, CONCAT(SUBSTR(PM.CBCL2_DATE,1,4) ,'-',SUBSTR(PM.CBCL2_DATE,5,2),'-',SUBSTR(PM.CBCL2_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='OCB15'">
+						, CONCAT(SUBSTR(PM.OLD_CBCL_15_DATE,1,4) ,'-',SUBSTR(PM.OLD_CBCL_15_DATE,5,2),'-',SUBSTR(PM.OLD_CBCL_15_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='SIB01'">
+						, CONCAT(SUBSTR(PM.SIB_DATE,1,4) ,'-',SUBSTR(PM.SIB_DATE,5,2),'-',SUBSTR(PM.SIB_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='BPI01'">
+						, CONCAT(SUBSTR(PM.BPI_DATE,1,4) ,'-',SUBSTR(PM.BPI_DATE,5,2),'-',SUBSTR(PM.BPI_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='BDI02'">
+						, CONCAT(SUBSTR(PM.BDI_A_DATE,1,4) ,'-',SUBSTR(PM.BDI_A_DATE,5,2),'-',SUBSTR(PM.BDI_A_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='CC3QC'">
+						, CONCAT(SUBSTR(PM.CC3Q_C_DATE,1,4) ,'-',SUBSTR(PM.CC3Q_C_DATE,5,2),'-',SUBSTR(PM.CC3Q_C_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='CC3QA'">
+						, CONCAT(SUBSTR(PM.CC3Q_A_DATE,1,4) ,'-',SUBSTR(PM.CC3Q_A_DATE,5,2),'-',SUBSTR(PM.CC3Q_A_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='SRS03'">
+						, CONCAT(SUBSTR(PM.SRS_DATE,1,4) ,'-',SUBSTR(PM.SRS_DATE,5,2),'-',SUBSTR(PM.SRS_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='SCQ01'">
+						, CONCAT(SUBSTR(PM.SCQ_DATE,1,4) ,'-',SUBSTR(PM.SCQ_DATE,5,2),'-',SUBSTR(PM.SCQ_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='LSD01'">
+						, CONCAT(SUBSTR(PM.LSD_DATE,1,4) ,'-',SUBSTR(PM.LSD_DATE,5,2),'-',SUBSTR(PM.LSD_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='ABC01'">
+						, CONCAT(SUBSTR(PM.ABC_DATE,1,4) ,'-',SUBSTR(PM.ABC_DATE,5,2),'-',SUBSTR(PM.ABC_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='SSIS1'">
+						, CONCAT(SUBSTR(PM.SSIS_DATE,1,4) ,'-',SUBSTR(PM.SSIS_DATE,5,2),'-',SUBSTR(PM.SSIS_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='TRAUA'">
+						, CONCAT(SUBSTR(PM.TRAUMA_A_DATE,1,4) ,'-',SUBSTR(PM.TRAUMA_A_DATE,5,2),'-',SUBSTR(PM.TRAUMA_A_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='PP3Q1'">
+						, CONCAT(SUBSTR(PM.PP3Q_DATE,1,4) ,'-',SUBSTR(PM.PP3Q_DATE,5,2),'-',SUBSTR(PM.PP3Q_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='PC3Q1'">
+						, CONCAT(SUBSTR(PM.PC3Q_DATE,1,4) ,'-',SUBSTR(PM.PC3Q_DATE,5,2),'-',SUBSTR(PM.PC3Q_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='KASDS'">
+						, CONCAT(SUBSTR(PM.K_ASDS_DATE,1,4) ,'-',SUBSTR(PM.K_ASDS_DATE,5,2),'-',SUBSTR(PM.K_ASDS_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='KSCAA'">
+						, CONCAT(SUBSTR(PM.K_SCALE_A_DATE,1,4) ,'-',SUBSTR(PM.K_SCALE_A_DATE,5,2),'-',SUBSTR(PM.K_SCALE_A_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='CMRSP'">
+						, CONCAT(SUBSTR(PM.CMRS_P_DATE,1,4) ,'-',SUBSTR(PM.CMRS_P_DATE,5,2),'-',SUBSTR(PM.CMRS_P_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='QPGSR'">
+						, CONCAT(SUBSTR(PM.QPGS_R3_DATE,1,4) ,'-',SUBSTR(PM.QPGS_R3_DATE,5,2),'-',SUBSTR(PM.QPGS_R3_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='GSRS1'">
+						, CONCAT(SUBSTR(PM.GSRS_DATE,1,4) ,'-',SUBSTR(PM.GSRS_DATE,5,2),'-',SUBSTR(PM.GSRS_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='KCSHQ'">
+						, CONCAT(SUBSTR(PM.K_CSHQ_DATE,1,4) ,'-',SUBSTR(PM.K_CSHQ_DATE,5,2),'-',SUBSTR(PM.K_CSHQ_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='CBC15'">
+						, CONCAT(SUBSTR(PM.CBCL_15_DATE,1,4) ,'-',SUBSTR(PM.CBCL_15_DATE,5,2),'-',SUBSTR(PM.CBCL_15_DATE,7,2)) EXEC_DATE		
+					</if>
+					<if test="docId =='CPCL'">
+						, CONCAT(SUBSTR(PM.CPCL_DATE,1,4) ,'-',SUBSTR(PM.CPCL_DATE,5,2),'-',SUBSTR(PM.CPCL_DATE,7,2)) EXEC_DATE		
+					</if>
+					
+				FROM 
+					(SELECT 
+							DOC_ID
+							, TARGET_ID
+							, PERFORM_CNT
+							, RND_ID
+							, GROUP_CONCAT(CHOICE_ANSWER ORDER BY TARGET_ID, PERFORM_CNT, INQ_NO SEPARATOR '|') CHOICE_ANSWER
+                            , GROUP_CONCAT(SUBJECT_ANSWER ORDER BY TARGET_ID, PERFORM_CNT, INQ_NO SEPARATOR  '|') SUBJECT_ANSWER
+				            , GROUP_CONCAT(SCORE ORDER BY TARGET_ID, PERFORM_CNT, INQ_NO SEPARATOR  '|') SCORE
+				            , GROUP_CONCAT(REMARKS ORDER BY TARGET_ID, PERFORM_CNT, INQ_NO SEPARATOR  '|') REMARKS
+                            FROM (
+								SELECT 
+									DOC_ID
+									, TARGET_ID
+									, PERFORM_CNT
+									, RND_ID
+									, INQ_NO
+									, CASE WHEN CHOICE_ANSWER IS NULL OR CHOICE_ANSWER = '' THEN 'x' WHEN CHOICE_ANSWER = '#' THEN '-' ELSE CHOICE_ANSWER END CHOICE_ANSWER
+									, CASE WHEN SUBJECT_ANSWER IS NULL OR SUBJECT_ANSWER = ' ' THEN 'x' WHEN SUBJECT_ANSWER = '#' THEN '-' ELSE SUBJECT_ANSWER END SUBJECT_ANSWER
+									, CASE WHEN SCORE IS NULL OR SCORE = '' THEN 'x' WHEN SCORE = '#' THEN '-' ELSE SCORE END SCORE
+									, CASE WHEN REMARKS IS NULL OR REMARKS = '' THEN 'x' WHEN REMARKS = '#' THEN '-' ELSE REMARKS END REMARKS
+							FROM 
+								T_DOC_AO_ANSWER
+						WHERE 1=1
+							<if test="docId !=null and docId != '' ">
+						 		AND DOC_ID = #{docId}
+						 	</if>
+						 	<if test="schKeyWord !='schTargetId' ">
+							 	<if test="targetId !=null and targetId != '' ">
+							 		AND TARGET_ID = #{targetId}
+							 	</if>
+							 	<if test="performCnt !=null and performCnt != '' ">
+							 		AND PERFORM_CNT = #{performCnt}
+							 	</if>
+							 </if>
+							 ) DA1
+						GROUP BY
+							DOC_ID, TARGET_ID, PERFORM_CNT, RND_ID) DA
+				JOIN (SELECT @ROWNUM:=0) AS R
+				JOIN
+					T_TARGET_MST TM
+				ON
+					DA.TARGET_ID = TM.TARGET_ID
+					AND TM.USE_YN = 'Y'
+				LEFT JOIN
+					T_TARGET_DIS_MST TDM
+				ON
+					TM.TARGET_ID = TDM.TARGET_ORG_ID
+					AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+				LEFT JOIN
+					T_CODE_DTL CD
+				ON
+					TM.PROTOCOL = CD.CLASS_CD_DTL
+		
+				LEFT JOIN T_CODE_DTL DISE1
+        		
+        		ON 
+        			DISE1.CLASS_CD = 'DISE1'
+        		AND 
+        		DISE1.CLASS_CD_DTL = TM.DIS_CLASS_DTL	
+					
+				JOIN
+					T_PERFORM_TERM PT
+				ON
+					DA.PERFORM_CNT = PT.PERFORM_CNT
+				LEFT JOIN
+					T_PERFORM_MST PM
+				ON
+					DA.TARGET_ID = PM.TARGET_ID
+				    AND DA.PERFORM_CNT = PM.PERFORM_CNT
+				    AND DA.RND_ID = PM.RND_ID
+				WHERE 1=1
+					<if test="OdisClassDtl !=null and OdisClassDtl != '' ">
+						AND TM.DIS_CLASS_DTL = #{OdisClassDtl}
+					</if>
+					<if test="schKeyWord !='schTargetId' ">
+						<if test="targetId !=null and targetId != '' ">
+					 		AND UPPER(DA.TARGET_ID) = UPPER(#{targetId})
+					 	</if>
+					 	<if test="targetDisId !=null and targetDisId != '' ">
+					 		AND UPPER(TM.TARGET_DIS_ID) = UPPER(#{targetDisId})
+					 	</if>
+					 	<if test="docId !=null and docId != '' ">
+			                AND DA.DOC_ID = #{docId}
+			            </if>
+					 	<if test="startAge !=null and startAge != '' ">
+							AND FN_CAL_AGE(TM.BIRTH_YM, PM.VISIT_DATE) &gt;= #{startAge}
+						</if>
+						<if test="endAge !=null and endAge != '' ">
+							AND FN_CAL_AGE(TM.BIRTH_YM, PM.VISIT_DATE) &lt;= #{endAge}
+						</if>
+						<if test="sex !=null and sex != '' ">
+					 		AND TM.SEX = #{sex}
+					 	</if>
+						<if test="protocol !=null and protocol != '' ">
+							AND  REPLACE(CD.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+						</if>
+						<if test="performCnt !=null and performCnt != '' ">
+					 		AND DA.PERFORM_CNT = #{performCnt}
+					 	</if>
+						<if test="performNm !=null and performNm != '' ">
+					 		AND PT.PERFORM_NM = #{performNm}
+					 	</if>
+					 </if>
+				ORDER BY
+					DA.TARGET_ID, DA.PERFORM_CNT
+					) A
+				)B
+				WHERE 1=1
+					AND B.STATUS != '0004' 				
+			 	<if test="schKeyWord == 'schTargetId' ">
+					AND TARGET_ID = #{targetId}
+					AND PERFORM_CNT = ${performCnt}
+					AND DOC_ID = #{docId}
+				</if>
+		LIMIT #{start}, #{limit}
+	</select>
+	
+	<update id="insertSurveyDocAoAnswer" parameterType="map">
+		INSERT INTO T_DOC_AO_ANSWER(
+			DOC_ID
+			, TARGET_ID
+			, PERFORM_CNT
+			, INQ_NO
+			, RND_ID
+			, DOC_CLASS_DTL
+			, CHOICE_ANSWER
+			, SUBJECT_ANSWER
+			, SCORE
+			, REMARKS
+			, CREATE_DATE
+			, CREATE_BY
+			, UPDATE_DATE
+			, UPDATE_BY
+		)VALUES(
+			#{docId, jdbcType=VARCHAR}
+			, #{targetId, jdbcType=VARCHAR}
+			, #{performCnt, jdbcType=NUMERIC}
+			, #{inqNo, jdbcType=NUMERIC}
+			, #{rndId, jdbcType=VARCHAR}
+			, #{docClassDtl, jdbcType=VARCHAR}
+			, #{choiceAnswer, jdbcType=VARCHAR}
+			, #{subjectAnswer, jdbcType=VARCHAR}
+			, #{score, jdbcType=VARCHAR}
+			, #{remarks, jdbcType=VARCHAR}
+			, now()
+			, #{createBy , jdbcType=VARCHAR}
+			, now()
+			, #{createBy , jdbcType=VARCHAR}
+		)
+		ON DUPLICATE KEY UPDATE
+			CHOICE_ANSWER = #{choiceAnswer, jdbcType=VARCHAR}
+			, SUBJECT_ANSWER = #{subjectAnswer, jdbcType=VARCHAR}
+			, SCORE = #{score, jdbcType=VARCHAR}
+			, UPDATE_DATE = now()
+			, UPDATE_BY = #{createBy , jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updatePerformMst" parameterType="map">
+		
+		UPDATE T_PERFORM_MST
+		SET
+			<if test="surveyKind =='PRDV1'">
+				PRDV1 = #{execDate}
+				, PRDV1_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='ARS01'">
+				ARS = #{execDate}
+				, ARS_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='SRS01'">
+				SRS_CLINICAL = #{execDate}
+				, SRS_CLINICAL_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='TRAUM'">
+				TRAUMA = #{execDate}
+				, TRAUMA_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='CDI01'">
+				CDI_C = #{execDate}
+				, CDI_DATE = #{surveyExecDate}
+			</if>			
+			<if test="surveyKind =='RCMAS'">
+				RCMAS = #{execDate}
+				, RCMAS_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='KSCAL'">
+				K_SCALE = #{execDate}
+				, K_SCALE_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='STITC'">
+				STAIT_C = #{execDate}
+				, STAIT_C_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='STISC'">
+				STAIS_C = #{execDate}
+				, STAIS_C_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='BDI01'">
+				BDI = #{execDate}
+				, BDI_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='STITP'">
+				STAIT_P = #{execDate}
+				, STAIT_P_DATE = #{surveyExecDate} 
+			</if>
+			<if test="surveyKind =='STISP'">
+				STAIS_P = #{execDate}
+				, STAIS_P_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='IAT01'">
+				IAT = #{execDate}
+				, IAT_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='MBRI1'">
+				MBRI = #{execDate}
+				, MBRI_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='KPSI1'">
+				K_PSI = #{execDate}
+				, K_PSI_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='YBOCS'">
+				YBOCS = #{execDate}
+				, YBOCS_DATE = #{surveyExecDate}		
+			</if>
+			<if test="surveyKind =='CYBO1'">
+				CYBOCS = #{execDate}
+				, CYBOCS_DATE = #{surveyExecDate}		
+			</if>
+			<if test="surveyKind =='KMCHT'">
+				KMCHAT = #{execDate}
+				, KMCHAT_DATE = #{surveyExecDate}		
+			</if>
+			<if test="surveyKind =='CBCL2'">
+				CBCL2 = #{execDate}
+				, CBCL2_DATE = #{surveyExecDate}		
+			</if>
+			<if test="surveyKind =='CPCL'">
+				CPCL = #{execDate}
+				, CPCL_DATE = #{surveyExecDate}		
+			</if>			
+			<if test="surveyKind =='OCB15'">
+				OLD_CBCL_15 = #{execDate}
+				, OLD_CBCL_15_DATE = #{surveyExecDate}		
+			</if>
+			<if test="surveyKind =='OCBCL'">
+				OLD_CBCL = #{execDate}
+				, OLD_CBCL_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='SIB01'">
+				SIB = #{execDate}
+				, SIB_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='BPI01'">
+				BPI = #{execDate}
+				, BPI_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='BDI02'">
+				BDI_A = #{execDate}
+				, BDI_A_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='CC3QC'">
+				CC3Q_C = #{execDate}
+				, CC3Q_C_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='CC3QA'">
+				CC3Q_A = #{execDate}
+				, CC3Q_A_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='SRS03'">
+				SRS = #{execDate}
+				, SRS_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='SCQ01'">
+				SCQ = #{execDate}
+				, SCQ_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='LSD01'">
+				LSD = #{execDate}
+				, LSD_DATE = #{surveyExecDate}		
+			</if>
+			<if test="surveyKind =='ABC01'">
+				ABC = #{execDate}
+				, ABC_DATE = #{surveyExecDate}		
+			</if>
+			<if test="surveyKind =='SSIS1'">
+				SSIS = #{execDate}
+				, SSIS_DATE = #{surveyExecDate}		
+			</if>
+			<if test="surveyKind =='TRAUA'">
+				TRAUMA_A = #{execDate}
+				, TRAUMA_A_DATE = #{surveyExecDate}		
+			</if>
+			<if test="surveyKind =='PP3Q1'">
+				PP3Q = #{execDate}
+				, PP3Q_DATE = #{surveyExecDate}		
+			</if>
+			<if test="surveyKind =='PC3Q1'">
+				PC3Q = #{execDate}
+				, PC3Q_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='KASDS'">
+				K_ASDS = #{execDate}
+				, K_ASDS_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='CMRSP'">
+				CMRS_P = #{execDate}
+				, CMRS_P_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='QPGSR'">
+				QPGS_R3 = #{execDate}
+				, QPGS_R3_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='GSRS1'">
+				GSRS = #{execDate}
+				, GSRS_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='KCSHQ'">
+				K_CSHQ = #{execDate}
+				, K_CSHQ_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='KSCAA'">
+				K_SCALE_A = #{execDate}
+				, K_SCALE_A_DATE = #{surveyExecDate}
+			</if>
+			<if test="surveyKind =='CBC15'">
+				CBCL_15 = #{execDate}
+				, CBCL_15_DATE = #{surveyExecDate}
+			</if>
+		WHERE 1=1
+				AND TARGET_ID = #{targetId}
+				AND PERFORM_CNT = #{performCnt}
+				AND RND_ID = #{rndId}
+				AND DIS_CLASS_DTL = #{disClassDtl}
+	</update>
+	
+	<select id="selectPerformCntByNm" parameterType="map" resultType="String">
+		SELECT PERFORM_CNT
+		FROM T_PERFORM_TERM
+		WHERE PERFORM_NM = #{performCnt}
+	</select>
+	
+	<!--  	
+	<update id="updateSurveyCv" parameterType="map">
+		UPDATE 
+			T_PERFORM_MST 
+		SET
+			CV_CGI_S= #{cvCgiS}
+			, CV_CGI_I= #{cvCgiI}
+			, CV_C_GAS= #{cvCGas}
+			, CLINICAL_VALUATION = #{clinicalValuation}
+			, UPDATE_DATE = now()
+			, UPDATE_BY = #{updateBy}
+		WHERE
+			TARGET_ID = #{targetId}
+			AND DIS_CLASS_DTL = 'DS003'
+			AND PERFORM_CNT = #{performCnt}
+			AND RND_ID = #{rndId}
+	</update>
+	-->
+	
+	<delete id="deleteSurveyAsdAnswer" parameterType="map">
+		DELETE FROM T_DOC_AO_ANSWER
+		WHERE
+			TARGET_ID = #{targetId, jdbcType=VARCHAR}
+			AND PERFORM_CNT = #{performCnt, jdbcType=NUMERIC}
+			
+			<if test="docId !=null and docId != '' ">
+			<if test='docId !="Total"'>
+			AND DOC_ID = #{docId, jdbcType=VARCHAR}
+			</if>
+			</if>
+			<if test="inqNo !=null and inqNo != '' ">
+		 		AND INQ_NO = #{inqNo}
+		 	</if>
+	</delete>
+	
+	
+	<!--  	<update id="deleteSurveyAsdTotalPm" parameterType="map">
+		UPDATE T_PERFORM_MST
+		SET 
+			CV_CGI_S = NULL
+			, CV_CGI_I = NULL
+			, CV_C_GAS = NULL
+		WHERE
+			TARGET_ID = #{targetId, jdbcType=VARCHAR}
+			AND PERFORM_CNT = #{performCnt, jdbcType=NUMERIC}
+	</update>
+	-->
+	
+	
+	<update id="updateSurveyAsdPerformMstTotal" parameterType="map">
+		UPDATE T_PERFORM_MST SET
+		      PRDV1 = NULL
+			, KMCHAT = NULL
+			, OLD_CBCL = NULL
+			, CBCL2 = NULL
+			, OLD_CBCL_15 = NULL
+			, CBCL_15 = NULL
+			, CPCL = NULL
+			, LSD = NULL
+			, ARS = NULL
+			, ABC = NULL
+			, SIB = NULL
+			, BPI = NULL
+			, SRS = NULL
+			, SCQ = NULL
+			, PC3Q = NULL
+			, K_ASDS = NULL
+			, SSIS = NULL
+			, TRAUMA = NULL
+			, CMRS_P = NULL
+			, QPGS_R3 = NULL
+			, GSRS = NULL
+			, K_CSHQ = NULL
+			, CDI_C = NULL
+			, BDI_A = NULL
+			, STAIT_C = NULL
+			, STAIS_C = NULL
+			, CC3Q_C = NULL
+			, CC3Q_A = NULL
+			, IAT = NULL
+			, K_SCALE = NULL
+			, RCMAS = NULL
+			, TRAUMA_A = NULL
+			, BDI = NULL
+			, STAIT_P = NULL
+			, STAIS_P = NULL
+			, MBRI = NULL
+			, PP3Q = NULL
+			, K_PSI = NULL
+			, K_SCALE_A = NULL
+			, REMARKS = NULL
+		WHERE 1=1
+			AND TARGET_ID = #{targetId}
+			AND PERFORM_CNT = #{performCnt}
+	</update>
+	
+	
+	<update id="updateSurveyAsdPerformMst" parameterType="map">
+		UPDATE T_PERFORM_MST SET
+			<if test="docId =='PRDV1'">
+			PRDV1 = NULL
+			</if>
+	
+			<if test="docId =='KMCHT'">
+			KMCHAT = NULL
+			</if>
+			<if test="docId =='OCBCL'">
+			OLD_CBCL = NULL
+			</if>
+			<if test="docId =='OCB15'">
+			OLD_CBCL_15 = NULL
+			</if>
+			<if test="docId =='CBC15'">
+			CBCL_15 = NULL
+			</if>
+			<if test="docId =='CPCL'">
+			CPCL = NULL
+			</if>
+			<if test="docId =='LSD01'">
+			LSD = NULL
+			</if>
+			<if test="docId =='ARS01'">
+			ARS = NULL
+			</if>
+			<if test="docId =='ABC01'">
+			ABC = NULL
+			</if>
+			<if test="docId =='SIB01'">
+			SIB = NULL
+			</if>
+			<if test="docId =='BPI01'">
+			BPI = NULL
+			</if>
+			<if test="docId =='SRS03'">
+			SRS = NULL
+			</if>
+			<if test="docId =='SCQ01'">
+			SCQ = NULL
+			</if>
+			<if test="docId =='PC3Q1'">
+			PC3Q = NULL
+			</if>
+			<if test="docId =='KASDS'">
+			K_ASDS = NULL
+			</if>
+			<if test="docId =='SSIS1'">
+			SSIS = NULL
+			</if>
+			<if test="docId =='TRAUM'">
+			TRAUMA = NULL
+			</if>
+			<if test="docId =='CMRSP'">
+			CMRS_P = NULL
+			</if>
+			<if test="docId =='QPGSR'">
+			QPGS_R3 = NULL
+			</if>
+			<if test="docId =='GSRS1'">
+			GSRS = NULL
+			</if>
+			<if test="docId =='KCSHQ'">
+			K_CSHQ = NULL
+			</if>
+			<if test="docId =='CDI01'">
+			CDI_C = NULL
+			</if>
+			<if test="docId =='BDI02'">
+			BDI_A = NULL
+			</if>
+			<if test="docId =='STITC'">
+			STAIT_C = NULL
+			</if>
+			<if test="docId =='STISC'">
+			STAIS_C = NULL
+			</if>
+			<if test="docId =='CC3QC'">
+			CC3Q_C = NULL
+			</if>
+			<if test="docId =='CC3QA'">
+			CC3Q_A = NULL
+			</if>
+			<if test="docId =='IAT01'">
+			IAT = NULL
+			</if>
+			<if test="docId =='KSCAL'">
+			K_SCALE = NULL
+			</if>
+			<if test="docId =='RCMAS'">
+			RCMAS = NULL
+			</if>
+			<if test="docId =='TRAUA'">
+			TRAUMA_A = NULL
+			</if>
+			<if test="docId =='BDI01'">
+			BDI = NULL
+			</if>
+			<if test="docId =='STISP'">
+			STAIT_P = NULL
+			</if>
+			<if test="docId =='STITP'">
+			STAIS_P = NULL
+			</if>
+			<if test="docId =='MBRI1'">
+			MBRI = NULL
+			</if>
+			<if test="docId =='PP3Q1'">
+			PP3Q = NULL
+			</if>
+			<if test="docId =='KPSI1'">
+			K_PSI = NULL
+			</if>
+			<if test="docId =='KSCAA'">
+			K_SCALE_A = NULL
+			</if>
+			WHERE 1=1 
+			AND TARGET_ID = #{targetId}
+			AND PERFORM_CNT = #{performCnt}
+	</update>
+</mapper>

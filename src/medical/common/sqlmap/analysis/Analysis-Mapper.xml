@@ -1,0 +1,808 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Analysis">
+
+	<resultMap id="analysisMenuList"  type="AnalysisVO">
+		<result property="docId" 			column="DOC_ID"/>
+		<result property="docNm" 			column="DOC_NM"/>
+		<result property="disClassDtl" 		column="DIS_CLASS_DTL"/>
+		<result property="docClassDtl" 		column="DOC_CLASS_DTL"/>
+		<result property="docHeader" 		column="DOC_HEADER"/>
+	</resultMap>
+	
+	<resultMap id="analysisEnvMattList" 	type="AnalysisTAnalEnvMattVO">
+		<result property="rownum"           column="ROWNUM"/>
+		<result property="targetId"         column="TARGET_ID"/>
+		<result property="targetDisId"      column="TARGET_DIS_ID"/>
+		<result property="disClassDtl" 		column="DIS_CLASS_DTL"/>
+		<result property="sex"              column="SEX"/>                                                                                 
+		<result property="protocol"        	column="PROTOCOL"/>                                                                            
+		<result property="performCnt"       column="PERFORM_CNT"/>
+		<result property="performNm"       	column="PERFORM_NM"/>
+		<result property="performCntNm"     column="PERFORM_CNT_NM"/>
+		<result property="age"              column="AGE"/>
+		<result property="docId"            column="DOC_ID"/>
+		<result property="rndId"            column="RND_ID"/>
+		<result property="collectDate"		column="COLLECT_DATE"/>
+		<result property="analDate"			column="ANAL_DATE"/>
+		<result property="creatinine"		column="CREATININE"/>
+		<result property="cot"				column="COT"/>
+		<result property="cotCreatinine"    column="COT_CREATININE"/>
+		<result property="mehhp"            column="MEHHP"/>
+		<result property="mehhpCreatinine"	column="MEHHP_CREATININE"/>
+		<result property="meohp"			column="MEOHP"/>
+		<result property="meohpCreatinine"	column="MEOHP_CREATININE"/>
+		<result property="mnbp"			column="MNBP"/>
+		<result property="mnbpCreatinine"	column="MNBP_CREATININE"/>
+		<result property="threePba"				column="3_PBA"/>
+		<result property="threePbaCreatinine"	column="3_PBA_CREATININE"/>
+		<result property="createDate"		column="CREATE_DATE"/>
+		<result property="createBy"			column="CREATE_BY"/>
+		<result property="updateDate"		column="UPDATE_DATE"/>
+		<result property="updateBy"			column="UPDATE_BY"/>
+	</resultMap> 
+	
+	 
+		<resultMap id="analysisEnvMattBlList" 	type="AnalysisTAnalEnvMattBlVO">
+		<result property="rownum"           column="ROWNUM"/>
+		<result property="targetId"         column="TARGET_ID"/>
+		<result property="targetDisId"      column="TARGET_DIS_ID"/>
+		<result property="disClassDtl" 		column="DIS_CLASS_DTL"/>
+		<result property="sex"              column="SEX"/>                                                                                 
+		<result property="protocol"        	column="PROTOCOL"/>                                                                            
+		<result property="performCnt"       column="PERFORM_CNT"/>
+		<result property="performNm"       	column="PERFORM_NM"/>
+		<result property="performCntNm"     column="PERFORM_CNT_NM"/>
+		<result property="age"              column="AGE"/>
+		<result property="docId"            column="DOC_ID"/>
+		<result property="rndId"            column="RND_ID"/>
+		<result property="bloodCollectDate" column="BLOOD_COLLECT_DATE"/>
+		<result property="tube"				column="TUBE"/>
+		<result property="metalAnalDate"    column="METAL_ANAL_DATE"/>
+		<result property="BMn"				column="B_MN"/>
+		<result property="BCd"				column="B_CD"/>
+		<result property="BPb"				column="B_PB"/>
+		<result property="createDate"		column="CREATE_DATE"/>
+		<result property="createBy"			column="CREATE_BY"/>
+		<result property="updateDate"		column="UPDATE_DATE"/>
+		<result property="updateBy"			column="UPDATE_BY"/>
+	</resultMap> 
+	
+	
+	
+	<!--  
+ 	<resultMap id="analysisSnpList" 		type="AnalysisTAnalSnpVO">
+		<result property="rownum"           column="ROWNUM"/>
+		<result property="targetId"         column="TARGET_ID"/>
+		<result property="targetDisId"      column="TARGET_DIS_ID"/>
+		<result property="disClassDtl" 		column="DIS_CLASS_DTL"/>
+		<result property="sex"              column="SEX"/>                                                                                 
+		<result property="protocol"        	column="PROTOCOL"/>                                                                            
+		<result property="performCnt"       column="PERFORM_CNT"/>
+		<result property="performNm"       	column="PERFORM_NM"/>
+		<result property="performCntNm"     column="PERFORM_CNT_NM"/>
+		<result property="collectDate"		column="COLLECT_DATE"/>
+		<result property="analDate"			column="ANAL_DATE"/>
+		<result property="age"              column="AGE"/>
+		<result property="docId"            column="DOC_ID"/>
+		<result property="rndId"            column="RND_ID"/>
+		<result property="rs2254298"		column="RS2254298"/>
+		<result property="rs53576"			column="RS53576"/>
+		<result property="rs7794745"		column="RS7794745"/>
+		<result property="rs2710126"		column="RS2710126"/>
+		<result property="rs1045881"		column="RS1045881"/>
+		<result property="rs858932"			column="RS858932"/>
+	</resultMap>  
+-->	
+	<resultMap id="analysisTotalList" 			type="AnalysisTotalVO">
+		<result property="targetId"               column="TARGET_ID" />  
+		<result property="targetDisId"            column="TARGET_DIS_ID" />                    
+		<result property="rndId"                  column="RND_ID" />                       
+		<result property="disClassDtl"            column="DIS_CLASS_DTL" />                
+		<result property="sex"                    column="SEX" />                          
+		<result property="birthYm"                column="BIRTH_YM" />                     
+		<result property="protocol"               column="PROTOCOL" />                     
+		<result property="performCnt"             column="PERFORM_CNT" />      
+		<result property="performCntNm"           column="PERFORM_CNT_NM"/>            
+		<result property="age"                    column="AGE" />                          
+		<result property="execDate"               column="EXEC_DATE" />                          
+		<result property="analEnvMatt"            column="ANAL_ENV_MATT" />                           
+        <result property="analEnvMattBl"           column="ANAL_ENV_MATT_BL" />                        
+	<!--  	<result property="analSnp"                column="ANAL_SNP" />    -->                   
+	</resultMap>   
+	
+	<select id="selectTAnalTotalList" parameterType="map" resultMap="analysisTotalList">
+		SELECT
+			TM.TARGET_ID,
+            TM.TARGET_DIS_ID,
+			TM.RND_ID,
+			DISE1.CLASS_CD_DTL_NM DIS_CLASS_DTL,
+			CASE TM.SEX WHEN 'F' THEN '여' ELSE '남' END SEX,
+			CONCAT(SUBSTR(TM.BIRTH_YM,1,4) ,'-',SUBSTR(TM.BIRTH_YM,5,2),'-',SUBSTR(TM.BIRTH_YM,7,2))  BIRTH_YM, 
+			PTC.CLASS_CD_DTL_NM PROTOCOL,
+			PT.PERFORM_NM PERFORM_CNT_NM,
+			PT.PERFORM_CNT,
+		    FN_CAL_AGE(TM.BIRTH_YM,VISIT_DATE) AGE,
+			CONCAT(SUBSTR(VISIT_DATE,1,4) ,'-',SUBSTR(VISIT_DATE,5,2),'-',SUBSTR(VISIT_DATE,7,2))  EXEC_DATE,
+			CASE WHEN ISNULL(ANAL_ENV_MATT) OR ANAL_ENV_MATT = 'Z' THEN 'x' WHEN ANAL_ENV_MATT = '#' THEN '-' ELSE 'o' END ANAL_ENV_MATT,
+			CASE WHEN ISNULL(ANAL_ENV_MATT_BL) OR ANAL_ENV_MATT = 'Z' THEN 'x' WHEN ANAL_ENV_MATT_BL = '#' THEN '-' ELSE 'o' END ANAL_ENV_MATT_BL
+			
+		<!--  CASE WHEN ISNULL(ANAL_SNP) OR ANAL_SNP = 'Z' THEN 'x' WHEN ANAL_SNP = '#' THEN '-' ELSE 'o' END ANAL_SNP -->	
+		
+			FROM T_TARGET_MST TM 
+	        	LEFT JOIN T_TARGET_DIS_MST TDM
+	        		ON TM.TARGET_ID = TDM.TARGET_ORG_ID
+	        		AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+				LEFT JOIN T_PERFORM_MST PM
+					ON TM.TARGET_ID = PM.TARGET_ID
+					AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+					AND TM.RND_ID = PM.RND_ID
+				LEFT JOIN T_PERFORM_TERM PT
+					ON TM.RND_ID = PT.RND_ID
+					AND PM.PERFORM_CNT = PT.PERFORM_CNT
+				LEFT JOIN T_CODE_DTL DISE1
+	        		ON DISE1.CLASS_CD = 'DISE1'
+	        		AND DISE1.CLASS_CD_DTL = TM.DIS_CLASS_DTL
+	        	LEFT JOIN T_CODE_DTL PTC
+	        		ON PTC.CLASS_CD = 'PT001'
+	        		AND PTC.CLASS_CD_DTL = TM.PROTOCOL
+	        WHERE 1=1
+	        	AND TM.RND_ID = #{rndId}
+			    AND PM.STATUS != '0004'
+			    AND NOT PM.PERFORM_CNT = 2
+	            AND NOT PM.PERFORM_CNT = 3
+	            
+            <if test="disClassDtl !=null and disClassDtl != '' ">
+            AND DISE1.CLASS_CD_DTL = #{disClassDtl}
+            </if>
+        	<if test="targetId !=null and targetId != '' ">
+				AND TM.TARGET_ID = #{targetId}
+			</if>
+			<if test="startAge !=null and startAge != '' ">
+				AND  FN_CAL_AGE(TM.BIRTH_YM,VISIT_DATE) &gt;= #{startAge}
+			</if>
+			<if test="endAge !=null and endAge != '' ">
+				AND  FN_CAL_AGE(TM.BIRTH_YM,VISIT_DATE) &lt;= #{endAge}
+			</if>
+			<if test="sex !=null and sex != '' ">
+				AND TM.SEX = #{sex}
+			</if>
+			<if test="protocol !=null and protocol != '' ">
+				AND  REPLACE(PTC.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+			</if>
+			<if test="performCnt !=null and performCnt != '' ">
+				AND PM.PERFORM_CNT = ${performCnt}
+			</if>
+			<if test='analEnvMatt =="Y"'>
+				AND ANAL_ENV_MATT IS NOT NULL
+			</if>
+				<if test='analEnvMattBl =="Y"'>
+				AND ANAL_ENV_MATT IS NOT NULL
+			</if>
+			
+			<!--  
+			<if test='analSnp =="Y"'>
+				AND ANAL_SNP IS NOT NULL
+			</if>
+			-->
+			
+			<if test='schKeyField =="selectDown"'>
+				AND (TM.TARGET_ID, PM.PERFORM_CNT, TM.RND_ID, TM.DIS_CLASS_DTL)
+					IN (${schKeyWord})
+			</if>
+		
+		ORDER BY TM.TARGET_ID, PM.PERFORM_CNT
+		LIMIT #{start}, #{limit}
+	</select>
+	
+	
+	
+
+	
+	<select id="selectPerformCntByNm" parameterType="map" resultType="String">
+	
+		SELECT PERFORM_CNT
+		FROM T_PERFORM_TERM
+		WHERE PERFORM_NM = #{performCntNm}
+
+	</select>
+	
+	<select id="selectTAnalTotalListTotal" parameterType="map" resultType="int">
+	
+		SELECT COUNT(TARGET_ID)
+		FROM (
+			SELECT
+				TM.TARGET_ID
+			FROM T_TARGET_MST TM 
+			LEFT JOIN T_TARGET_DIS_MST TDM
+	        ON TM.TARGET_ID = TDM.TARGET_ORG_ID
+	        AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+			LEFT JOIN T_PERFORM_MST PM
+			ON TM.TARGET_ID = PM.TARGET_ID
+			AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+			AND TM.RND_ID = PM.RND_ID
+			LEFT JOIN T_PERFORM_TERM PT
+			ON TM.RND_ID = PT.RND_ID
+			AND PM.PERFORM_CNT = PT.PERFORM_CNT
+			LEFT JOIN T_CODE_DTL DISE1
+	        ON DISE1.CLASS_CD = 'DISE1'
+	        AND DISE1.CLASS_CD_DTL = TM.DIS_CLASS_DTL
+	        LEFT JOIN T_CODE_DTL PTC
+	        ON PTC.CLASS_CD = 'PT001'
+	        AND PTC.CLASS_CD_DTL = TM.PROTOCOL
+	        WHERE 1=1
+	        	AND TM.RND_ID = ${rndId}
+		    	AND PM.STATUS != '0004'
+		    	AND NOT PM.PERFORM_CNT = 2
+            	AND NOT PM.PERFORM_CNT = 3
+            	<if test="disClassDtl !=null and disClassDtl != '' ">
+            	AND DISE1.CLASS_CD_DTL = #{disClassDtl}
+            	</if>
+		        <if test="targetId !=null and targetId != '' ">
+				AND TM.TARGET_ID = #{targetId}
+				</if>
+				<if test="startAge !=null and startAge != '' ">
+					AND  FN_CAL_AGE(TM.BIRTH_YM,VISIT_DATE) &gt;= #{startAge}
+				</if>
+				<if test="endAge !=null and endAge != '' ">
+					AND  FN_CAL_AGE(TM.BIRTH_YM,VISIT_DATE) &lt;= #{endAge}
+				</if>
+				<if test="sex !=null and sex != '' ">
+					AND TM.SEX = #{sex}
+				</if>
+				<if test="protocol !=null and protocol != '' ">
+					AND  REPLACE(PTC.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+				</if>
+				<if test="performCnt !=null and performCnt != '' ">
+					AND PM.PERFORM_CNT = ${performCnt}
+				</if>
+				<if test='analEnvMatt =="Y"'>
+				AND ANAL_ENV_MATT IS NOT NULL
+				</if>
+				
+				<if test='analEnvMattBl =="Y"'>
+				AND ANAL_ENV_MATT IS NOT NULL
+				</if>
+				<!--  
+				<if test='analSnp =="Y"'>
+					AND ANAL_SNP IS NOT NULL
+				</if>
+				-->	
+				
+				<if test='schKeyField =="selectDown"'>
+					AND (TM.TARGET_ID, PM.PERFORM_CNT, TM.RND_ID, TM.DIS_CLASS_DTL)
+						IN (${schKeyWord})
+				</if>
+		) T
+
+	</select>
+	
+	<select id="selectTAnalEnvMattList" parameterType="map" resultMap="analysisEnvMattList">
+		SELECT B.* FROM (
+			SELECT @ROWNUM := @ROWNUM+1 ROWNUM, A.* FROM (
+				SELECT
+					NA.RND_ID,
+					NA.TARGET_ID,
+					TM.TARGET_DIS_ID,
+					TM.BIRTH_YM,
+					DISE1.CLASS_CD_DTL_NM DIS_CLASS_DTL,
+				 	CASE TM.SEX WHEN 'F' THEN '여' ELSE '남' END SEX,
+					PTC.CLASS_CD_DTL_NM PROTOCOL,
+					PT.PERFORM_NM PERFORM_CNT_NM,
+					PT.PERFORM_CNT,
+					FN_CAL_AGE(TM.BIRTH_YM,COLLECT_DATE) AGE,
+					CONCAT(SUBSTR(COLLECT_DATE,1,4) ,'-',SUBSTR(COLLECT_DATE,5,2),'-',SUBSTR(COLLECT_DATE,7,2)) COLLECT_DATE,
+					CONCAT(SUBSTR(ANAL_DATE,1,4) ,'-',SUBSTR(ANAL_DATE,5,2),'-',SUBSTR(ANAL_DATE,7,2)) ANAL_DATE,
+					CASE WHEN CREATININE = '#' THEN '-' WHEN CREATININE IS NULL OR CREATININE = '' THEN 'x' ELSE CREATININE END CREATININE,
+					CASE WHEN COT = '#' THEN '-' WHEN COT IS NULL OR COT = '' THEN 'x' ELSE COT END COT,
+					CASE WHEN COT_CREATININE = '#' THEN '-' WHEN COT_CREATININE IS NULL OR COT_CREATININE = '' THEN 'x' ELSE COT_CREATININE END COT_CREATININE,
+					CASE WHEN MEHHP = '#' THEN '-' WHEN MEHHP IS NULL OR MEHHP = '' THEN 'x' ELSE MEHHP END MEHHP,
+					CASE WHEN MEHHP_CREATININE = '#' THEN '-' WHEN MEHHP_CREATININE IS NULL OR MEHHP_CREATININE = '' THEN 'x' ELSE MEHHP_CREATININE END MEHHP_CREATININE,
+					CASE WHEN MEOHP = '#' THEN '-' WHEN MEOHP IS NULL OR MEOHP ='' THEN 'x' ELSE MEOHP END MEOHP,
+					CASE WHEN MEOHP_CREATININE = '#' THEN '-' WHEN MEOHP_CREATININE IS NULL OR MEOHP_CREATININE = '' THEN 'x' ELSE MEOHP_CREATININE END MEOHP_CREATININE,
+					CASE WHEN MNBP = '#' THEN '-' WHEN MNBP IS NULL OR MNBP = '' THEN 'x' ELSE MNBP END MNBP,
+					CASE WHEN MNBP_CREATININE = '#' THEN '-' WHEN MNBP_CREATININE IS NULL OR MNBP_CREATININE = '' THEN 'x' ELSE MNBP_CREATININE END MNBP_CREATININE,
+					CASE WHEN 3_PBA = '#' THEN '-' WHEN 3_PBA IS NULL OR 3_PBA = '' THEN 'x' ELSE 3_PBA END 3_PBA,
+					CASE WHEN 3_PBA_CREATININE = '#' THEN '-' WHEN 3_PBA_CREATININE IS NULL OR 3_PBA_CREATININE = '' THEN 'x' ELSE 3_PBA_CREATININE END 3_PBA_CREATININE
+		
+				FROM BDSP.T_ANAL_ENV_MATT NA
+				LEFT JOIN T_TARGET_MST TM
+				ON NA.TARGET_ID = TM.TARGET_ID
+				AND NA.RND_ID = TM.RND_ID
+				 JOIN T_PERFORM_TERM PT
+				ON NA.PERFORM_CNT = PT.PERFORM_CNT
+				LEFT JOIN T_TARGET_DIS_MST TDM
+				ON TM.TARGET_ID = TDM.TARGET_ORG_ID
+				AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+			    LEFT JOIN T_CODE_DTL DISE1
+		        ON DISE1.CLASS_CD = 'DISE1'
+		        AND DISE1.CLASS_CD_DTL = TM.DIS_CLASS_DTL
+		        LEFT JOIN T_CODE_DTL PTC
+		        ON PTC.CLASS_CD = 'PT001'
+		        AND PTC.CLASS_CD_DTL = TM.PROTOCOL
+		        LEFT JOIN T_PERFORM_MST PM
+				ON TM.RND_ID = PM.RND_ID
+				AND TM.TARGET_ID = PM.TARGET_ID
+				AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+				 AND NA.PERFORM_CNT = PM.PERFORM_CNT 
+		        JOIN (SELECT @ROWNUM:=0) AS R
+		        WHERE 1=1
+		        	AND TM.RND_ID = ${rndId}
+		        	AND PM.STATUS != '0004'
+		        	 AND NOT PM.PERFORM_CNT = 2
+            		AND NOT PM.PERFORM_CNT = 3 
+            		<if test="disClassDtl !=null and disClassDtl != '' ">
+                    	AND DISE1.CLASS_CD_DTL = #{disClassDtl}
+                    </if>
+		        	<if test="schKeyWord !='schTargetId' ">
+				        <if test="targetId !=null and targetId != '' ">
+							AND NA.TARGET_ID = #{targetId}
+						</if>
+						 <if test="startAge !=null and startAge != '' ">
+							AND  FN_CAL_AGE(TM.BIRTH_YM,COLLECT_DATE) &gt;= #{startAge}
+						</if>
+						<if test="endAge !=null and endAge != '' ">
+							AND  FN_CAL_AGE(TM.BIRTH_YM,COLLECT_DATE) &lt;= #{endAge}
+						</if>
+						<if test="sex !=null and sex != '' ">
+							AND TM.SEX = #{sex}
+						</if>
+						<if test="protocol !=null and protocol != '' ">
+							AND  REPLACE(PTC.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+						</if>
+						<if test="performCnt !=null and performCnt != '' ">
+							AND NA.PERFORM_CNT = ${performCnt}
+						</if> 
+						<if test='schKeyField =="selectDown"'>
+							AND (NA.TARGET_ID, NA.PERFORM_CNT, NA.RND_ID, TM.DIS_CLASS_DTL)
+								IN (${schKeyWord})
+						</if>
+					</if>
+				GROUP BY NA.RND_ID,	NA.TARGET_ID, TM.TARGET_DIS_ID,	TM.BIRTH_YM,PT.PERFORM_NM
+				ORDER BY NA.TARGET_ID
+			) A 
+		) B
+		WHERE 1=1
+			<if test="schKeyWord == 'schTargetId' ">
+				AND B.TARGET_ID = #{targetId}
+			</if> 
+			
+		LIMIT #{start}, #{limit}
+	</select>
+	
+	<select id="selectTAnalEnvMattListTotal" parameterType="map" resultType="int">
+	
+		SELECT COUNT(TARGET_ID)
+		FROM (
+			SELECT
+				NA.TARGET_ID
+			FROM T_ANAL_ENV_MATT NA 
+			LEFT JOIN T_TARGET_MST TM
+			ON NA.TARGET_ID = TM.TARGET_ID
+			AND NA.RND_ID = TM.RND_ID
+			JOIN T_PERFORM_TERM PT
+			ON NA.PERFORM_CNT = PT.PERFORM_CNT 
+			LEFT JOIN T_TARGET_DIS_MST TDM
+			ON TM.TARGET_ID = TDM.TARGET_ORG_ID
+			AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+			LEFT JOIN T_CODE_DTL DISE1
+	        ON DISE1.CLASS_CD = 'DISE1'
+	        AND DISE1.CLASS_CD_DTL = TM.DIS_CLASS_DTL
+	        LEFT JOIN T_CODE_DTL PTC
+	        ON PTC.CLASS_CD = 'PT001'
+	        AND PTC.CLASS_CD_DTL = TM.PROTOCOL
+         	LEFT JOIN T_PERFORM_MST PM
+			ON TM.RND_ID = PM.RND_ID
+			AND TM.TARGET_ID = PM.TARGET_ID
+			AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+			 AND NA.PERFORM_CNT = PM.PERFORM_CNT 
+	        WHERE 1=1
+	        	AND TM.RND_ID = ${rndId}
+	        	AND PM.STATUS != '0004'
+	        	 AND NOT PM.PERFORM_CNT = 2
+            	AND NOT PM.PERFORM_CNT = 3 
+            	<if test="disClassDtl !=null and disClassDtl != '' ">
+            	AND DISE1.CLASS_CD_DTL = #{disClassDtl}
+            	</if>
+		        <if test="targetId !=null and targetId != '' ">
+					AND NA.TARGET_ID = #{targetId}
+				</if>
+				<if test="startAge !=null and startAge != '' ">
+					AND  FN_CAL_AGE(TM.BIRTH_YM,COLLECT_DATE)&gt;= #{startAge}
+				</if>
+				<if test="endAge !=null and endAge != '' ">
+					AND  FN_CAL_AGE(TM.BIRTH_YM,COLLECT_DATE) &lt;= #{endAge}
+				</if>
+				<if test="sex !=null and sex != '' ">
+					AND TM.SEX = #{sex}
+				</if>
+				<if test="protocol !=null and protocol != '' ">
+					AND  REPLACE(PTC.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+				</if>
+				 <if test="performCnt !=null and performCnt != '' ">
+					AND NA.PERFORM_CNT = ${performCnt}
+				</if>  
+		) T
+
+	</select>
+	
+	<select id="selectTAnalEnvMattBlList" parameterType="map" resultMap="analysisEnvMattBlList">
+		SELECT B.* FROM (
+			SELECT @ROWNUM := @ROWNUM+1 ROWNUM, A.* FROM (
+				SELECT
+					NAB.RND_ID,
+					NAB.TARGET_ID,
+					TM.TARGET_DIS_ID,
+					TM.BIRTH_YM,
+					DISE1.CLASS_CD_DTL_NM DIS_CLASS_DTL,
+				 	CASE TM.SEX WHEN 'F' THEN '여' ELSE '남' END SEX,
+					PTC.CLASS_CD_DTL_NM PROTOCOL,
+					 PT.PERFORM_NM PERFORM_CNT_NM,
+					PT.PERFORM_CNT,
+					FN_CAL_AGE(TM.BIRTH_YM,BLOOD_COLLECT_DATE) AGE,
+					CONCAT(SUBSTR(NAB.METAL_ANAL_DATE,1,4) ,'-',SUBSTR(NAB.METAL_ANAL_DATE,5,2),'-',SUBSTR(NAB.METAL_ANAL_DATE,7,2)) METAL_ANAL_DATE,
+					CONCAT(SUBSTR(NAB.BLOOD_COLLECT_DATE,1,4) ,'-',SUBSTR(NAB.BLOOD_COLLECT_DATE,5,2),'-',SUBSTR(NAB.BLOOD_COLLECT_DATE,7,2)) BLOOD_COLLECT_DATE,
+					CASE WHEN NAB.TUBE = '#' THEN '-' WHEN NAB.TUBE IS NULL OR NAB.TUBE = '' OR NULL THEN 'x' ELSE NAB.TUBE END TUBE,
+					CASE WHEN NAB.B_MN = '#' THEN '-' WHEN NAB.B_MN IS NULL OR NAB.B_MN = '' THEN 'x' ELSE NAB.B_MN END B_MN,
+					CASE WHEN NAB.B_CD = '#' THEN '-' WHEN NAB.B_CD IS NULL OR NAB.B_CD = '' THEN 'x' ELSE NAB.B_CD END B_CD,
+					CASE WHEN NAB.B_PB = '#' THEN '-' WHEN NAB.B_PB IS NULL OR NAB.B_PB = '' THEN 'x' ELSE NAB.B_PB END B_PB
+				FROM  T_ANAL_ENV_MATT_BL NAB
+				LEFT JOIN T_TARGET_MST TM
+				ON NAB.TARGET_ID = TM.TARGET_ID
+				AND NAB.RND_ID = TM.RND_ID
+				 JOIN T_PERFORM_TERM PT
+				ON NAB.PERFORM_CNT = PT.PERFORM_CNT
+				LEFT JOIN T_TARGET_DIS_MST TDM
+				ON TM.TARGET_ID = TDM.TARGET_ORG_ID
+				AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+			    LEFT JOIN T_CODE_DTL DISE1
+		        ON DISE1.CLASS_CD = 'DISE1'
+		        AND DISE1.CLASS_CD_DTL = TM.DIS_CLASS_DTL
+		        LEFT JOIN T_CODE_DTL PTC
+		        ON PTC.CLASS_CD = 'PT001'
+		        AND PTC.CLASS_CD_DTL = TM.PROTOCOL
+		        LEFT JOIN T_PERFORM_MST PM
+				ON TM.RND_ID = PM.RND_ID
+				AND TM.TARGET_ID = PM.TARGET_ID
+				AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+				 AND NAB.PERFORM_CNT = PM.PERFORM_CNT 
+		        JOIN (SELECT @ROWNUM:=0) AS R
+		        WHERE 1=1
+		        	AND TM.RND_ID = ${rndId}
+		        	AND PM.STATUS != '0004'
+		        	 AND NOT PM.PERFORM_CNT = 2
+            		AND NOT PM.PERFORM_CNT = 3
+            		<if test="disClassDtl !=null and disClassDtl != '' ">
+                    	AND DISE1.CLASS_CD_DTL = #{disClassDtl}
+                    </if>
+		        	<if test="schKeyWord !='schTargetId' ">
+				        <if test="targetId !=null and targetId != '' ">
+							AND NAB.TARGET_ID = #{targetId}
+						</if>
+						 <if test="startAge !=null and startAge != '' ">
+							AND  FN_CAL_AGE(TM.BIRTH_YM,BLOOD_COLLECT_DATE) &gt;= #{startAge}
+						</if>
+						<if test="endAge !=null and endAge != '' ">
+							AND  FN_CAL_AGE(TM.BIRTH_YM,BLOOD_COLLECT_DATE) &lt;= #{endAge}
+						</if>
+						<if test="sex !=null and sex != '' ">
+							AND TM.SEX = #{sex}
+						</if>
+						<if test="protocol !=null and protocol != '' ">
+							AND  REPLACE(PTC.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+						</if>
+						<if test="performCnt !=null and performCnt != '' ">
+							AND NAB.PERFORM_CNT = ${performCnt}
+						</if> 
+						<if test='schKeyField =="selectDown"'>
+							AND (NAB.TARGET_ID, NA.PERFORM_CNT, NAB.RND_ID, TM.DIS_CLASS_DTL)
+								IN (${schKeyWord})
+						</if>
+					</if>
+				GROUP BY NAB.RND_ID,NAB.TARGET_ID, TM.TARGET_DIS_ID,TM.BIRTH_YM,PT.PERFORM_NM	
+				ORDER BY NAB.TARGET_ID
+			) A 
+		) B
+		WHERE 1=1
+			<if test="schKeyWord == 'schTargetId' ">
+				AND B.TARGET_ID = #{targetId}
+			</if> 
+			
+		LIMIT #{start}, #{limit}
+	</select>
+	
+	
+	
+	
+	<select id="selectTAnalEnvMattBlListTotal" parameterType="map" resultType="int">
+	
+		SELECT COUNT(TARGET_ID)
+		FROM (
+			SELECT
+				NAB.TARGET_ID
+			FROM T_ANAL_ENV_MATT_BL NAB 
+			LEFT JOIN T_TARGET_MST TM
+			ON NAB.TARGET_ID = TM.TARGET_ID
+			AND NAB.RND_ID = TM.RND_ID
+			JOIN T_PERFORM_TERM PT
+			ON NAB.PERFORM_CNT = PT.PERFORM_CNT 
+			LEFT JOIN T_TARGET_DIS_MST TDM
+			ON TM.TARGET_ID = TDM.TARGET_ORG_ID
+			AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+			LEFT JOIN T_CODE_DTL DISE1
+	        ON DISE1.CLASS_CD = 'DISE1'
+	        AND DISE1.CLASS_CD_DTL = TM.DIS_CLASS_DTL
+	        LEFT JOIN T_CODE_DTL PTC
+	        ON PTC.CLASS_CD = 'PT001'
+	        AND PTC.CLASS_CD_DTL = TM.PROTOCOL
+         	LEFT JOIN T_PERFORM_MST PM
+			ON TM.RND_ID = PM.RND_ID
+			AND TM.TARGET_ID = PM.TARGET_ID
+			AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+		    AND NAB.PERFORM_CNT = PM.PERFORM_CNT
+	        WHERE 1=1
+	        	AND TM.RND_ID = ${rndId}
+	        	AND PM.STATUS != '0004'
+	        	 AND NOT PM.PERFORM_CNT = 2
+            	AND NOT PM.PERFORM_CNT = 3
+            	<if test="disClassDtl !=null and disClassDtl != '' ">
+            	AND DISE1.CLASS_CD_DTL = #{disClassDtl}
+            	</if>
+		        <if test="targetId !=null and targetId != '' ">
+					AND NAB.TARGET_ID = #{targetId}
+				</if>
+				<if test="startAge !=null and startAge != '' ">
+					AND  FN_CAL_AGE(TM.BIRTH_YM,BLOOD_COLLECT_DATE)&gt;= #{startAge}
+				</if>
+				<if test="endAge !=null and endAge != '' ">
+					AND  FN_CAL_AGE(TM.BIRTH_YM,BLOOD_COLLECT_DATE) &lt;= #{endAge}
+				</if>
+				<if test="sex !=null and sex != '' ">
+					AND TM.SEX = #{sex}
+				</if>
+				<if test="protocol !=null and protocol != '' ">
+					AND  REPLACE(PTC.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+				</if>
+				 <if test="performCnt !=null and performCnt != '' ">
+					AND NAB.PERFORM_CNT = ${performCnt}
+				</if>  
+		) T
+
+	</select>
+	
+
+	
+	
+	<update id="insertAnalysisEnvMatt" parameterType="map">
+		INSERT INTO BDSP.T_ANAL_ENV_MATT(
+			TARGET_ID
+			,RND_ID
+			,PERFORM_CNT
+			,COLLECT_DATE
+			,ANAL_DATE
+			,CREATININE
+			,COT
+			,COT_CREATININE
+			,MEHHP
+			,MEHHP_CREATININE
+			,MEOHP
+			,MEOHP_CREATININE
+			,MNBP
+			,MNBP_CREATININE
+			,3_PBA
+			,3_PBA_CREATININE
+			,CREATE_DATE
+			,CREATE_BY
+			,UPDATE_DATE
+			,UPDATE_BY
+		)VALUES(
+			#{targetId, jdbcType=VARCHAR}
+			, #{rndId, jdbcType=VARCHAR}
+			, (SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM = UPPER(#{performCntNm, jdbcType=VARCHAR}))
+			, IFNULL(LOWER(#{collectDate, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{analDate, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{creatinine, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{cot, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{cotCreatinine, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{mehhp, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{mehhpCreatinine, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{meohp, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{meohpCreatinine, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{mnbp, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{mnbpCreatinine, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{threePba, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{threePbaCreatinine, jdbcType=VARCHAR}), 'x')
+			, now()
+			, #{createBy , jdbcType=VARCHAR}
+			, now()
+			, #{createBy , jdbcType=VARCHAR}
+		)
+		ON DUPLICATE KEY UPDATE
+			 COLLECT_DATE = IFNULL(LOWER(#{collectDate , jdbcType=VARCHAR}), 'x')
+			,ANAL_DATE = IFNULL(LOWER(#{analDate , jdbcType=VARCHAR}), 'x')
+			,CREATININE = IFNULL(LOWER(#{creatinine , jdbcType=VARCHAR}), 'x')
+			,COT = IFNULL(LOWER(#{cot , jdbcType=VARCHAR}), 'x')
+			,COT_CREATININE = IFNULL(LOWER(#{cotCreatinine , jdbcType=VARCHAR}), 'x')
+			,MEHHP = IFNULL(LOWER(#{mehhp , jdbcType=VARCHAR}), 'x')
+			,MEHHP_CREATININE = IFNULL(LOWER(#{mehhpCreatinine , jdbcType=VARCHAR}), 'x')
+			,MEOHP = IFNULL(LOWER(#{meohp , jdbcType=VARCHAR}), 'x')
+			,MEOHP_CREATININE = IFNULL(LOWER(#{meohpCreatinine , jdbcType=VARCHAR}), 'x')
+			,MNBP = IFNULL(LOWER(#{mnbp , jdbcType=VARCHAR}), 'x')
+			,MNBP_CREATININE = IFNULL(LOWER(#{mnbpCreatinine , jdbcType=VARCHAR}), 'x')
+			,3_PBA = IFNULL(LOWER(#{threePba , jdbcType=VARCHAR}), 'x')
+			,3_PBA_CREATININE = IFNULL(LOWER(#{threePbaCreatinine , jdbcType=VARCHAR}), 'x')
+			,UPDATE_DATE = now()
+			,UPDATE_BY = #{createBy , jdbcType=VARCHAR}
+	</update>
+	
+	
+	
+	<update id="insertAnalysisEnvMattBl" parameterType="map">
+		INSERT INTO BDSP.T_ANAL_ENV_MATT_BL(
+			TARGET_ID
+			,RND_ID
+			,PERFORM_CNT
+			,BLOOD_COLLECT_DATE
+			,TUBE
+			,METAL_ANAL_DATE
+			,B_MN
+			,B_CD
+			,B_PB
+			,CREATE_DATE
+			,CREATE_BY
+			,UPDATE_DATE
+			,UPDATE_BY
+		)VALUES(
+			#{targetId, jdbcType=VARCHAR}
+			, #{rndId, jdbcType=VARCHAR}
+			, (SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM = UPPER(#{performCntNm, jdbcType=VARCHAR}))
+			, IFNULL(LOWER(#{bloodCollectDate, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{tube, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{metalAnalDate, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{BMn, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{BCd, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{BPb, jdbcType=VARCHAR}), 'x')
+			, now()
+			, #{createBy , jdbcType=VARCHAR}
+			, now()
+			, #{createBy , jdbcType=VARCHAR}
+		)
+		ON DUPLICATE KEY UPDATE
+		
+			
+			BLOOD_COLLECT_DATE = IFNULL(LOWER(#{bloodCollectDate , jdbcType=VARCHAR}), 'x')
+			,TUBE = IFNULL(LOWER(#{tube , jdbcType=VARCHAR}), 'x')
+			,METAL_ANAL_DATE = IFNULL(LOWER(#{metalAnalDate , jdbcType=VARCHAR}), 'x')
+			,B_MN = IFNULL(LOWER(#{BMn , jdbcType=VARCHAR}), 'x')
+			,B_CD = IFNULL(LOWER(#{BCd , jdbcType=VARCHAR}), 'x')
+			,B_PB = IFNULL(LOWER(#{BPb , jdbcType=VARCHAR}), 'x')
+			,UPDATE_DATE = now()
+			,UPDATE_BY = #{createBy , jdbcType=VARCHAR}
+	</update>
+	
+	
+	
+	
+	<!--  
+	<update id="insertAnalysisSnp" parameterType="map">
+		INSERT INTO BDSP.T_ANAL_SNP(
+			TARGET_ID
+			,COLLECT_DATE
+			,ANAL_DATE
+			,RND_ID
+			,RS2254298
+			,RS53576
+			,RS7794745
+			,RS2710126
+			,RS1045881
+			,RS858932
+			,CREATE_DATE
+			,CREATE_BY
+			,UPDATE_DATE
+			,UPDATE_BY
+		)VALUES(
+			#{targetId, jdbcType=VARCHAR}
+			, IFNULL(LOWER(#{collectDate, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{analDate, jdbcType=VARCHAR}), 'x')
+			, #{rndId, jdbcType=VARCHAR}
+			, IFNULL(LOWER(#{rs2254298, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{rs53576, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{rs7794745, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{rs2710126, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{rs1045881, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{rs858932, jdbcType=VARCHAR}), 'x')
+			, now()
+			, #{createBy , jdbcType=VARCHAR}
+			, now()
+			, #{createBy , jdbcType=VARCHAR}
+		)
+		ON DUPLICATE KEY UPDATE
+		 	COLLECT_DATE = IFNULL(LOWER(#{collectDate , jdbcType=VARCHAR}), 'x')
+			,ANAL_DATE = IFNULL(LOWER(#{analDate , jdbcType=VARCHAR}), 'x')
+			,RS2254298 = IFNULL(LOWER(#{rs2254298 , jdbcType=VARCHAR}), 'x')
+			,RS53576 = IFNULL(LOWER(#{rs53576 , jdbcType=VARCHAR}), 'x')
+			,RS7794745 = IFNULL(LOWER(#{rs7794745 , jdbcType=VARCHAR}), 'x')
+			,RS2710126 = IFNULL(LOWER(#{rs2710126 , jdbcType=VARCHAR}), 'x')
+			,RS1045881 = IFNULL(LOWER(#{rs1045881 , jdbcType=VARCHAR}), 'x')
+			,RS858932 = IFNULL(LOWER(#{rs858932 , jdbcType=VARCHAR}), 'x')
+			,UPDATE_DATE = now()
+			,UPDATE_BY = #{createBy , jdbcType=VARCHAR}
+	</update>
+	-->
+	
+	<select id="selectAnalysisMenuList" parameterType="map" resultMap="analysisMenuList">
+		SELECT
+			DOC_ID,
+			DOC_NM,
+			DIS_CLASS_DTL,
+			DOC_CLASS_DTL,
+			DOC_HEADER
+		FROM BDSP.T_DOC_MST
+		WHERE 1=1
+			AND DIS_CLASS_DTL = #{disClassDtl}
+			<if test="docClassDtl !=null and docClassDtl != '' ">
+		 		AND DOC_CLASS_DTL = #{docClassDtl}
+		 	</if>
+		ORDER BY SORT_NO	
+	</select> 
+	
+	
+	<update id="updatePerformMst" parameterType="map">
+		
+		UPDATE T_PERFORM_MST
+		SET
+			<if test="analysisKind =='ANAL_ENV_MATT' or analysisKind == 'PHTs 3종 및 COT(소변)'">
+				ANAL_ENV_MATT = #{envMattExecDate}
+			</if>
+			<if test="analysisKind =='ANAL_ENV_MATT_BL' or analysisKind == '중금속(혈액)'">
+				ANAL_ENV_MATT_BL = #{envMattBlExecDate}
+			</if>
+			
+			<!--  
+			<if test="analysisKind =='ANAL_SNP' or analysisKind == 'SNP분석'">
+				ANAL_SNP = #{snpExecDate}
+			</if>
+			-->
+			
+		WHERE 1=1
+				AND TARGET_ID = #{targetId}
+				AND PERFORM_CNT = (SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM = UPPER(#{performCntNm, jdbcType=VARCHAR}))
+				AND RND_ID = #{rndId}
+				AND DIS_CLASS_DTL = #{disClassDtl} 
+	</update>
+	
+	
+	<delete id="deleteAnalysisEnvMatt" parameterType="map">
+	
+	DELETE
+	FROM T_ANAL_ENV_MATT
+	WHERE 1=1
+			AND TARGET_ID = #{targetId}
+			AND RND_ID = #{rndId}
+	</delete>
+	
+	
+	<delete id="deleteAnalysisEnvMattBl" parameterType="map">
+	
+	DELETE
+	FROM T_ANAL_ENV_MATT_BL
+	WHERE 1=1
+			AND TARGET_ID = #{targetId}
+			AND RND_ID = #{rndId}
+	</delete>
+	
+	<!--  
+	<delete id="deleteAnalysisSnp" parameterType="map">
+	DELETE
+	FROM T_ANAL_SNP
+	WHERE 1=1
+			AND TARGET_ID = #{targetId}
+			AND RND_ID = #{rndId}
+	</delete>
+	-->
+	
+	
+	
+</mapper>

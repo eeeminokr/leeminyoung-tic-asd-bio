@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Gene">
+
+	<resultMap id="geneMenuList"  type="GeneVO">
+		<result property="docId" 			column="DOC_ID"/>
+		<result property="docNm" 			column="DOC_NM"/>
+		<result property="disClassDtl" 		column="DIS_CLASS_DTL"/>
+		<result property="docClassDtl" 		column="DOC_CLASS_DTL"/>
+		<result property="docHeader" 		column="DOC_HEADER"/>
+	</resultMap>
+	
+	
+	
+	<resultMap id="geneList" 		type="TAnalGenVO">
+		<result property="rownum"           column="ROWNUM"/>
+		<result property="targetId"         column="TARGET_ID"/>
+		<result property="targetDisId"      column="TARGET_DIS_ID"/>
+		<result property="disClassDtl" 		column="DIS_CLASS_DTL"/>
+		<result property="sex"              column="SEX"/>                                                                                 
+		<result property="protocol"        	column="PROTOCOL"/>                                                                            
+		<result property="performCnt"       column="PERFORM_CNT"/>
+		<result property="performNm"       	column="PERFORM_NM"/>
+		<result property="performCntNm"     column="PERFORM_CNT_NM"/>
+		<result property="age"              column="AGE"/>
+		<result property="docId"            column="DOC_ID"/>
+		<result property="rndId"            column="RND_ID"/>
+		<result property="collectDate"		column="COLLECT_DATE"/>
+		<result property="analDate"			column="ANAL_DATE"/>
+	</resultMap>
+	
+ 
+	<resultMap id="geneTotalList" 			type="GeneTotalVO">
+		<result property="targetId"               column="TARGET_ID" />  
+		<result property="targetDisId"            column="TARGET_DIS_ID" />                    
+		<result property="rndId"                  column="RND_ID" />                       
+		<result property="disClassDtl"            column="DIS_CLASS_DTL" />                
+		<result property="sex"                    column="SEX" />                          
+		<result property="birthYm"                column="BIRTH_YM" />                     
+		<result property="protocol"               column="PROTOCOL" />                     
+		<result property="performCnt"             column="PERFORM_CNT" />      
+		<result property="performCntNm"           column="PERFORM_CNT_NM"/>            
+		<result property="age"                    column="AGE" />                          
+		<result property="execDate"               column="EXEC_DATE" />                          
+	
+		<result property="wgs"                column="WGS" />                          
+                    
+	</resultMap>   
+	
+	<select id="selectGeneTotalList" parameterType="map" resultMap="geneTotalList">
+		SELECT
+			TM.TARGET_ID,
+            TM.TARGET_DIS_ID,
+			TM.RND_ID,
+			DISE1.CLASS_CD_DTL_NM DIS_CLASS_DTL,
+			CASE TM.SEX WHEN 'F' THEN '여' ELSE '남' END SEX,
+			CONCAT(SUBSTR(TM.BIRTH_YM,1,4) ,'-',SUBSTR(TM.BIRTH_YM,5,2),'-',SUBSTR(TM.BIRTH_YM,7,2))  BIRTH_YM, 
+			PTC.CLASS_CD_DTL_NM PROTOCOL,
+			PT.PERFORM_NM PERFORM_CNT_NM,
+			PT.PERFORM_CNT,
+		    FN_CAL_AGE(TM.BIRTH_YM,VISIT_DATE) AGE,
+			CONCAT(SUBSTR(VISIT_DATE,1,4) ,'-',SUBSTR(VISIT_DATE,5,2),'-',SUBSTR(VISIT_DATE,7,2))  EXEC_DATE,
+	
+			CASE WHEN ISNULL(WGS) OR WGS = 'Z' THEN 'x' WHEN WGS = '#' THEN '-' ELSE 'o' END WGS
+		
+		FROM T_TARGET_MST TM 
+        LEFT JOIN T_TARGET_DIS_MST TDM
+        ON TM.TARGET_ID = TDM.TARGET_ORG_ID
+        AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+		LEFT JOIN T_PERFORM_MST PM
+		ON TM.TARGET_ID = PM.TARGET_ID
+		AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+		AND TM.RND_ID = PM.RND_ID
+		LEFT JOIN T_PERFORM_TERM PT
+		ON TM.RND_ID = PT.RND_ID
+		AND PM.PERFORM_CNT = PT.PERFORM_CNT
+		LEFT JOIN T_CODE_DTL DISE1
+        ON DISE1.CLASS_CD = 'DISE1'
+        AND DISE1.CLASS_CD_DTL = TM.DIS_CLASS_DTL
+        LEFT JOIN T_CODE_DTL PTC
+        ON PTC.CLASS_CD = 'PT001'
+        AND PTC.CLASS_CD_DTL = TM.PROTOCOL
+        WHERE 1=1
+        	AND TM.RND_ID = #{rndId}
+        	AND PM.PERFORM_CNT = '1'
+		    AND PM.STATUS != '0004'
+		    AND NOT PM.PERFORM_CNT = 2
+            AND NOT PM.PERFORM_CNT = 3
+            <if test="disClassDtl !=null and disClassDtl != '' ">
+            AND DISE1.CLASS_CD_DTL = #{disClassDtl}
+            </if>
+        	<if test="targetId !=null and targetId != '' ">
+				AND TM.TARGET_ID = #{targetId}
+			</if>
+			<if test="startAge !=null and startAge != '' ">
+				AND  FN_CAL_AGE(TM.BIRTH_YM,VISIT_DATE) &gt;= #{startAge}
+			</if>
+			<if test="endAge !=null and endAge != '' ">
+				AND  FN_CAL_AGE(TM.BIRTH_YM,VISIT_DATE) &lt;= #{endAge}
+			</if>
+			<if test="sex !=null and sex != '' ">
+				AND TM.SEX = #{sex}
+			</if>
+			<if test="protocol !=null and protocol != '' ">
+				AND  REPLACE(PTC.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+			</if>
+			<if test="performCnt !=null and performCnt != '' ">
+				AND PM.PERFORM_CNT = ${performCnt}
+			</if>
+			
+			<if test='wgs =="Y"'>
+				AND WGS IS NOT NULL
+			</if>
+			<if test='schKeyField =="selectDown"'>
+				AND (TM.TARGET_ID, PM.PERFORM_CNT, TM.RND_ID, TM.DIS_CLASS_DTL)
+					IN (${schKeyWord})
+			</if>
+		
+		ORDER BY TM.TARGET_ID, PM.PERFORM_CNT
+		LIMIT #{start}, #{limit}
+	</select>
+	
+	<select id="selectGeneTotalListTotal" parameterType="map" resultType="int">
+	
+		SELECT COUNT(TARGET_ID)
+		FROM (
+			SELECT
+				TM.TARGET_ID
+			FROM T_TARGET_MST TM 
+			LEFT JOIN T_TARGET_DIS_MST TDM
+	        ON TM.TARGET_ID = TDM.TARGET_ORG_ID
+	        AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+			LEFT JOIN T_PERFORM_MST PM
+			ON TM.TARGET_ID = PM.TARGET_ID
+			AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+			AND TM.RND_ID = PM.RND_ID
+			LEFT JOIN T_PERFORM_TERM PT
+			ON TM.RND_ID = PT.RND_ID
+			AND PM.PERFORM_CNT = PT.PERFORM_CNT
+			LEFT JOIN T_CODE_DTL DISE1
+	        ON DISE1.CLASS_CD = 'DISE1'
+	        AND DISE1.CLASS_CD_DTL = TM.DIS_CLASS_DTL
+	        LEFT JOIN T_CODE_DTL PTC
+	        ON PTC.CLASS_CD = 'PT001'
+	        AND PTC.CLASS_CD_DTL = TM.PROTOCOL
+	        WHERE 1=1
+	        	AND TM.RND_ID = ${rndId}
+	        	AND PM.PERFORM_CNT = '1'
+		    	AND PM.STATUS != '0004'
+		    	AND NOT PM.PERFORM_CNT = 2
+            	AND NOT PM.PERFORM_CNT = 3
+            	<if test="disClassDtl !=null and disClassDtl != '' ">
+            	AND DISE1.CLASS_CD_DTL = #{disClassDtl}
+            	</if>
+		        <if test="targetId !=null and targetId != '' ">
+				AND TM.TARGET_ID = #{targetId}
+				</if>
+				<if test="startAge !=null and startAge != '' ">
+					AND  FN_CAL_AGE(TM.BIRTH_YM,VISIT_DATE) &gt;= #{startAge}
+				</if>
+				<if test="endAge !=null and endAge != '' ">
+					AND  FN_CAL_AGE(TM.BIRTH_YM,VISIT_DATE) &lt;= #{endAge}
+				</if>
+				<if test="sex !=null and sex != '' ">
+					AND TM.SEX = #{sex}
+				</if>
+				<if test="protocol !=null and protocol != '' ">
+					AND  REPLACE(PTC.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+				</if>
+				<if test="performCnt !=null and performCnt != '' ">
+					AND PM.PERFORM_CNT = ${performCnt}
+				</if>
+				
+				<if test='wgs =="Y"'>
+					AND WGS IS NOT NULL
+				</if>
+				<if test='schKeyField =="selectDown"'>
+					AND (TM.TARGET_ID, PM.PERFORM_CNT, TM.RND_ID, TM.DIS_CLASS_DTL)
+						IN (${schKeyWord})
+				</if>
+		) T
+
+	</select>
+	
+	
+	
+	<select id="selectTAnalGenList" parameterType="map" resultMap="geneList">
+		SELECT B.* FROM (
+			SELECT @ROWNUM := @ROWNUM+1 ROWNUM, A.* FROM (
+				SELECT
+					NA.RND_ID,
+					NA.TARGET_ID,
+					TM.TARGET_DIS_ID,
+					TM.BIRTH_YM,
+					DISE1.CLASS_CD_DTL_NM DIS_CLASS_DTL,
+					CASE TM.SEX WHEN 'F' THEN '여' ELSE '남' END SEX,
+					PTC.CLASS_CD_DTL_NM PROTOCOL,
+					 PT.PERFORM_NM PERFORM_CNT_NM,
+					PT.PERFORM_CNT,
+					FN_CAL_AGE(TM.BIRTH_YM,COLLECT_DATE) AGE,
+					CONCAT(SUBSTR(COLLECT_DATE,1,4) ,'-',SUBSTR(COLLECT_DATE,5,2),'-',SUBSTR(COLLECT_DATE,7,2)) COLLECT_DATE,
+					CONCAT(SUBSTR(ANAL_DATE,1,4) ,'-',SUBSTR(ANAL_DATE,5,2),'-',SUBSTR(ANAL_DATE,7,2)) ANAL_DATE
+				FROM BDSP.T_ANAL_GEN NA 
+				LEFT JOIN T_TARGET_MST TM
+				ON NA.TARGET_ID = TM.TARGET_ID
+				AND NA.RND_ID = TM.RND_ID
+				 JOIN T_PERFORM_TERM PT
+				ON TM.RND_ID = PT.RND_ID
+				LEFT JOIN T_TARGET_DIS_MST TDM
+				ON TM.TARGET_ID = TDM.TARGET_ORG_ID
+				AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+			    LEFT JOIN T_CODE_DTL DISE1
+		        ON DISE1.CLASS_CD = 'DISE1'
+		        AND DISE1.CLASS_CD_DTL = TM.DIS_CLASS_DTL
+		        LEFT JOIN T_CODE_DTL PTC
+		        ON PTC.CLASS_CD = 'PT001'
+		        AND PTC.CLASS_CD_DTL = TM.PROTOCOL
+		        LEFT JOIN T_PERFORM_MST PM
+				ON TM.RND_ID = PM.RND_ID
+				AND TM.TARGET_ID = PM.TARGET_ID
+				AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+				<!-- AND NA.PERFORM_CNT = PM.PERFORM_CNT -->
+		        JOIN (SELECT @ROWNUM:=0) AS R
+		        WHERE 1=1
+		        	AND TM.RND_ID = ${rndId}
+		        	AND PM.STATUS != '0004'
+		        	<!-- AND NOT PM.PERFORM_CNT = 2
+            		AND NOT PM.PERFORM_CNT = 3 -->
+            		<if test="disClassDtl !=null and disClassDtl != '' ">
+                    	AND DISE1.CLASS_CD_DTL = #{disClassDtl}
+                    </if>
+		        	<if test="schKeyWord !='schTargetId' ">
+				        <if test="targetId !=null and targetId != '' ">
+							AND NA.TARGET_ID = #{targetId}
+						</if>
+						<if test="startAge !=null and startAge != '' ">
+							AND  FN_CAL_AGE(TM.BIRTH_YM,COLLECT_DATE) &gt;= #{startAge}
+						</if>
+						<if test="endAge !=null and endAge != '' ">
+							AND  FN_CAL_AGE(TM.BIRTH_YM,COLLECT_DATE) &lt;= #{endAge}
+						</if>
+						<if test="sex !=null and sex != '' ">
+							AND TM.SEX = #{sex}
+						</if>
+						<if test="protocol !=null and protocol != '' ">
+							AND  REPLACE(PTC.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+						</if>
+						<!-- <if test="performCnt !=null and performCnt != '' ">
+							AND NA.PERFORM_CNT = ${performCnt}
+						</if> -->
+						<if test='schKeyField =="selectDown"'>
+							AND (NA.TARGET_ID, NA.RND_ID, TM.DIS_CLASS_DTL)
+								IN (${schKeyWord})
+						</if>
+					</if>
+				GROUP BY NA.RND_ID,	NA.TARGET_ID, TM.TARGET_DIS_ID,	TM.BIRTH_YM		
+				ORDER BY NA.TARGET_ID
+			) A 
+		) B
+		WHERE 1=1
+			<if test="schKeyWord == 'schTargetId' ">
+				AND B.TARGET_ID = #{targetId}
+			</if> 
+			 
+		LIMIT #{start}, #{limit}
+	</select>
+	
+	<select id="selectTAnalGenListTotal" parameterType="map" resultType="int">
+	
+		SELECT COUNT(TARGET_ID)
+		FROM (
+			SELECT
+				NA.TARGET_ID
+			FROM T_ANAL_GEN NA 
+			LEFT JOIN T_TARGET_MST TM
+			ON NA.TARGET_ID = TM.TARGET_ID
+			AND NA.RND_ID = TM.RND_ID
+			<!-- JOIN T_PERFORM_TERM PT
+			ON NA.PERFORM_CNT = PT.PERFORM_CNT -->
+			LEFT JOIN T_TARGET_DIS_MST TDM
+			ON TM.TARGET_ID = TDM.TARGET_ORG_ID
+			AND TM.TARGET_DIS_ID = TDM.TARGET_ID
+			LEFT JOIN T_CODE_DTL DISE1
+	        ON DISE1.CLASS_CD = 'DISE1'
+	        AND DISE1.CLASS_CD_DTL = TM.DIS_CLASS_DTL
+	        LEFT JOIN T_CODE_DTL PTC
+	        ON PTC.CLASS_CD = 'PT001'
+	        AND PTC.CLASS_CD_DTL = TM.PROTOCOL
+         	LEFT JOIN T_PERFORM_MST PM
+			ON TM.RND_ID = PM.RND_ID
+			AND TM.TARGET_ID = PM.TARGET_ID
+			AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+			<!-- AND NA.PERFORM_CNT = PM.PERFORM_CNT -->
+	        WHERE 1=1
+	        	AND TM.RND_ID = ${rndId}
+	        	AND PM.STATUS != '0004'
+	        	<!-- AND NOT PM.PERFORM_CNT = 2
+            	AND NOT PM.PERFORM_CNT = 3 -->
+            	<if test="disClassDtl !=null and disClassDtl != '' ">
+            	AND DISE1.CLASS_CD_DTL = #{disClassDtl}
+            	</if>
+		        <if test="targetId !=null and targetId != '' ">
+					AND NA.TARGET_ID = #{targetId}
+				</if>
+				<if test="startAge !=null and startAge != '' ">
+					AND  FN_CAL_AGE(TM.BIRTH_YM,COLLECT_DATE)&gt;= #{startAge}
+				</if>
+				<if test="endAge !=null and endAge != '' ">
+					AND  FN_CAL_AGE(TM.BIRTH_YM,COLLECT_DATE) &lt;= #{endAge}
+				</if>
+				<if test="sex !=null and sex != '' ">
+					AND TM.SEX = #{sex}
+				</if>
+				<if test="protocol !=null and protocol != '' ">
+					AND  REPLACE(PTC.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+				</if>
+				<!--<if test="performCnt !=null and performCnt != '' ">
+					AND NA.PERFORM_CNT = ${performCnt}
+				</if> -->
+		) T
+
+	</select>
+	
+	
+	
+	<update id="insertGene" parameterType="map">
+		INSERT INTO BDSP.T_ANAL_GEN(
+			TARGET_ID
+			,RND_ID
+			,COLLECT_DATE
+			,ANAL_DATE
+			,CREATE_DATE
+			,CREATE_BY
+			,UPDATE_DATE
+			,UPDATE_BY
+		)VALUES(
+			#{targetId, jdbcType=VARCHAR}
+			, #{rndId, jdbcType=VARCHAR}
+			, IFNULL(LOWER(#{collectDate, jdbcType=VARCHAR}), 'x')
+			, IFNULL(LOWER(#{analDate, jdbcType=VARCHAR}), 'x')
+			, now()
+			, #{createBy , jdbcType=VARCHAR}
+			, now()
+			, #{createBy , jdbcType=VARCHAR}
+		)
+		ON DUPLICATE KEY UPDATE
+			 COLLECT_DATE = IFNULL(LOWER(#{collectDate , jdbcType=VARCHAR}), 'x')
+			,ANAL_DATE = IFNULL(LOWER(#{analDate , jdbcType=VARCHAR}), 'x')
+			,UPDATE_DATE = now()
+			,UPDATE_BY = #{createBy , jdbcType=VARCHAR}
+	</update>
+	
+	
+	<select id="selectGeneMenuList" parameterType="map" resultMap="geneMenuList">
+		SELECT
+			DOC_ID,
+			DOC_NM,
+			DIS_CLASS_DTL,
+			DOC_CLASS_DTL,
+			DOC_HEADER
+		FROM BDSP.T_DOC_MST
+		WHERE 1=1
+			AND DIS_CLASS_DTL = #{disClassDtl}
+			<if test="docClassDtl !=null and docClassDtl != '' ">
+		 		AND DOC_CLASS_DTL = #{docClassDtl}
+		 	</if>
+		ORDER BY SORT_NO	
+	</select> 
+	
+	
+	<update id="updatePerformMst" parameterType="map">
+		
+		UPDATE T_PERFORM_MST
+		SET
+			
+			<if test="geneKind =='WGS' or geneKind == '유전자정보'">
+				WGS = #{genExecDate}
+			</if>
+			
+		WHERE 1=1
+				AND TARGET_ID = #{targetId}
+				AND PERFORM_CNT = (SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM = UPPER('V0'))
+				AND RND_ID = #{rndId}
+				AND DIS_CLASS_DTL = #{disClassDtl} 
+	</update>
+	
+	
+	
+	
+	<delete id="deleteGene" parameterType="map">
+	DELETE
+	FROM T_ANAL_GEN
+	WHERE 1=1
+			AND TARGET_ID = #{targetId}
+			AND RND_ID = #{rndId}
+	</delete>
+	
+	
+</mapper>

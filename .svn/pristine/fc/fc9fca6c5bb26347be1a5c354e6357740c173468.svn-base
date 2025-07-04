@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ImagingInfo">
+	<resultMap id="docFileMap" type="DocFileVO">
+		<result property="rndId" column="RND_ID" />
+		<result property="disClassDtl" column="DIS_CLASS_DTL" />
+		<result property="performCnt" column="PERFORM_CNT" />
+		<result property="targetId" column="TARGET_ID" />
+		<result property="fileClassDtl" column="FILE_CLASS_DTL" />
+		<result property="filePath" column="FILE_PATH" />
+	</resultMap>
+	<resultMap id="uploadExcelMap" type="UploadExcelVO">
+		<result property="rndId" column="RND_ID" />
+		<result property="disClassDtl" column="DIS_CLASS_DTL" />
+		<result property="fileClassDtl" column="FILE_CLASS_DTL" />
+		<result property="filePath" column="FILE_PATH" />
+	</resultMap>
+	<resultMap id="upfileOriginMap" type="UpfileOriginVO">
+		<result property="filePath" column="FILE_PATH" />
+	</resultMap>
+	<resultMap id="imageList" type="imageInfoVO" >
+		<result property="rownum"                   column="ROWNUM"/>
+		<result property="targetId" 				column ="TARGET_ID"/>	
+		<result property="targetDisId" 				column ="TARGET_DIS_ID"/>	
+		<result property="disClassDtl" 				column ="DIS_CLASS_DTL"/>	
+		<result property="sex" 						column ="SEX"/>	
+		<result property="protocol"         	    column="PROTOCOL"/>
+		<result property="birthYm"					column ="BIRTH_YM"/>	
+		<result property="performCnt"				column ="PERFORM_CNT"/>	
+		<result property="age"						column ="AGE"/>	
+		<result property="execDate" 				column ="EXEC_DATE"/>	
+		<result property="pocral" 					column ="POCRAL"/>
+		<result property="dti" 						column ="DTI"/>
+		<result property="asl" 						column ="ASL"/>
+		<result property="fmri" 					column ="FMRI"/>
+		<result property="t1" 						column ="T1"/>
+		<result property="t2" 						column ="T2"/>
+		<result property="swi" 						column ="SWI"/>
+		<result property="updateDate" 				column ="UPDATE_DATE"/>
+		<result property="updateBy" 				column ="UPDATE_BY"/>
+	</resultMap>
+	
+	<select id="selectImageListTotal" parameterType="map" resultType="int">
+		  SELECT COUNT(TARGET_ID)
+		FROM (
+       SELECT 
+			TM.TARGET_ID
+		FROM T_TARGET_MST TM 
+			JOIN T_PERFORM_MST PM
+			ON TM.TARGET_ID = PM.TARGET_ID
+				AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+				AND TM.RND_ID = PM.RND_ID
+			JOIN T_PERFORM_TERM PT
+			ON TM.RND_ID = PT.RND_ID
+				AND PM.PERFORM_CNT = PT.PERFORM_CNT
+			JOIN T_CODE_DTL DISE1
+        	ON DISE1.CLASS_CD = 'DISE1'
+        		AND DISE1.CLASS_CD_DTL = TM.DIS_CLASS_DTL
+        	JOIN T_CODE_DTL PTC
+			ON PTC.CLASS_CD = 'PT001'
+				AND PTC.CLASS_CD_DTL = PROTOCOL	
+			LEFT JOIN T_TARGET_DIS_MST TDM
+                ON TM.TARGET_DIS_ID = TDM.TARGET_ID
+				AND TM.TARGET_ID = TDM.TARGET_ORG_ID
+			LEFT JOIN T_IMAGING_TARFILE IT
+            ON TM.TARGET_ID = IT.TARGET_ID
+				AND TM.RND_ID = IT.RND_ID 
+				AND PT.PERFORM_NM = IT.PERFORM_NM
+				AND TM.DIS_CLASS_DTL = IT.DIS_CLASS_DTL
+			
+			LEFT JOIN T_IMAGING_INFO S8
+			ON S8.RND_ID = PM.RND_ID
+			    AND S8.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+			    AND S8.PERFORM_CNT = PM.PERFORM_CNT
+			    AND S8.TARGET_ID = PM.TARGET_ID
+			    AND S8.SERIES_ID = 'SER08'
+			    
+			LEFT JOIN T_IMAGING_INFO S4
+			ON S4.RND_ID = PM.RND_ID
+			    AND S4.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+			    AND S4.PERFORM_CNT = PM.PERFORM_CNT
+			    AND S4.TARGET_ID = PM.TARGET_ID
+			    AND S4.SERIES_ID = 'SER04'
+			    
+			LEFT JOIN T_IMAGING_INFO S1
+			ON S1.RND_ID = PM.RND_ID
+			    AND S1.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+			    AND S1.PERFORM_CNT = PM.PERFORM_CNT
+			    AND S1.TARGET_ID = PM.TARGET_ID
+			    AND S1.SERIES_ID = 'SER01'
+			
+			LEFT JOIN T_IMAGING_INFO S3
+			ON S3.RND_ID = PM.RND_ID
+			    AND S3.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+			    AND S3.PERFORM_CNT = PM.PERFORM_CNT
+			    AND S3.TARGET_ID = PM.TARGET_ID
+			    AND S3.SERIES_ID = 'SER03'
+					
+            LEFT JOIN T_IMAGING_INFO S6
+			ON S6.RND_ID = PM.RND_ID
+				AND S6.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+				AND S6.PERFORM_CNT = PM.PERFORM_CNT
+				AND S6.TARGET_ID = PM.TARGET_ID
+				AND S6.SERIES_ID = 'SER06'
+			
+			LEFT JOIN T_IMAGING_INFO S9
+			ON S9.RND_ID = PM.RND_ID
+				AND S9.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+				AND S9.PERFORM_CNT = PM.PERFORM_CNT
+				AND S9.TARGET_ID = PM.TARGET_ID
+				AND S9.SERIES_ID = 'SER09'	
+                
+			WHERE 1=1
+			    AND NOT PM.STATUS = '0004'
+			    AND NOT PM.PERFORM_CNT = 2
+                AND NOT PM.PERFORM_CNT = 3
+            <if test="disClassDtl !=null and disClassDtl != '' ">
+                AND DISE1.CLASS_CD_DTL = #{disClassDtl}
+            </if>
+	        <if test="targetId !=null and targetId != '' ">
+				AND PM.TARGET_ID = #{targetId}
+			</if>
+			<if test="targetDisId !=null and targetDisId != '' ">
+				AND TM.TARGET_Dis_ID = #{targetDisId}
+			</if>
+			<if test="sex !=null and sex != '' ">
+				AND TM.SEX = #{sex}
+			</if>
+			<if test="startAge !=null and startAge != '' ">
+				AND FN_CAL_AGE(TM.BIRTH_YM, PM.MRI_DATE) &gt;= #{startAge}
+			</if>
+			<if test="endAge !=null and endAge != '' ">
+				AND FN_CAL_AGE(TM.BIRTH_YM, PM.MRI_DATE) &lt;= #{endAge}
+			</if>
+			<if test="protocol !=null and protocol != '' ">
+				AND  REPLACE(PTC.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+			</if>
+			<if test="performCnt !=null and performCnt != '' ">
+				AND PT.PERFORM_CNT = ${performCnt}
+			</if>
+			<if test='pocral =="Y"'>
+				AND PM.POCRAL  = 'o'
+			</if>
+			<if test='dti =="Y"'>
+				AND S4.SERIES_ID IS NOT NULL
+			</if>
+			<if test='asl =="Y"'>
+				AND S8.SERIES_ID IS NOT NULL
+			</if> 
+			<if test='fmri =="Y"'>
+				AND S1.SERIES_ID IS NOT NULL
+			</if>
+			<if test='t1 =="Y"'>
+				AND S3.SERIES_ID IS NOT NULL
+			</if>
+			<if test='t2 =="Y"'>
+				AND S6.SERIES_ID IS NOT NULL
+			</if>
+			<if test='swi =="Y"'>
+				AND S9.SERIES_ID IS NOT NULL
+			</if>
+	         ) T
+	</select>
+	<select id="selectImageList" parameterType="map" resultMap ="imageList" >
+		SELECT
+			ROWNUM
+			,TARGET_ID 
+            ,TARGET_DIS_ID
+			,DIS_CLASS_DTL
+			,SEX
+			,PROTOCOL
+			,BIRTH_YM
+			,PERFORM_CNT
+			,AGE
+			,EXEC_DATE
+			,POCRAL
+			,ASL
+            ,DTI
+            ,FMRI
+            ,T1
+            ,T2
+            ,SWI
+			,UPDATE_DATE
+			,UPDATE_BY
+		 FROM (
+			SELECT @ROWNUM := @ROWNUM+1 ROWNUM, A.* FROM (
+				SELECT 
+					 TM.TARGET_ID
+                    ,TM.TARGET_DIS_ID
+					,DISE1.CLASS_CD_DTL_NM DIS_CLASS_DTL
+					,CASE TM.SEX WHEN 'F' THEN '여' ELSE '남' END SEX
+					,PTC.CLASS_CD_DTL_NM PROTOCOL
+					,CONCAT(SUBSTR(TM.BIRTH_YM,1,4) ,'-',SUBSTR(TM.BIRTH_YM,5,2),'-',SUBSTR(TM.BIRTH_YM,7,2)) BIRTH_YM
+					,PT.PERFORM_NM PERFORM_CNT
+					,PM.PERFORM_CNT PERFORM_CNT_N
+					,CASE WHEN LENGTH(VISIT_DATE)=8 THEN  CONCAT(SUBSTR(VISIT_DATE,1,4) ,'-',SUBSTR(VISIT_DATE,5,2),'-',SUBSTR(VISIT_DATE,7,2)) 
+						 ELSE VISIT_DATE END VISIT_DATE
+					,CASE WHEN ISNULL(FN_CAL_AGE(TM.BIRTH_YM, PM.MRI_DATE))  OR  FN_CAL_AGE(TM.BIRTH_YM, PM.MRI_DATE) = '' THEN FN_CAL_AGE(TM.BIRTH_YM, VISIT_DATE) 
+                     	WHEN ISNULL(FN_CAL_AGE(TM.BIRTH_YM, VISIT_DATE)) THEN 'x' ELSE FN_CAL_AGE(TM.BIRTH_YM, PM.MRI_DATE) END AGE
+					,CASE WHEN ISNULL(CONCAT(SUBSTR(PM.MRI_DATE,1,4) ,'-',SUBSTR(PM.MRI_DATE,5,2),'-',SUBSTR(PM.MRI_DATE,7,2))) OR 
+                    	ISNULL(CONCAT(SUBSTR(PM.MRI_DATE,1,4) ,'-',SUBSTR(PM.MRI_DATE,5,2),'-',SUBSTR(PM.MRI_DATE,7,2))) = '' 
+                  		THEN CONCAT(SUBSTR(VISIT_DATE,1,4) ,'-',SUBSTR(VISIT_DATE,5,2),'-',SUBSTR(VISIT_DATE,7,2)) 
+                   		WHEN ISNULL(CONCAT(SUBSTR(VISIT_DATE,1,4) ,'-',SUBSTR(VISIT_DATE,5,2),'-',SUBSTR(VISIT_DATE,7,2))) 
+                    	THEN 'x' ELSE CONCAT(SUBSTR(PM.MRI_DATE,1,4) ,'-',SUBSTR(PM.MRI_DATE,5,2),'-',SUBSTR(PM.MRI_DATE,7,2)) 
+                    	END EXEC_DATE
+					,CASE WHEN ISNULL(PM.POCRAL) OR PM.POCRAL = 'Z' THEN 'x' WHEN PM.POCRAL = '#' THEN '-' ELSE 'o' END POCRAL
+					,CASE WHEN S8.SERIES_ID IS NULL THEN 'x' ELSE 'o' END ASL
+                    ,CASE WHEN S4.SERIES_ID IS NULL THEN 'x' ELSE 'o' END DTI
+                    ,CASE WHEN S1.SERIES_ID IS NULL THEN 'x' ELSE 'o' END FMRI
+					,CASE WHEN S3.SERIES_ID IS NULL THEN 'x' ELSE 'o' END T1
+                    ,CASE WHEN S6.SERIES_ID IS NULL THEN 'x' ELSE 'o' END T2
+                    ,CASE WHEN S9.SERIES_ID IS NULL THEN 'x' ELSE 'o' END SWI
+					,CASE WHEN SUBSTR(IT.UPDATE_DATE, 1, 16) IS NULL  THEN 'x' ELSE SUBSTR(IT.UPDATE_DATE, 1, 16) END UPDATE_DATE 
+					,IT.UPDATE_BY
+					FROM T_TARGET_MST TM 
+					JOIN T_PERFORM_MST PM
+					ON TM.TARGET_ID = PM.TARGET_ID
+						AND TM.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+						AND TM.RND_ID = PM.RND_ID
+					JOIN T_PERFORM_TERM PT
+					ON TM.RND_ID = PT.RND_ID
+						AND PM.PERFORM_CNT = PT.PERFORM_CNT
+					JOIN T_CODE_DTL DISE1
+		        	ON DISE1.CLASS_CD = 'DISE1'
+		        		AND DISE1.CLASS_CD_DTL = TM.DIS_CLASS_DTL
+		        	JOIN T_CODE_DTL PTC
+					ON PTC.CLASS_CD = 'PT001'
+						AND PTC.CLASS_CD_DTL = PROTOCOL	
+					LEFT JOIN T_TARGET_DIS_MST TDM
+                    ON TM.TARGET_DIS_ID = TDM.TARGET_ID
+					AND TM.TARGET_ID = TDM.TARGET_ORG_ID
+					LEFT JOIN T_IMAGING_TARFILE IT
+		            ON TM.TARGET_ID = IT.TARGET_ID
+						AND TM.RND_ID = IT.RND_ID 
+						AND PT.PERFORM_NM = IT.PERFORM_NM
+						AND TM.DIS_CLASS_DTL = IT.DIS_CLASS_DTL
+					
+					LEFT JOIN T_IMAGING_INFO S3
+					ON S3.RND_ID = PM.RND_ID
+					    AND S3.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+					    AND S3.PERFORM_CNT = PM.PERFORM_CNT
+					    AND S3.TARGET_ID = PM.TARGET_ID
+					    AND S3.SERIES_ID = 'SER03'
+					
+                    LEFT JOIN T_IMAGING_INFO S6
+					ON S6.RND_ID = PM.RND_ID
+					    AND S6.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+					    AND S6.PERFORM_CNT = PM.PERFORM_CNT
+					    AND S6.TARGET_ID = PM.TARGET_ID
+					    AND S6.SERIES_ID = 'SER06'
+					    
+					LEFT JOIN T_IMAGING_INFO S4
+					ON S4.RND_ID = PM.RND_ID
+					    AND S4.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+					    AND S4.PERFORM_CNT = PM.PERFORM_CNT
+					    AND S4.TARGET_ID = PM.TARGET_ID
+					    AND S4.SERIES_ID = 'SER04'
+					    
+					LEFT JOIN T_IMAGING_INFO S8
+					ON S8.RND_ID = PM.RND_ID
+					    AND S8.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+					    AND S8.PERFORM_CNT = PM.PERFORM_CNT
+					    AND S8.TARGET_ID = PM.TARGET_ID
+					    AND S8.SERIES_ID = 'SER08'
+					    
+					  LEFT JOIN T_IMAGING_INFO S9
+					ON S6.RND_ID = PM.RND_ID
+					    AND S9.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+					    AND S9.PERFORM_CNT = PM.PERFORM_CNT
+					    AND S9.TARGET_ID = PM.TARGET_ID
+					    AND S9.SERIES_ID = 'SER09'   
+					     
+					LEFT JOIN T_IMAGING_INFO S1
+					ON S1.RND_ID = PM.RND_ID
+					    AND S1.DIS_CLASS_DTL = PM.DIS_CLASS_DTL
+					    AND S1.PERFORM_CNT = PM.PERFORM_CNT
+					    AND S1.TARGET_ID = PM.TARGET_ID
+					    AND S1.SERIES_ID = 'SER01'
+					JOIN (SELECT @ROWNUM:=0) AS R
+					WHERE 1=1
+					AND NOT PM.STATUS = '0004'
+					AND NOT PM.PERFORM_CNT = 2
+                    AND NOT PM.PERFORM_CNT = 3
+                    <if test="disClassDtl !=null and disClassDtl != '' ">
+                		AND DISE1.CLASS_CD_DTL = #{disClassDtl}
+            		</if>
+						<if test="schKeyWord !='schTargetId' ">
+							<if test="targetId !=null and targetId != '' ">
+								AND PM.TARGET_ID = #{targetId}
+							</if>
+                            <if test="targetDisId !=null and targetDisId != '' ">
+								AND TM.TARGET_DIS_ID = #{targetDisId}
+							</if>
+							<if test="sex !=null and sex != '' ">
+								AND TM.SEX = #{sex}
+							</if>
+							<if test="startAge !=null and startAge != '' ">
+								AND FN_CAL_AGE(TM.BIRTH_YM, PM.MRI_DATE) &gt;= #{startAge}
+							</if>
+							<if test="endAge !=null and endAge != '' ">
+								AND FN_CAL_AGE(TM.BIRTH_YM, PM.MRI_DATE) &lt;= #{endAge}
+							</if>
+							<if test="protocol !=null and protocol != '' ">
+								AND  REPLACE(PTC.CLASS_CD_DTL_NM," ","")   IN (${protocol})
+							</if>
+							<if test="performCnt !=null and performCnt != '' ">
+								AND PT.PERFORM_CNT = ${performCnt}
+							</if>
+							<if test='pocral =="Y"'>
+								AND PM.POCRAL  = 'o'
+							</if>
+							<if test='dti =="Y"'>
+								AND S4.SERIES_ID IS NOT NULL
+							</if>
+							<if test='asl =="Y"'>
+								AND S8.SERIES_ID IS NOT NULL
+							</if> 
+							<if test='fmri =="Y"'>
+								AND S1.SERIES_ID IS NOT NULL
+							</if>
+							<if test='t1 =="Y"'>
+								AND S3.SERIES_ID IS NOT NULL
+							</if>
+							<if test='t2 =="Y"'>
+								AND S6.SERIES_ID IS NOT NULL
+							</if>
+							<if test='swi =="Y"'>
+								AND S9.SERIES_ID IS NOT NULL
+							</if>
+							<if test='schKeyField =="selectDown"'>
+								AND (TM.TARGET_ID, TM.DIS_CLASS_DTL, PT.PERFORM_NM, TM.RND_ID)
+									IN (${schKeyWord})
+							</if>
+						</if>
+				 ORDER BY TM.TARGET_ID, PM.PERFORM_CNT
+			) A
+		)X
+		WHERE 1=1
+			<if test="schKeyWord == 'schTargetId' ">
+				AND TARGET_ID = #{targetId}
+				AND PERFORM_CNT_N = ${performCnt}
+			</if> 
+   		 <if test='limit != 0'>
+   		 LIMIT #{start}, #{limit}
+   		 </if>
+	</select>
+	<select id="selectDocFileInfo" parameterType="map" resultMap="docFileMap">
+		SELECT
+			RND_ID,
+			DIS_CLASS_DTL,
+			PERFORM_CNT,
+			TARGET_ID,
+			FILE_CLASS_DTL,
+			FILE_PATH
+		FROM T_DOC_FILE
+		WHERE 1=1
+			<if test="rndId !=null and rndId != '' ">
+				AND RND_ID= #{rndId}
+			</if>
+			<if test="disClassDtl !=null and disClassDtl != '' ">
+				AND DIS_CLASS_DTL= #{disClassDtl}
+			</if>
+			<if test="performCnt !=null">
+				AND PERFORM_CNT= #{performCnt}
+			</if>
+			<if test="targetId !=null and targetId != '' ">
+				AND TARGET_ID= #{targetId}
+			</if>
+			<if test="fileClassDtl !=null and fileClassDtl != '' ">
+				AND FILE_CLASS_DTL= #{fileClassDtl}
+			</if>
+	</select>
+	<select id="selectUpfileOrigin" parameterType="map" resultMap="upfileOriginMap">
+		SELECT
+			FILE_PATH
+		FROM T_UPFILE_ORIGIN
+		WHERE RND_ID= #{rndId, jdbcType=VARCHAR}
+				AND DIS_CLASS_DTL= #{disClassDtl, jdbcType=VARCHAR}
+				AND PERFORM_CNT= (SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM =#{performCntNm, jdbcType=VARCHAR})
+				AND TARGET_ID= #{targetId, jdbcType=VARCHAR}
+	</select>
+	<insert id="insertDocFileInfo" parameterType="map">
+		INSERT INTO 
+			T_DOC_FILE(
+				RND_ID,
+				DIS_CLASS_DTL,
+				PERFORM_CNT,
+				TARGET_ID,
+				FILE_CLASS_DTL,
+				FILE_PATH,
+				CREATE_DATE,
+				CREATE_BY,
+				UPDATE_DATE,
+				UPDATE_BY
+			)
+			SELECT
+				#{rndId, jdbcType=VARCHAR}
+				,#{disClassDtl, jdbcType=VARCHAR}
+				,(SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM =#{performCntNm, jdbcType=VARCHAR})
+				,#{targetId, jdbcType=VARCHAR}
+				,(SELECT CLASS_CD_DTL FROM T_CODE_DTL 
+				  WHERE CLASS_CD = 'FILC1'
+				  	AND CLASS_CD_DTL_NM = #{fileClassDtlNm, jdbcType=VARCHAR})
+				,#{filePath, jdbcType=VARCHAR}
+				,now()
+				,#{sessionUserId, jdbcType=VARCHAR}
+				,now()
+				,#{sessionUserId, jdbcType=VARCHAR}
+			FROM DUAL
+			ON DUPLICATE KEY
+		    UPDATE
+		      UPDATE_DATE = now(),			
+		      UPDATE_BY = #{sessionUserId, jdbcType=VARCHAR}
+	</insert>
+	<delete id="deleteDocFileInfo" parameterType="map">
+		DELETE
+		FROM T_DOC_FILE
+		WHERE 1=1
+			AND RND_ID = #{rndId}
+			AND DIS_CLASS_DTL = #{disClassDtl}
+			<if test="performCntNm !=null and performCntNm != '' ">
+			AND PERFORM_CNT = (SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM =#{performCntNm, jdbcType=VARCHAR})
+			</if>
+			AND TARGET_ID = #{targetId}
+			<if test="fileClassDtlNm !=null and fileClassDtlNm != '' ">
+			AND FILE_CLASS_DTL = (SELECT CLASS_CD_DTL FROM T_CODE_DTL 
+								  WHERE CLASS_CD = 'FILC1'
+								  	AND CLASS_CD_DTL_NM = #{fileClassDtlNm, jdbcType=VARCHAR})
+			</if>
+			<if test="performCnt !=null and performCnt != 0">
+				AND PERFORM_CNT= #{performCnt}
+			</if>
+			<if test="targetId !=null and targetId != '' ">
+				AND TARGET_ID= #{targetId}
+			</if>
+			<if test="fileClassDtl !=null and fileClassDtl != '' ">
+				AND FILE_CLASS_DTL= #{fileClassDtl}
+			</if>
+	</delete>
+	<insert id="insertImageInfoVO" parameterType="map">
+		INSERT INTO 
+			T_IMAGING_INFO(
+				RND_ID
+				,DIS_CLASS_DTL
+				,PERFORM_CNT
+				,TARGET_ID
+				,SERIES_ID
+				,PATH
+				,MODALITY
+				,MNUFACTR
+				,INST_NM
+				,SERIES_DESC
+				,MNUFACTR_MDNM
+				,MGF_STRENGTH
+				,STUDY_DATE
+				,PATIENT_ID
+				,PATIENT_SEX
+				,PATIENT_AGE
+				,CREATE_DATE
+				,CREATE_BY
+				,UPDATE_DATE
+				,UPDATE_BY
+			)
+			SELECT
+				#{rndId, jdbcType=VARCHAR}
+				,#{disClassDtl, jdbcType=VARCHAR}
+				,(SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM =#{performCntNm, jdbcType=VARCHAR})
+				,#{targetId, jdbcType=VARCHAR}
+				,(SELECT IFNULL(CLASS_CD_DTL,'0000') FROM T_CODE_DTL
+				  WHERE CLASS_CD = 'SE001'
+				 	AND CLASS_CD_DTL_NM = #{seriesId, jdbcType=VARCHAR}
+				 )
+				,#{path, jdbcType=VARCHAR}
+				,#{modality, jdbcType=VARCHAR}
+				,#{mnuFactr, jdbcType=VARCHAR}
+				,#{instNm, jdbcType=VARCHAR}
+				,#{seriesDesc, jdbcType=VARCHAR}
+				,#{mnufactrMdnm, jdbcType=VARCHAR}
+				,#{mgfStrength, jdbcType=VARCHAR}
+				,#{studyDate, jdbcType=VARCHAR}
+				,#{patientId, jdbcType=VARCHAR}
+				,#{patientSex, jdbcType=VARCHAR}
+				,#{patientAge, jdbcType=VARCHAR}
+				,now()
+				,#{sessionUserId, jdbcType=VARCHAR}
+				,now()
+				,#{sessionUserId, jdbcType=VARCHAR}
+			FROM DUAL
+			ON
+		      DUPLICATE KEY
+		   UPDATE
+		      UPDATE_DATE = now(),			
+		      UPDATE_BY = #{sessionUserId, jdbcType=VARCHAR}
+	</insert>
+	<delete id="deleteImageInfoVO" parameterType="map">
+		DELETE FROM T_IMAGING_INFO
+		WHERE RND_ID = #{rndId, jdbcType=VARCHAR}
+			AND DIS_CLASS_DTL = #{disClassDtl, jdbcType=VARCHAR}
+			<if test="performCntNm !=null and performCntNm != '' ">
+			AND PERFORM_CNT = (SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM =#{performCntNm, jdbcType=VARCHAR})
+			</if>
+			AND TARGET_ID = #{targetId, jdbcType=VARCHAR}
+			<if test="classCdDtlNm !=null and classCdDtlNm != '' ">
+			AND SERIES_ID = (SELECT IFNULL(CLASS_CD_DTL,'0000') FROM T_CODE_DTL
+							 WHERE CLASS_CD = 'SE001'
+							 	AND CLASS_CD_DTL_NM = #{classCdDtlNm, jdbcType=VARCHAR}
+							)
+			</if>
+	</delete>
+	<insert id="insertUpfileOriginVO" parameterType="map">
+		INSERT INTO 
+			T_UPFILE_ORIGIN(
+				RND_ID
+				,DIS_CLASS_DTL
+				,PERFORM_CNT
+				,TARGET_ID
+				,FILE_PATH
+				,REMARKS
+				,CREATE_DATE
+				,CREATE_BY
+				,UPDATE_DATE
+				,UPDATE_BY
+			)
+			SELECT
+				#{rndId, jdbcType=VARCHAR}
+				,#{disClassDtl, jdbcType=VARCHAR}
+				,(SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM =#{performCntNm, jdbcType=VARCHAR})
+				,#{targetId, jdbcType=VARCHAR}
+				,#{filePath, jdbcType=VARCHAR}
+				,#{remarks, jdbcType=VARCHAR}
+				,now()
+				,#{sessionUserId, jdbcType=VARCHAR}
+				,now()
+				,#{sessionUserId, jdbcType=VARCHAR}
+			FROM DUAL
+			ON
+		      DUPLICATE KEY
+		   UPDATE
+		      UPDATE_DATE = now(),			
+		      UPDATE_BY = #{sessionUserId, jdbcType=VARCHAR}
+	</insert>
+	<delete id="deleteUpfileOriginVO" parameterType="map">
+		DELETE FROM T_UPFILE_ORIGIN 
+		WHERE RND_ID = #{rndId, jdbcType=VARCHAR}
+			AND DIS_CLASS_DTL = #{disClassDtl, jdbcType=VARCHAR}
+			<if test="performCntNm !=null and performCntNm != '' ">
+			AND PERFORM_CNT = (SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM =#{performCntNm, jdbcType=VARCHAR})
+			</if>
+			AND TARGET_ID = #{targetId, jdbcType=VARCHAR}
+	</delete>
+	<insert id="insertUpfileDecompVO" parameterType="map">
+		INSERT INTO 
+			T_UPFILE_DECOMP(
+				RND_ID
+				,DIS_CLASS_DTL
+				,PERFORM_CNT
+				,TARGET_ID
+				,DECOMP_PATH
+				,CREATE_DATE
+				,CREATE_BY
+				,UPDATE_DATE
+				,UPDATE_BY
+			)
+			SELECT
+				#{rndId, jdbcType=VARCHAR}
+				,#{disClassDtl, jdbcType=VARCHAR}
+				,(SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM =#{performCntNm, jdbcType=VARCHAR})
+				,#{targetId, jdbcType=VARCHAR}
+				,#{decompPath, jdbcType=VARCHAR}
+				,now()
+				,#{sessionUserId, jdbcType=VARCHAR}
+				,now()
+				,#{sessionUserId, jdbcType=VARCHAR}
+			FROM DUAL
+			ON
+		      DUPLICATE KEY
+		   UPDATE
+		      UPDATE_DATE = now(),			
+		      UPDATE_BY = #{sessionUserId, jdbcType=VARCHAR}			
+	</insert>
+	<delete id="deleteUpfileDecompVO" parameterType="map">
+		DELETE FROM T_UPFILE_DECOMP
+		WHERE RND_ID = #{rndId, jdbcType=VARCHAR}
+			AND DIS_CLASS_DTL = #{disClassDtl, jdbcType=VARCHAR}
+			<if test="performCntNm !=null and performCntNm != '' ">
+			AND PERFORM_CNT = (SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM =#{performCntNm, jdbcType=VARCHAR})
+			</if>
+			AND TARGET_ID = #{targetId, jdbcType=VARCHAR}
+	</delete>
+	<insert id="insertTarFileInfo" parameterType="map">
+		INSERT INTO 
+			T_IMAGING_TARFILE(
+				RND_ID,
+				DIS_CLASS_DTL,
+				PERFORM_NM,
+				TARGET_ID,
+				FILE_PATH,
+				CREATE_DATE,
+				CREATE_BY,
+				UPDATE_DATE,
+				UPDATE_BY
+			)
+			SELECT
+				#{rndId, jdbcType=VARCHAR}
+				,#{disClassDtl, jdbcType=VARCHAR}
+				,#{performNm, jdbcType=VARCHAR}
+				,#{targetId, jdbcType=VARCHAR}
+				,#{filePath, jdbcType=VARCHAR}
+				,now()
+				,#{sessionUserId, jdbcType=VARCHAR}
+				,now()
+				,#{sessionUserId, jdbcType=VARCHAR}
+			FROM DUAL
+			ON
+		      DUPLICATE KEY
+		   UPDATE
+		   	  FILE_PATH = #{filePath, jdbcType=VARCHAR},
+		      UPDATE_DATE = now(),			
+		      UPDATE_BY = #{sessionUserId, jdbcType=VARCHAR}			
+	</insert>
+	<delete id="deleteTarFileInfo" parameterType="map">
+		DELETE
+		FROM T_IMAGING_TARFILE
+		WHERE 1=1
+			AND RND_ID = #{rndId}
+			AND DIS_CLASS_DTL = #{disClassDtl}
+			<if test="performCntNm !=null and performCntNm != '' ">
+			AND PERFORM_NM = #{performCntNm}
+			</if>
+			AND TARGET_ID = #{targetId}
+	</delete>
+	<select id="selectUploadExcelInfo" parameterType="map" resultMap="uploadExcelMap">
+		SELECT
+			RND_ID,
+			DIS_CLASS_DTL,
+			FILE_CLASS_DTL,
+			FILE_PATH
+		FROM T_UPLOAD_EXCEL
+		WHERE 1=1
+			<if test="rndId !=null and rndId != '' ">
+				AND RND_ID= #{rndId}
+			</if>
+			<if test="disClassDtl !=null and disClassDtl != '' ">
+				AND DIS_CLASS_DTL= #{disClassDtl}
+			</if>
+			<if test="fileClassDtl !=null and fileClassDtl != '' ">
+				AND FILE_CLASS_DTL= #{fileClassDtl}
+			</if>
+	</select>
+	<insert id="insertUploadExcelInfo" parameterType="map">
+		INSERT INTO 
+			T_UPLOAD_EXCEL(
+				RND_ID,
+				DIS_CLASS_DTL,
+				FILE_CLASS_DTL,
+				FILE_PATH,
+				CREATE_DATE,
+				CREATE_BY,
+				UPDATE_DATE,
+				UPDATE_BY
+			)
+			SELECT
+				#{rndId, jdbcType=VARCHAR}
+				,#{disClassDtl, jdbcType=VARCHAR}
+				,#{fileClassDtl, jdbcType=VARCHAR}
+				,#{filePath, jdbcType=VARCHAR}
+				,now()
+				,#{sessionUserId, jdbcType=VARCHAR}
+				,now()
+				,#{sessionUserId, jdbcType=VARCHAR}
+			FROM DUAL
+			ON DUPLICATE KEY
+		    UPDATE
+		      FILE_PATH = #{filePath, jdbcType=VARCHAR},
+		      UPDATE_DATE = now(),			
+		      UPDATE_BY = #{sessionUserId, jdbcType=VARCHAR}
+	</insert>
+	<delete id="deleteUploadExcelInfo" parameterType="map">
+		DELETE
+		FROM T_UPLOAD_EXCEL
+		WHERE 1=1
+			AND RND_ID = #{rndId}
+			AND DIS_CLASS_DTL = #{disClassDtl}
+			<if test="fileClassDtl !=null and fileClassDtl != '' ">
+				AND FILE_CLASS_DTL= #{fileClassDtl}
+			</if>
+	</delete>
+	<update id="updateImagingInfo" parameterType="map">
+		UPDATE T_PERFORM_MST
+		SET POCRAL = #{pocral, jdbcType=VARCHAR}
+		,UPDATE_DATE = now()
+		,UPDATE_BY = #{updateBy, jdbcType=VARCHAR}
+		WHERE RND_ID = #{rndId, jdbcType=VARCHAR}
+			AND PERFORM_CNT = (SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM =#{performCntNm, jdbcType=VARCHAR})
+			AND TARGET_ID = #{targetId, jdbcType=VARCHAR}
+			AND DIS_CLASS_DTL = #{disClassDtl, jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateAsdImagingInfo" parameterType="map">
+		UPDATE T_PERFORM_MST
+		SET POCRAL = #{pocral, jdbcType=VARCHAR}
+		,UPDATE_DATE = now()
+		,UPDATE_BY = #{updateBy, jdbcType=VARCHAR}
+		WHERE RND_ID = #{rndId, jdbcType=VARCHAR}
+			AND PERFORM_CNT = (SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM =#{performCntNm, jdbcType=VARCHAR})
+			AND TARGET_ID = #{targetId, jdbcType=VARCHAR}
+			AND DIS_CLASS_DTL = #{disClassDtl, jdbcType=VARCHAR}
+	</update>
+	
+	
+	
+	<update id="updateMriDate" parameterType="map">
+		UPDATE T_PERFORM_MST
+		SET MRI_DATE = #{studyDate, jdbcType=VARCHAR}
+		,UPDATE_DATE = now()
+		,UPDATE_BY = #{sessionUserId, jdbcType=VARCHAR}
+		WHERE RND_ID = #{rndId, jdbcType=VARCHAR}
+			AND PERFORM_CNT = (SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM =#{performCntNm, jdbcType=VARCHAR})
+			AND TARGET_ID = #{targetId, jdbcType=VARCHAR}
+			AND DIS_CLASS_DTL = #{disClassDtl, jdbcType=VARCHAR}
+	</update>
+	
+	<update id="deleteImagingInfo">
+		UPDATE T_PERFORM_MST
+			SET POCRAL = NULL
+		WHERE 1=1
+	        	AND RND_ID = #{rndId}
+		AND DIS_CLASS_DTL = #{disClassDtl}
+		<if test="performCntNm !=null and performCntNm != '' ">
+		AND PERFORM_CNT = (SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM =#{performCntNm, jdbcType=VARCHAR})
+		</if>
+		AND TARGET_ID = #{targetId}	
+	</update>
+	
+	<update id="updateBlankMriDate" parameterType="map">
+		UPDATE T_PERFORM_MST
+		SET MRI_DATE = null
+		WHERE 1=1
+		AND RND_ID = #{rndId}
+		AND DIS_CLASS_DTL = #{disClassDtl}
+		<if test="performCntNm !=null and performCntNm != '' ">
+		AND PERFORM_CNT = (SELECT PERFORM_CNT FROM T_PERFORM_TERM WHERE PERFORM_NM =#{performCntNm, jdbcType=VARCHAR})
+		</if>
+		AND TARGET_ID = #{targetId}	
+	</update>
+</mapper>
